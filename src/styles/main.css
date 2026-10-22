@@ -103,7 +103,7 @@
 
 /* Temas dos Cards (Escuro / Claro) */
 .card-dark {
-  background-color: #020B17;
+  background-color: #142740;
   color: #ffffff;
 }
 
@@ -211,7 +211,7 @@
 .card-dark .buttonSection { background-color: #ffffff; color: #142740; }
 .card-dark .buttonSection:hover { background-color: #f2b544; color: #142740; }
 
-.card-light .buttonSection { background-color: #020B17; color: #ffffff; }
+.card-light .buttonSection { background-color: #142740; color: #ffffff; }
 .card-light .buttonSection:hover { background-color: #f2b544; color: #142740; }
 
 /* ==========================================================================
