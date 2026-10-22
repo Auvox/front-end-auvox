@@ -12,7 +12,14 @@ html {
   font-size: 16px;
   /* o YouCanScroll.css pinta html[data-theme="dark"] com uma cor chapada;
      zerar aqui deixa a textura do body aparecer sem competição */
-  background: transparent;
+  background-color: #102238;
+  background-image:
+    radial-gradient(120% 90% at 90% 100%, rgba(255, 255, 255, 0.05), transparent 60%),
+    linear-gradient(120deg, transparent 38%, rgba(255, 255, 255, 0.05) 46%, transparent 54%),
+    linear-gradient(120deg, transparent 58%, rgba(255, 255, 255, 0.035) 65%, transparent 74%),
+    linear-gradient(160deg, #1b3555 0%, #102238 45%, #102238 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 /* ── FUNDO ÚNICO DO SITE ──
@@ -31,14 +38,7 @@ body {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   overflow-x: hidden;
-  background-color: #102238;
-  background-image:
-    radial-gradient(120% 90% at 90% 100%, rgba(255, 255, 255, 0.05), transparent 60%),
-    linear-gradient(120deg, transparent 38%, rgba(255, 255, 255, 0.05) 46%, transparent 54%),
-    linear-gradient(120deg, transparent 58%, rgba(255, 255, 255, 0.035) 65%, transparent 74%),
-    linear-gradient(160deg, #1b3555 0%, #102238 45%, #102238 100%);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  background: transparent;
 }
 
 /* ── FONTE ÚNICA DO SITE ──
