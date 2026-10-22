@@ -207,13 +207,7 @@ body section.contato-secao {
    Campos com linha embaixo (não caixa fechada): mais leve e elegante.
    O foco acende a linha em dourado com um brilho suave.
    ========================================================================== */
-.contato-form {
-  padding: 36px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background: #ffffff;
-}
+
 
 .contato-linha {
   display: grid;
