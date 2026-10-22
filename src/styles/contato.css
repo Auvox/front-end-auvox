@@ -108,7 +108,7 @@ body section.contato-secao {
 .contato-lateral {
   padding: 52px 44px;
   border-right: 1px solid var(--borda);
-  background: #142740;
+  background: #020B17;
   display: flex;
   flex-direction: column;
 }
@@ -389,7 +389,7 @@ body section.contato-secao {
 }
 
 .toast-sucesso {
-  background: #142740;
+  background: #020B17;
   border-left: 4px solid #f2b544;
 }
 
