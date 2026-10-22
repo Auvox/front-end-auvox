@@ -151,7 +151,7 @@
   /* fundo aqui */
   section .wave span:nth-child(1) {
     border-radius: 45%;
-    background: #171A1F;
+    background: #142740;
     animation: animate 5s linear infinite;
   }
   

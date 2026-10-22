@@ -31,12 +31,12 @@ body {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   overflow-x: hidden;
-  background-color: #17191e;
+  background-color: #142740;
   background-image:
     radial-gradient(120% 90% at 90% 100%, rgba(255, 255, 255, 0.05), transparent 60%),
     linear-gradient(120deg, transparent 38%, rgba(255, 255, 255, 0.05) 46%, transparent 54%),
     linear-gradient(120deg, transparent 58%, rgba(255, 255, 255, 0.035) 65%, transparent 74%),
-    linear-gradient(160deg, #1d2027 0%, #17191e 45%, #101114 100%);
+    linear-gradient(160deg, #1b3555 0%, #142740 45%, #142740 100%);
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
