@@ -16,7 +16,7 @@
   isolation: isolate;
   box-sizing: border-box;
   margin-top: 40px;
-  padding: 40px 5vw 70px;
+  padding: 40px 5vw 24px;
   font-family: 'Poppins', sans-serif;
   color: var(--texto);
   display: flex;
@@ -466,7 +466,7 @@ body section.contato-secao {
    ========================================================================== */
 @media (max-width: 900px) {
   .contato-secao {
-    padding: 80px 6vw 90px;
+    padding: 80px 6vw 32px;
   }
 
   .contato-painel {
