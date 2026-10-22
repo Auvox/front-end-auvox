@@ -126,6 +126,15 @@ body .sectionEquipe {
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
 }
 
+/* O bloco Sobre/Equipe/Contato termina colado no footer: sem margem lateral
+   nem embaixo, para não sobrar faixa escura ao lado da onda. Só o topo
+   mantém os cantos arredondados. */
+body .sobre {
+  margin: var(--quadro-espaco, 18px) 0 0;
+  border-radius: var(--quadro-raio, 32px) var(--quadro-raio, 32px) 0 0;
+  box-shadow: none;
+}
+
 /* CONTATO + FOOTER = UMA SUPERFÍCIE SÓ
    Os dois ficam de borda a borda, sem margem, sem cantos e sem fundo
    próprio: quem pinta é a textura do body. Assim não existe nenhuma linha
@@ -135,11 +144,11 @@ body .sectionEquipe {
 body .footer-container {
   /* Mesmo recuo lateral do Contato. Os cantos do conjunto só fecham na
      base do Footer; a onda continua sendo a transição entre os fundos. */
-  width: auto;
-  margin: 0 var(--quadro-espaco, 18px) var(--quadro-espaco, 18px);
-  border-radius: 0 0 var(--quadro-raio, 32px) var(--quadro-raio, 32px);
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
   box-shadow: none;
-  background: #020B17;
+  background: #142740;
   overflow: hidden;
 }
 
