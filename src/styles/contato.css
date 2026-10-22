@@ -38,7 +38,7 @@ body section.contato-secao {
   width: auto;
   margin: var(--quadro-espaco, 18px) var(--quadro-espaco, 18px) 0;
   border-radius: var(--quadro-raio, 32px) var(--quadro-raio, 32px) 0 0;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
   background: transparent;
   overflow: visible;
 }
