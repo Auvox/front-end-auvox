@@ -34,10 +34,10 @@
    O seletor usa `body section.contato-secao` para ter especificidade maior
    que a regra `body .contato-secao` do app.css. */
 body section.contato-secao {
-  width: 100%;
-  margin: 0;
-  border-radius: 0;
-  box-shadow: none;
+  width: auto;
+  margin: var(--quadro-espaco, 18px) var(--quadro-espaco, 18px) 0;
+  border-radius: var(--quadro-raio, 32px) var(--quadro-raio, 32px) 0 0;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
   background: transparent;
   overflow: visible;
 }
@@ -389,7 +389,7 @@ body section.contato-secao {
 }
 
 .toast-sucesso {
-  background: #020B17;
+  background: #142740;
   border-left: 4px solid #f2b544;
 }
 

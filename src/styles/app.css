@@ -31,14 +31,7 @@ body {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   overflow-x: hidden;
-  background-color: #020B17;
-  background-image:
-    radial-gradient(120% 90% at 90% 100%, rgba(255, 255, 255, 0.05), transparent 60%),
-    linear-gradient(120deg, transparent 38%, rgba(255, 255, 255, 0.05) 46%, transparent 54%),
-    linear-gradient(120deg, transparent 58%, rgba(255, 255, 255, 0.035) 65%, transparent 74%),
-    linear-gradient(160deg, #1b3555 0%, #020B17 45%, #020B17 100%);
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  background-color: #142740;
 }
 
 /* ── FONTE ÚNICA DO SITE ──
@@ -130,9 +123,9 @@ body .sectionEquipe {
    nem embaixo, para não sobrar faixa escura ao lado da onda. Só o topo
    mantém os cantos arredondados. */
 body .sobre {
-  margin: var(--quadro-espaco, 18px) 0 0;
-  border-radius: var(--quadro-raio, 32px) var(--quadro-raio, 32px) 0 0;
-  box-shadow: none;
+  margin: var(--quadro-espaco, 18px);
+  border-radius: var(--quadro-raio, 32px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
 }
 
 /* CONTATO + FOOTER = UMA SUPERFÍCIE SÓ
@@ -144,9 +137,9 @@ body .sobre {
 body .footer-container {
   /* Mesmo recuo lateral do Contato. Os cantos do conjunto só fecham na
      base do Footer; a onda continua sendo a transição entre os fundos. */
-  width: 100%;
-  margin: 0;
-  border-radius: 0;
+  width: auto;
+  margin: 0 var(--quadro-espaco, 18px) var(--quadro-espaco, 18px);
+  border-radius: 0 0 var(--quadro-raio, 32px) var(--quadro-raio, 32px);
   box-shadow: none;
   background: #142740;
   overflow: hidden;
