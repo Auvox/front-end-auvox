@@ -34,6 +34,7 @@
    O seletor usa `body section.contato-secao` para ter especificidade maior
    que a regra `body .contato-secao` do app.css. */
 body section.contato-secao {
+  z-index: 13;
   width: auto;
   margin: var(--quadro-espaco, 18px) var(--quadro-espaco, 18px) 0;
   border-radius: var(--quadro-raio, 32px) var(--quadro-raio, 32px) 0 0;
