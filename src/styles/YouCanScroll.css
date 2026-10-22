@@ -33,7 +33,7 @@
   body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: inherit;
+    background-color: transparent;
     color: inherit;
     overflow-x: hidden;
   }
