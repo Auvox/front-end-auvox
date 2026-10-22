@@ -31,7 +31,14 @@ body {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   overflow-x: hidden;
-  background-color: #142740;
+  background-color: #102238;
+  background-image:
+    radial-gradient(120% 90% at 90% 100%, rgba(255, 255, 255, 0.05), transparent 60%),
+    linear-gradient(120deg, transparent 38%, rgba(255, 255, 255, 0.05) 46%, transparent 54%),
+    linear-gradient(120deg, transparent 58%, rgba(255, 255, 255, 0.035) 65%, transparent 74%),
+    linear-gradient(160deg, #1b3555 0%, #102238 45%, #102238 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 /* ── FONTE ÚNICA DO SITE ──
@@ -141,7 +148,7 @@ body .footer-container {
   margin: 0 var(--quadro-espaco, 18px) var(--quadro-espaco, 18px);
   border-radius: 0 0 var(--quadro-raio, 32px) var(--quadro-raio, 32px);
   box-shadow: none;
-  background: #142740;
+  background: #102238;
   overflow: hidden;
 }
 
