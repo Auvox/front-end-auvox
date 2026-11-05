@@ -941,6 +941,56 @@ body .projeto-secao-carrossel {
   .projeto-secao-carrossel .projeto-slide-imagem, .projeto-ponto, .projeto-saiba-mais, .projeto-saiba-mais::before, .projeto-saiba-seta { transition: none; }
   .projeto-ponto-progresso { animation: none; transform: scaleX(1); }
 }
+.projeto-secao-carrossel .projeto-saiba-mais {
+  min-width: 224px;
+  margin-top: 32px;
+  padding: 8px 9px 8px 23px;
+  border: 1px solid rgba(255, 214, 128, .9);
+  background: linear-gradient(135deg, #ffd276, #f2b544 58%, #e9a92c);
+  color: #142740;
+  font-size: .86rem;
+  font-weight: 700;
+  letter-spacing: .01em;
+  box-shadow: 0 8px 22px rgba(242,181,68,.18), inset 0 1px 0 rgba(255,255,255,.45);
+  transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+}
+.projeto-secao-carrossel .projeto-saiba-mais::before {
+  transform: scaleX(0);
+  transform-origin: right center;
+  background: #fff4dc;
+  transition: transform .34s cubic-bezier(.2,.75,.25,1);
+}
+.projeto-secao-carrossel .projeto-saiba-mais:hover {
+  transform: translateY(-3px);
+  border-color: #fff4dc;
+  color: #142740;
+  box-shadow: 0 13px 28px rgba(242,181,68,.28), inset 0 1px 0 rgba(255,255,255,.7);
+}
+.projeto-secao-carrossel .projeto-saiba-mais:hover::before { transform: scaleX(1); transform-origin: left center; }
+.projeto-secao-carrossel .projeto-saiba-seta {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(20,39,64,.12);
+  color: #142740;
+  font-size: 1.05rem;
+  transition: transform .28s ease, background .28s ease;
+}
+.projeto-secao-carrossel .projeto-saiba-mais:hover .projeto-saiba-seta {
+  transform: translate(2px,-2px);
+  background: rgba(20,39,64,.08);
+}
+.projeto-secao-carrossel .projeto-saiba-mais:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .projeto-secao-carrossel .projeto-saiba-mais,
+  .projeto-secao-carrossel .projeto-saiba-mais::before,
+  .projeto-secao-carrossel .projeto-saiba-seta { transition: none; }
+}
 .projeto-saiba-mais:hover .projeto-saiba-seta { transform: translate(3px,-3px); }
 @media (max-width: 760px) {
   body .projeto-secao-carrossel { padding: 50px 5vw 64px; }
