@@ -991,6 +991,94 @@ body .projeto-secao-carrossel {
   outline: 3px solid #fff;
   outline-offset: 4px;
 }
+.projeto-intermedi-logo-card {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(620px, calc(100% - 40px));
+  aspect-ratio: 16 / 9;
+  margin: 28px auto 42px;
+  padding: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: 0 24px 55px rgba(0,0,0,.24);
+  cursor: pointer;
+  transition: transform .45s cubic-bezier(.2,.75,.25,1), box-shadow .45s ease;
+}
+.projeto-intermedi-logo-card:hover {
+  transform: translateY(-7px) scale(1.015);
+  box-shadow: 0 32px 68px rgba(0,0,0,.3);
+}
+.projeto-intermedi-logo-card:focus-visible {
+  outline: 3px solid #f2b544;
+  outline-offset: 6px;
+}
+.projeto-intermedi-logo-card > img {
+  display: block;
+  width: 88%;
+  height: 100%;
+  object-fit: contain;
+}
+.projeto-intermedi-card-abrir {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  background: #f2b544;
+  color: #142740;
+  font-size: 1.2rem;
+  transition: transform .3s ease;
+}
+.projeto-intermedi-logo-card:hover .projeto-intermedi-card-abrir { transform: translate(3px,-3px); }
+.projeto-intermedi-conteudo {
+  position: relative;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(24px) scale(.98);
+  pointer-events: none;
+  visibility: hidden;
+  transition: max-height .85s cubic-bezier(.2,.75,.25,1), opacity .45s ease, transform .65s cubic-bezier(.2,.75,.25,1), visibility .85s;
+}
+.projeto-intermedi-conteudo.aberto {
+  max-height: 1500px;
+  overflow: visible;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  visibility: visible;
+}
+.projeto-intermedi-fechar {
+  position: absolute;
+  top: -10px;
+  right: max(0px, calc((100% - 1240px) / 2));
+  z-index: 8;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.45);
+  border-radius: 50%;
+  background: rgba(16,34,56,.72);
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+.projeto-intermedi-fechar:hover { transform: rotate(90deg); background: #f2b544; color: #142740; }
+@media (prefers-reduced-motion: reduce) {
+  .projeto-intermedi-logo-card,
+  .projeto-intermedi-card-abrir,
+  .projeto-intermedi-conteudo,
+  .projeto-intermedi-fechar { transition: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .projeto-secao-carrossel .projeto-saiba-mais,
   .projeto-secao-carrossel .projeto-saiba-mais::before,
