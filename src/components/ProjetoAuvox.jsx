@@ -104,10 +104,11 @@ export default function ProjetoAuvox() {
         </p>
       </div>
 
-      <a className="projeto-saiba-mais" href="#contato">
-        <span>saiba mais</span>
-        <span className="projeto-saiba-seta" aria-hidden="true">↗</span>
-      </a>
+      <div className="container-btn">
+        <a className="button" href="#contato">
+          <span className="button-content">saiba mais</span>
+        </a>
+      </div>
     </section>
   );
 }

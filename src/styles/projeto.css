@@ -942,8 +942,11 @@ body .projeto-secao-carrossel {
   .projeto-ponto-progresso { animation: none; transform: scaleX(1); }
 }
 .projeto-secao-carrossel .projeto-saiba-mais {
+  position: relative;
+  display: flex;
+  justify-content: center;
   min-width: 224px;
-  margin-top: 32px;
+  margin: 32px auto 0;
   padding: 8px 9px 8px 23px;
   border: 1px solid rgba(255, 214, 128, .9);
   background: linear-gradient(135deg, #ffd276, #f2b544 58%, #e9a92c);
@@ -968,6 +971,8 @@ body .projeto-secao-carrossel {
 }
 .projeto-secao-carrossel .projeto-saiba-mais:hover::before { transform: scaleX(1); transform-origin: left center; }
 .projeto-secao-carrossel .projeto-saiba-seta {
+  position: absolute !important;
+  right: 9px;
   display: grid;
   width: 34px;
   height: 34px;
