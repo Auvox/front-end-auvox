@@ -94,6 +94,16 @@ export default function ProjetoAuvox() {
         </div>
       </div>
 
+      <div className="projeto-intermedi-info">
+        <span className="projeto-intermedi-etiqueta">PROJETO AUVOX · 2026</span>
+        <h3>Intermedi</h3>
+        <p>
+          Uma plataforma web e mobile que conecta a rede de farmácias em um só lugar.
+          Reúne painel administrativo, gestão de chamados e ferramentas para apoiar
+          a rotina das equipes no balcão.
+        </p>
+      </div>
+
       <a className="projeto-saiba-mais" href="#contato">
         <span>saiba mais</span>
         <span className="projeto-saiba-seta" aria-hidden="true">↗</span>

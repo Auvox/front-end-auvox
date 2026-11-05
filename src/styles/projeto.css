@@ -854,6 +854,31 @@ body .projeto-secao-carrossel {
   background: #f2b544;
   transition: transform .38s cubic-bezier(.2,.75,.25,1);
 }
+.projeto-intermedi-info {
+  max-width: 760px;
+  margin: 30px auto 0;
+  text-align: center;
+  color: #fff;
+}
+.projeto-intermedi-etiqueta {
+  color: #f2b544;
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+}
+.projeto-intermedi-info h3 {
+  margin: 8px 0 10px;
+  font-size: clamp(1.55rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -.04em;
+}
+.projeto-intermedi-info p {
+  max-width: 650px;
+  margin: 0 auto;
+  color: rgba(255,255,255,.76);
+  font-size: .9rem;
+  line-height: 1.7;
+}
 .projeto-saiba-mais span { position: relative; z-index: 1; }
 .projeto-saiba-mais:hover { transform: translateY(-3px); color: #142740; }
 .projeto-saiba-mais:hover::before { transform: translateX(0); }
