@@ -1,507 +1,70 @@
-// @ts-nocheck
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useCallback, useEffect, useState } from 'react';
 import '../styles/projeto.css';
 
-import mockupCelulares from '../assets/mockup-celulares.webp';
+import carrossel1 from '../assets/carroussel1.png';
+import carrossel2 from '../assets/carroussel2.png';
+import carrossel3 from '../assets/carroussel3.png';
+import carrossel4 from '../assets/carroussel4.png';
+import carrossel5 from '../assets/carroussel5.png';
 
-
-
-import baixeIntermedi from '../assets/propaganda.webp';
-
-
-gsap.registerPlugin(ScrollTrigger);
-
-/* ═══════════════════════════════════════════════════════════════
-   PARA ADICIONAR UM PROJETO NOVO
-   Basta acrescentar um objeto neste array. O componente cuida do
-   resto sozinho:
-   - a posição na grade (esquerda / direita) alterna pela ordem do
-     array, sem limite de quantidade;
-   - o número (01, 02, 03...) é calculado pelo índice;
-   - o projeto entra automaticamente na navegação do modal
-     (anterior / próximo), que dá a volta ao chegar no fim.
-
-   IMAGENS
-   - capa      imagem usada exclusivamente no card da grade.
-   - imagens   array com as imagens exibidas no carrossel do modal. Pode ter
-               quantas quiser — as setas e os indicadores se
-               ajustam à quantidade automaticamente. Com uma
-               imagem só, os controles do carrossel nem aparecem.
-
-               Cada item pode ser:
-                 a) só o import        → mockupCelulares
-                 b) objeto com alt     → { src: banner1, alt: '...' }
-
-   Campos usados NA GRADE:
-   - titulo     (obrigatório)
-   - legenda    linha pequena embaixo do título
-   - etiqueta   texto pequeno alinhado à direita
-   - cor        cor do bloco atrás da foto no card
-   - alt        texto alternativo padrão das imagens
-
-   Campos usados NO MODAL (todos opcionais — o que faltar
-   simplesmente não é renderizado):
-   - destaque    frase curta de impacto, em destaque colorido
-   - descricao   parágrafo explicando o projeto
-   - disciplina  o que foi feito (ex.: 'Front-end · UI Design')
-   - equipe      quem fez
-   - ano         ano de entrega
-   - link        endereço do projeto
-   - textoBotao  rótulo do botão (padrão: 'Acessar o projeto')
-   ═══════════════════════════════════════════════════════════════ */
-const PROJETOS = [
-  {
-    id: 'intermedi',
-    titulo: 'Intermedi',
-    legenda: 'REDE DE FARMÁCIAS · PLATAFORMA WEB E MOBILE',
-    etiqueta: 'PROJETO AUVOX',
-    cor: '#f2b544',
-    alt: 'Plataforma Intermedi',
-
-    capa: { src: mockupCelulares, alt: 'Aplicativo Intermedi em telas de celular' },
-
-    // imagens exibidas somente dentro do modal
-    imagens: [
-      { src: baixeIntermedi, alt: 'Tela de login do aplicativo' },
-    ],
-
-    destaque: 'Uma rede de farmácias inteira operando na palma da mão.',
-    descricao:
-      'Plataforma completa para gestão da rede: painel administrativo, controle de chamados e integração entre farmácias, com um aplicativo pensado para o dia a dia de quem está no balcão.',
-    disciplina: 'Produto digital · Front-end · UI Design',
-    equipe: 'Time Auvox',
-    ano: '2026',
-    link: '#contato',
-    textoBotao: 'Ver o projeto completo',
-  },
+const SLIDES = [
+  { src: carrossel1, alt: 'Projeto Auvox — slide 1' },
+  { src: carrossel2, alt: 'Projeto Auvox — slide 2' },
+  { src: carrossel3, alt: 'Projeto Auvox — slide 3' },
+  { src: carrossel4, alt: 'Projeto Auvox — slide 4' },
+  { src: carrossel5, alt: 'Projeto Auvox — slide 5' },
 ];
 
-/* Aceita `imagens: [...]` (novo) e também o antigo `imagem: x`, e
-   normaliza cada item para { src, alt } — assim tanto faz passar só o
-   import ou um objeto com alt. */
-function galeriaDe(projeto) {
-  const bruta = Array.isArray(projeto.imagens) && projeto.imagens.length
-    ? projeto.imagens
-    : projeto.imagem
-      ? [projeto.imagem]
-      : [];
-
-  return bruta
-    .map((item) =>
-      typeof item === 'string'
-        ? { src: item, alt: projeto.alt || projeto.titulo }
-        : { src: item?.src, alt: item?.alt || projeto.alt || projeto.titulo }
-    )
-    .filter((item) => item.src);
-}
-
 export default function ProjetoAuvox() {
-  const secaoRef = useRef(null);
-  const modalRef = useRef(null);
-  const total = PROJETOS.length;
+  const [slideAtual, setSlideAtual] = useState(0);
+  const total = SLIDES.length;
 
-  /* Índice do projeto aberto no modal. null = modal fechado. */
-  const [aberto, setAberto] = useState(null);
-  /* Índice da imagem exibida no carrossel do projeto aberto. */
-  const [foto, setFoto] = useState(0);
-  const [projetoAtual, setProjetoAtual] = useState(0);
-
-  const ativo = aberto === null ? null : PROJETOS[aberto];
-  const galeria = ativo ? galeriaDe(ativo) : [];
-  const temGaleria = galeria.length > 1;
-
-  const abrir = useCallback((i) => {
-    setAberto(i);
-    setFoto(0);
-  }, []);
-
-  const fechar = useCallback(() => setAberto(null), []);
-
-  /* Trocar de projeto sempre volta o carrossel para a primeira imagem. */
-  const proximo = useCallback(() => {
-    setAberto((i) => (i === null ? null : (i + 1) % total));
-    setFoto(0);
+  const navegar = useCallback((direcao) => {
+    setSlideAtual((atual) => (atual + direcao + total) % total);
   }, [total]);
 
-  const anterior = useCallback(() => {
-    setAberto((i) => (i === null ? null : (i - 1 + total) % total));
-    setFoto(0);
-  }, [total]);
-
-  /* Navegação do carrossel: dá a volta nas pontas, igual à dos projetos. */
-  const proximaFoto = useCallback(() => {
-    setFoto((f) => (galeria.length ? (f + 1) % galeria.length : 0));
-  }, [galeria.length]);
-
-  const fotoAnterior = useCallback(() => {
-    setFoto((f) => (galeria.length ? (f - 1 + galeria.length) % galeria.length : 0));
-  }, [galeria.length]);
-
-  /* Teclado + trava do scroll da página enquanto o modal estiver aberto.
-     ← →  imagens do projeto (ou projetos, se só houver uma imagem)
-     ↑ ↓  projeto anterior / próximo
-     Esc  fecha                                                        */
   useEffect(() => {
-    if (aberto === null) return undefined;
-
-    const onKey = (e) => {
-      if (e.key === 'Escape') {
-        fechar();
-      } else if (e.key === 'ArrowRight') {
-        temGaleria ? proximaFoto() : proximo();
-      } else if (e.key === 'ArrowLeft') {
-        temGaleria ? fotoAnterior() : anterior();
-      } else if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        proximo();
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        anterior();
-      }
-    };
-
-    /* O Lenis (scroll suave, criado no App) escuta wheel/touch no window.
-       Como os eventos sobem do alvo até o window, parar a propagação aqui
-       no modal faz o Lenis nunca recebê-los — e aí a coluna de informações
-       rola nativamente, em vez de rolar a página atrás. (O atributo
-       data-lenis-prevent no JSX cobre o mesmo caso nas versões do Lenis que
-       o suportam; os dois juntos garantem o comportamento.) */
-    const segurarScroll = (e) => e.stopPropagation();
-    const modal = modalRef.current;
-
-    if (modal) {
-      modal.addEventListener('wheel', segurarScroll, { passive: false });
-      modal.addEventListener('touchmove', segurarScroll, { passive: false });
-    }
-
-    const overflowAnterior = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', onKey);
-
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      if (modal) {
-        modal.removeEventListener('wheel', segurarScroll);
-        modal.removeEventListener('touchmove', segurarScroll);
-      }
-      document.body.style.overflow = overflowAnterior;
-    };
-  }, [
-    aberto,
-    temGaleria,
-    fechar,
-    proximo,
-    anterior,
-    proximaFoto,
-    fotoAnterior,
-  ]);
-
-  useEffect(() => {
-    const raiz = secaoRef.current;
-    if (!raiz) return undefined;
-
-    let ctx;
-
-    /* try/catch por segurança: este componente vive dentro do <Suspense>
-       do App. Um erro solto aqui derrubaria a árvore inteira e faria os
-       outros componentes sumirem junto. */
-    try {
-      ctx = gsap.context(() => {
-        /* ── CABEÇALHO ──
-           Efeito simples: aparece subindo quando o scroll desce e some
-           quando sobe. `scrub` amarra o progresso à posição da página,
-           então o caminho de volta é automático. */
-        const cabecalho = raiz.querySelector('.projeto-cabecalho');
-
-        if (cabecalho) {
-          gsap.fromTo(
-            cabecalho.children,
-            { opacity: 0, y: 34 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1,
-              ease: 'power2.out',
-              stagger: 0.12,
-              scrollTrigger: {
-                trigger: cabecalho,
-                start: 'top 92%',
-                end: 'top 50%',
-                scrub: 0.8,
-                invalidateOnRefresh: true,
-              },
-            }
-          );
-        }
-
-        const carrossel = raiz.querySelector('.projeto-carrossel');
-        if (carrossel) {
-          gsap.fromTo(carrossel, { opacity: 0, y: 55 }, {
-            opacity: 1, y: 0, duration: 1, ease: 'power3.out',
-            scrollTrigger: { trigger: carrossel, start: 'top 90%', end: 'top 50%', scrub: 0.8 },
-          });
-        }
-
-        ScrollTrigger.refresh();
-      }, secaoRef);
-    } catch (erro) {
-      console.warn('[ProjetoAuvox] animação desativada:', erro);
-    }
-
-    const onLoad = () => {
-      try {
-        ScrollTrigger.refresh();
-      } catch {
-        /* ignora */
-      }
-    };
-    window.addEventListener('load', onLoad);
-
-    return () => {
-      window.removeEventListener('load', onLoad);
-      try {
-        if (ctx) ctx.revert();
-      } catch {
-        /* ignora */
-      }
-    };
-  }, []);
-
-  const externo = ativo?.link && !ativo.link.startsWith('#');
-  const projetoVisivel = PROJETOS[projetoAtual];
-  const capaVisivel = projetoVisivel.capa || galeriaDe(projetoVisivel)[0];
-  const navegarProjetos = (direcao) => {
-    setProjetoAtual((indice) => (indice + direcao + total) % total);
-  };
+    const timer = window.setInterval(() => navegar(1), 6000);
+    return () => window.clearInterval(timer);
+  }, [navegar]);
 
   return (
-    <>
-      <section className="projeto-secao" id="projeto" ref={secaoRef}>
-        {/* Cabeçalho no formato padrão do site (mesmas classes da Equipe) */}
-        <header className="projeto-cabecalho secao-topo">
-          <p className="secao-slug">
-            <span className="projeto-barras">//</span> Nossos projetos
-          </p>
-
-          <h2 className="secao-titulo" style={{color: '#fff'}}>
-            O que a Auvox já <span>COLOCOU NO AR</span>
-          </h2>
-
-          <div className="secao-sep" />
-        </header>
-
-        <div className="projeto-carrossel" aria-roledescription="carrossel" aria-label="Projetos Auvox">
-          <div className="projeto-carrossel-palco">
-            <button type="button" className="projeto-seta projeto-seta-anterior" onClick={() => navegarProjetos(-1)} aria-label="Projeto anterior">‹</button>
-            <article className="projeto-slide" key={projetoVisivel.id}>
-              <div className="projeto-slide-conteudo">
-                <span className="projeto-slide-indice">{String(projetoAtual + 1).padStart(2, '0')} <i>/</i> {String(total).padStart(2, '0')}</span>
-                {projetoVisivel.etiqueta && <span className="projeto-slide-etiqueta">{projetoVisivel.etiqueta}</span>}
-                <h3 className="projeto-slide-titulo">{projetoVisivel.titulo}</h3>
-                {projetoVisivel.legenda && <p className="projeto-slide-legenda">{projetoVisivel.legenda}</p>}
-                {projetoVisivel.destaque && <p className="projeto-slide-destaque">{projetoVisivel.destaque}</p>}
-                <button type="button" className="projeto-slide-abrir" onClick={() => abrir(projetoAtual)} aria-haspopup="dialog">
-                  Conheça o projeto <span aria-hidden="true">↗</span>
-                </button>
-              </div>
-              <button type="button" className="projeto-slide-visual" onClick={() => abrir(projetoAtual)} aria-label={`Abrir projeto ${projetoVisivel.titulo}`}>
-                <span className="projeto-slide-bloco" style={{ '--cor-projeto': projetoVisivel.cor || '#f2b544' }} aria-hidden="true" />
-                {capaVisivel ? <img src={capaVisivel.src} alt={capaVisivel.alt} loading="lazy" /> : <span className="projeto-slide-placeholder" aria-hidden="true" />}
-                <span className="projeto-slide-plus" aria-hidden="true">+</span>
-              </button>
-            </article>
-            <button type="button" className="projeto-seta projeto-seta-proximo" onClick={() => navegarProjetos(1)} aria-label="Próximo projeto">›</button>
-          </div>
-          <div className="projeto-carrossel-controles">
-            <div className="projeto-paginacao" role="tablist" aria-label="Escolher projeto">
-              {PROJETOS.map((projeto, i) => <button key={projeto.id} type="button" role="tab" aria-selected={i === projetoAtual} aria-label={`Projeto ${i + 1}: ${projeto.titulo}`} className={`projeto-ponto${i === projetoAtual ? ' ativo' : ''}`} onClick={() => setProjetoAtual(i)} />)}
+    <section className="projeto-secao projeto-secao-carrossel" id="projeto" aria-label="Projetos Auvox">
+      <div className="projeto-carrossel" aria-roledescription="carrossel">
+        <div className="projeto-carrossel-palco">
+          {SLIDES.map((slide, indice) => (
+            <div
+              className={`projeto-slide-imagem${indice === slideAtual ? ' ativo' : ''}`}
+              key={slide.src}
+              aria-hidden={indice !== slideAtual}
+            >
+              <img src={slide.src} alt={slide.alt} loading={indice === 0 ? 'eager' : 'lazy'} />
             </div>
-            <span className="projeto-carrossel-dica">NAVEGUE PELOS PROJETOS</span>
-          </div>
+          ))}
+
+          <button type="button" className="projeto-seta projeto-seta-anterior" onClick={() => navegar(-1)} aria-label="Slide anterior">‹</button>
+          <button type="button" className="projeto-seta projeto-seta-proximo" onClick={() => navegar(1)} aria-label="Próximo slide">›</button>
         </div>
-      </section>
 
-      {/* ── MODAL ──
-          Renderizado com createPortal direto no <body>. Isso é
-          necessário: a seção #projeto recebe `transform` da animação
-          .revelar-secao (app.css) e tem overflow: hidden, e qualquer
-          um dos dois faria um position: fixed aqui dentro se prender à
-          seção em vez da tela. */}
-      {ativo &&
-        createPortal(
-          <div
-            className="projeto-modal"
-            ref={modalRef}
-            role="dialog"
-            aria-modal="true"
-            aria-label={`Projeto ${ativo.titulo}`}
-          >
-            {/* clique no fundo fecha */}
-            <div className="projeto-modal-fundo" onClick={fechar} aria-hidden="true" />
+        <div className="projeto-carrossel-controles" role="tablist" aria-label="Escolher slide">
+          {SLIDES.map((slide, indice) => (
+            <button
+              key={slide.src}
+              type="button"
+              role="tab"
+              aria-label={`Ir para o slide ${indice + 1}`}
+              aria-selected={indice === slideAtual}
+              className={`projeto-ponto${indice === slideAtual ? ' ativo' : ''}`}
+              onClick={() => setSlideAtual(indice)}
+            />
+          ))}
+        </div>
+      </div>
 
-            <header className="projeto-modal-topo">
-              <span className="projeto-modal-marca">AUVOX / SALA DE PROJETOS</span>
-              <span className="projeto-modal-contador">
-                {String(aberto + 1).padStart(2, '0')} DE {String(total).padStart(2, '0')}
-              </span>
-              <button type="button" className="projeto-modal-fechar" onClick={fechar}>
-                FECHAR <span aria-hidden="true">✕</span>
-              </button>
-            </header>
-
-            <div className="projeto-modal-painel">
-              {/* ── Carrossel de imagens ──
-                  O trilho desliza -100% por imagem. Os controles só
-                  aparecem quando o projeto tem mais de uma. */}
-              <figure className="projeto-modal-galeria">
-                <div
-                  className="projeto-galeria-trilho"
-                  style={{ transform: `translateX(-${foto * 100}%)` }}
-                >
-                  {galeria.map((img, i) => (
-                    <div className="projeto-galeria-slide" key={`${ativo.id}-${i}`}>
-                      <img
-                        src={img.src}
-                        alt={img.alt}
-                        loading={i === 0 ? 'eager' : 'lazy'}
-                      />
-                    </div>
-                  ))}
-                </div>
-
-                {temGaleria && (
-                  <>
-                    <button
-                      type="button"
-                      className="projeto-galeria-btn -esquerda"
-                      onClick={fotoAnterior}
-                      aria-label="Imagem anterior"
-                    >
-                      <span aria-hidden="true">‹</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      className="projeto-galeria-btn -direita"
-                      onClick={proximaFoto}
-                      aria-label="Próxima imagem"
-                    >
-                      <span aria-hidden="true">›</span>
-                    </button>
-
-                    <div className="projeto-galeria-rodape">
-                      <span className="projeto-galeria-contador">
-                        {String(foto + 1).padStart(2, '0')} /{' '}
-                        {String(galeria.length).padStart(2, '0')}
-                      </span>
-
-                      <div className="projeto-galeria-pontos">
-                        {galeria.map((img, i) => (
-                          <button
-                            key={`ponto-${ativo.id}-${i}`}
-                            type="button"
-                            className={`projeto-galeria-ponto${i === foto ? ' ativo' : ''}`}
-                            onClick={() => setFoto(i)}
-                            aria-label={`Ver imagem ${i + 1}`}
-                            aria-current={i === foto}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </>
-                )}
-              </figure>
-
-              {/* a key troca a cada projeto: o React remonta a coluna e a
-                  animação de entrada roda de novo a cada navegação */}
-              <aside
-                className="projeto-modal-info"
-                data-lenis-prevent
-                key={ativo.id || aberto}
-              >
-                <div className="projeto-modal-tags">
-                  {ativo.etiqueta && <span>{ativo.etiqueta}</span>}
-                  {ativo.legenda && <span>{ativo.legenda}</span>}
-                </div>
-
-                <h3 className="projeto-modal-nome">{ativo.titulo}</h3>
-
-                {ativo.destaque && (
-                  <p
-                    className="projeto-modal-destaque"
-                    style={{ '--cor-projeto': ativo.cor || '#f2b544' }}
-                  >
-                    {ativo.destaque}
-                  </p>
-                )}
-
-                {ativo.descricao && (
-                  <p className="projeto-modal-descricao">{ativo.descricao}</p>
-                )}
-
-                <dl className="projeto-modal-ficha">
-                  {ativo.disciplina && (
-                    <div>
-                      <dt>DISCIPLINA</dt>
-                      <dd>{ativo.disciplina}</dd>
-                    </div>
-                  )}
-                  {ativo.equipe && (
-                    <div>
-                      <dt>QUEM FEZ</dt>
-                      <dd>{ativo.equipe}</dd>
-                    </div>
-                  )}
-                  {ativo.ano && (
-                    <div>
-                      <dt>ANO</dt>
-                      <dd>{ativo.ano}</dd>
-                    </div>
-                  )}
-                </dl>
-
-                {ativo.link && (
-                  <a
-                    className="projeto-modal-botao"
-                    href={ativo.link}
-                    onClick={externo ? undefined : fechar}
-                    {...(externo
-                      ? { target: '_blank', rel: 'noopener noreferrer' }
-                      : {})}
-                  >
-                    {ativo.textoBotao || 'Acessar o projeto'}
-                  </a>
-                )}
-              </aside>
-            </div>
-
-            <footer className="projeto-modal-rodape">
-              {total > 1 ? (
-                <button type="button" className="projeto-modal-nav" onClick={anterior}>
-                  <span aria-hidden="true">←</span> PROJETO ANTERIOR
-                </button>
-              ) : (
-                <span />
-              )}
-
-              <span className="projeto-modal-dica">
-                {temGaleria ? '← → IMAGENS · ESC FECHAR' : 'ESC FECHAR'}
-              </span>
-
-              {total > 1 ? (
-                <button type="button" className="projeto-modal-nav" onClick={proximo}>
-                  PRÓXIMO PROJETO <span aria-hidden="true">→</span>
-                </button>
-              ) : (
-                <span />
-              )}
-            </footer>
-          </div>,
-          document.body
-        )}
-    </>
+      <a className="projeto-saiba-mais" href="#contato">
+        <span>saiba mais</span>
+        <span className="projeto-saiba-seta" aria-hidden="true">↗</span>
+      </a>
+    </section>
   );
 }

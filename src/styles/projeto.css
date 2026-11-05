@@ -775,3 +775,98 @@ body .projeto-secao {
   .projeto-slide { animation: none; }
   .projeto-slide-bloco, .projeto-seta, .projeto-ponto, .projeto-slide-abrir { transition: none; }
 }
+
+/* Carrossel de imagens promocionais dos projetos */
+body .projeto-secao-carrossel {
+  padding: 76px 5vw 86px;
+}
+.projeto-secao-carrossel .projeto-carrossel {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.projeto-secao-carrossel .projeto-carrossel-palco {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.28 / 1;
+  max-height: min(72vh, 760px);
+  padding: 0;
+  overflow: hidden;
+  border-radius: clamp(16px, 2vw, 28px);
+  background: #e8edf0;
+  box-shadow: 0 22px 55px rgba(20, 39, 64, 0.18);
+}
+.projeto-slide-imagem {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 650ms ease, visibility 650ms ease;
+}
+.projeto-slide-imagem.ativo { opacity: 1; visibility: visible; }
+.projeto-slide-imagem img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.projeto-secao-carrossel .projeto-seta {
+  top: 50%;
+  width: 52px;
+  height: 52px;
+  border-color: rgba(255,255,255,.55);
+  background: rgba(16,34,56,.52);
+  color: #fff;
+  backdrop-filter: blur(8px);
+}
+.projeto-secao-carrossel .projeto-seta:hover { border-color: #f2b544; background: #f2b544; color: #142740; }
+.projeto-secao-carrossel .projeto-seta-anterior { left: 20px; }
+.projeto-secao-carrossel .projeto-seta-proximo { right: 20px; }
+.projeto-secao-carrossel .projeto-carrossel-controles {
+  justify-content: center;
+  gap: 11px;
+  margin: 25px 0 0;
+  padding: 0;
+  border: 0;
+}
+.projeto-secao-carrossel .projeto-ponto { width: 8px; height: 8px; background: rgba(255,255,255,.38); }
+.projeto-secao-carrossel .projeto-ponto.ativo { width: 30px; background: #f2b544; }
+.projeto-saiba-mais {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  width: fit-content;
+  min-width: 190px;
+  margin: 38px auto 0;
+  padding: 15px 20px;
+  overflow: hidden;
+  border: 1px solid #f2b544;
+  border-radius: 999px;
+  color: #fff;
+  font-size: .82rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-decoration: none;
+  transition: color .3s ease, transform .3s ease;
+}
+.projeto-saiba-mais::before {
+  position: absolute;
+  inset: 0;
+  content: '';
+  transform: translateX(-102%);
+  border-radius: inherit;
+  background: #f2b544;
+  transition: transform .38s cubic-bezier(.2,.75,.25,1);
+}
+.projeto-saiba-mais span { position: relative; z-index: 1; }
+.projeto-saiba-mais:hover { transform: translateY(-3px); color: #142740; }
+.projeto-saiba-mais:hover::before { transform: translateX(0); }
+.projeto-saiba-seta { font-size: 1.1rem; transition: transform .3s ease; }
+.projeto-saiba-mais:hover .projeto-saiba-seta { transform: translate(3px,-3px); }
+@media (max-width: 760px) {
+  body .projeto-secao-carrossel { padding: 50px 5vw 64px; }
+  .projeto-secao-carrossel .projeto-carrossel-palco { aspect-ratio: 1.28 / 1; max-height: none; }
+  .projeto-secao-carrossel .projeto-seta { width: 42px; height: 42px; }
+  .projeto-secao-carrossel .projeto-seta-anterior { left: 12px; }
+  .projeto-secao-carrossel .projeto-seta-proximo { right: 12px; }
+  .projeto-saiba-mais { margin-top: 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .projeto-slide-imagem, .projeto-saiba-mais, .projeto-saiba-mais::before, .projeto-saiba-seta { transition: none; }
+}
