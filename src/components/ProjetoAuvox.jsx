@@ -107,6 +107,7 @@ export default function ProjetoAuvox() {
   const [aberto, setAberto] = useState(null);
   /* Índice da imagem exibida no carrossel do projeto aberto. */
   const [foto, setFoto] = useState(0);
+  const [projetoAtual, setProjetoAtual] = useState(0);
 
   const ativo = aberto === null ? null : PROJETOS[aberto];
   const galeria = ativo ? galeriaDe(ativo) : [];
@@ -236,95 +237,13 @@ export default function ProjetoAuvox() {
           );
         }
 
-        /* ── PROJETOS ──
-           Mesma ideia: cada item tem seu próprio percurso de scroll com
-           scrub, então aparece ao descer e se desfaz ao subir. */
-        const itens = Array.from(raiz.querySelectorAll('.projeto-item'));
-
-        itens.forEach((item) => {
-          const moldura = item.querySelector('.projeto-moldura');
-          const foto = item.querySelector('.projeto-foto');
-          const bloco = item.querySelector('.projeto-bloco');
-          const meta = item.querySelector('.projeto-rodape');
-          const linhas = Array.from(
-            item.querySelectorAll('.projeto-rodape > *')
-          );
-
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: item,
-              start: 'top 92%',
-              end: 'top 45%',
-              scrub: 0.9,
-              invalidateOnRefresh: true,
-            },
+        const carrossel = raiz.querySelector('.projeto-carrossel');
+        if (carrossel) {
+          gsap.fromTo(carrossel, { opacity: 0, y: 55 }, {
+            opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: carrossel, start: 'top 90%', end: 'top 50%', scrub: 0.8 },
           });
-
-          // a moldura sobe e ganha corpo
-          if (moldura) {
-            tl.fromTo(
-              moldura,
-              { opacity: 0, y: 75 },
-              { opacity: 1, y: 0, duration: 1, ease: 'power3.out' },
-              0
-            );
-          }
-
-          /* zoom-out da foto. Fica no WRAPPER .projeto-foto de propósito:
-             o zoom do hover mora no <img>, e se as duas animações
-             disputassem o mesmo transform, o hover pararia de funcionar. */
-          if (foto) {
-            tl.fromTo(
-              foto,
-              { scale: 1.08 },
-              { scale: 1, duration: 1.1, ease: 'power2.out' },
-              0
-            );
-          }
-
-          // número, título e etiqueta entram em cascata
-          if (linhas.length) {
-            tl.fromTo(
-              linhas,
-              { opacity: 0, y: 26 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: 'power2.out',
-                stagger: 0.08,
-              },
-              0.3
-            );
-          } else if (meta) {
-            tl.fromTo(
-              meta,
-              { opacity: 0, y: 26 },
-              { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
-              0.3
-            );
-          }
-
-          /* Deslocamento sutil do bloco colorido ao longo de todo o
-             percurso da seção pela tela. */
-          if (bloco) {
-            gsap.fromTo(
-              bloco,
-              { x: 8, y: 8 },
-              {
-                x: 18,
-                y: 18,
-                ease: 'none',
-                scrollTrigger: {
-                  trigger: item,
-                  start: 'top bottom',
-                  end: 'bottom top',
-                  scrub: true,
-                },
-              }
-            );
-          }
-        });
+        }
 
         ScrollTrigger.refresh();
       }, secaoRef);
@@ -352,6 +271,11 @@ export default function ProjetoAuvox() {
   }, []);
 
   const externo = ativo?.link && !ativo.link.startsWith('#');
+  const projetoVisivel = PROJETOS[projetoAtual];
+  const capaVisivel = projetoVisivel.capa || galeriaDe(projetoVisivel)[0];
+  const navegarProjetos = (direcao) => {
+    setProjetoAtual((indice) => (indice + direcao + total) % total);
+  };
 
   return (
     <>
@@ -369,58 +293,34 @@ export default function ProjetoAuvox() {
           <div className="secao-sep" />
         </header>
 
-        {/* A alternância esquerda/direita é feita no CSS por :nth-child,
-            então o array pode crescer à vontade. */}
-        <div className="projeto-grade">
-          {PROJETOS.map((projeto, i) => {
-            const numero = String(i + 1).padStart(2, '0');
-            const capa = projeto.capa || galeriaDe(projeto)[0];
-
-            return (
-              <article className="projeto-item" key={projeto.id || projeto.titulo}>
-                {/* O card é um botão: o clique abre o modal. */}
-                <button
-                  type="button"
-                  className="projeto-card"
-                  onClick={() => abrir(i)}
-                  aria-haspopup="dialog"
-                >
-                  <div className="projeto-moldura">
-                    <span
-                      className="projeto-bloco"
-                      style={{ '--cor-projeto': projeto.cor || '#f2b544' }}
-                      aria-hidden="true"
-                    />
-
-                    <div className="projeto-foto">
-                      {capa && (
-                        <img src={capa.src} alt={capa.alt} loading="lazy" />
-                      )}
-                    </div>
-
-                    <span className="projeto-marcador" aria-hidden="true">
-                      +
-                    </span>
-                  </div>
-
-                  <div className="projeto-rodape">
-                    <span className="projeto-numero">{numero}</span>
-
-                    <div className="projeto-info">
-                      <h3 className="projeto-nome">{projeto.titulo}</h3>
-                      {projeto.legenda && (
-                        <p className="projeto-legenda">{projeto.legenda}</p>
-                      )}
-                    </div>
-
-                    {projeto.etiqueta && (
-                      <span className="projeto-etiqueta">{projeto.etiqueta}</span>
-                    )}
-                  </div>
+        <div className="projeto-carrossel" aria-roledescription="carrossel" aria-label="Projetos Auvox">
+          <div className="projeto-carrossel-palco">
+            <button type="button" className="projeto-seta projeto-seta-anterior" onClick={() => navegarProjetos(-1)} aria-label="Projeto anterior">‹</button>
+            <article className="projeto-slide" key={projetoVisivel.id}>
+              <div className="projeto-slide-conteudo">
+                <span className="projeto-slide-indice">{String(projetoAtual + 1).padStart(2, '0')} <i>/</i> {String(total).padStart(2, '0')}</span>
+                {projetoVisivel.etiqueta && <span className="projeto-slide-etiqueta">{projetoVisivel.etiqueta}</span>}
+                <h3 className="projeto-slide-titulo">{projetoVisivel.titulo}</h3>
+                {projetoVisivel.legenda && <p className="projeto-slide-legenda">{projetoVisivel.legenda}</p>}
+                {projetoVisivel.destaque && <p className="projeto-slide-destaque">{projetoVisivel.destaque}</p>}
+                <button type="button" className="projeto-slide-abrir" onClick={() => abrir(projetoAtual)} aria-haspopup="dialog">
+                  Conheça o projeto <span aria-hidden="true">↗</span>
                 </button>
-              </article>
-            );
-          })}
+              </div>
+              <button type="button" className="projeto-slide-visual" onClick={() => abrir(projetoAtual)} aria-label={`Abrir projeto ${projetoVisivel.titulo}`}>
+                <span className="projeto-slide-bloco" style={{ '--cor-projeto': projetoVisivel.cor || '#f2b544' }} aria-hidden="true" />
+                {capaVisivel ? <img src={capaVisivel.src} alt={capaVisivel.alt} loading="lazy" /> : <span className="projeto-slide-placeholder" aria-hidden="true" />}
+                <span className="projeto-slide-plus" aria-hidden="true">+</span>
+              </button>
+            </article>
+            <button type="button" className="projeto-seta projeto-seta-proximo" onClick={() => navegarProjetos(1)} aria-label="Próximo projeto">›</button>
+          </div>
+          <div className="projeto-carrossel-controles">
+            <div className="projeto-paginacao" role="tablist" aria-label="Escolher projeto">
+              {PROJETOS.map((projeto, i) => <button key={projeto.id} type="button" role="tab" aria-selected={i === projetoAtual} aria-label={`Projeto ${i + 1}: ${projeto.titulo}`} className={`projeto-ponto${i === projetoAtual ? ' ativo' : ''}`} onClick={() => setProjetoAtual(i)} />)}
+            </div>
+            <span className="projeto-carrossel-dica">NAVEGUE PELOS PROJETOS</span>
+          </div>
         </div>
       </section>
 
