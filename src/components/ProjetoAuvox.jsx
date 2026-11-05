@@ -23,23 +23,48 @@ export default function ProjetoAuvox() {
     setSlideAtual((atual) => (atual + direcao + total) % total);
   }, [total]);
 
+  const selecionar = (indice) => setSlideAtual(indice);
+
   useEffect(() => {
     const timer = window.setInterval(() => navegar(1), 6000);
     return () => window.clearInterval(timer);
-  }, [navegar]);
+  }, [navegar, slideAtual]);
+
+  const offsetDe = (indice) => {
+    let offset = indice - slideAtual;
+    if (offset > total / 2) offset -= total;
+    if (offset < -total / 2) offset += total;
+    return offset;
+  };
 
   return (
     <section className="projeto-secao projeto-secao-carrossel" id="projeto" aria-label="Projetos Auvox">
-      <div className="projeto-carrossel" aria-roledescription="carrossel">
+      <div
+        className="projeto-carrossel"
+        role="region"
+        aria-roledescription="carrossel"
+        aria-label="Projetos Auvox"
+        tabIndex={0}
+        onKeyDown={(event) => {
+          if (event.key === 'ArrowLeft') navegar(-1);
+          if (event.key === 'ArrowRight') navegar(1);
+        }}
+      >
         <div className="projeto-carrossel-palco">
           {SLIDES.map((slide, indice) => (
-            <div
-              className={`projeto-slide-imagem${indice === slideAtual ? ' ativo' : ''}`}
+            <button
+              type="button"
+              className={`projeto-slide-imagem projeto-slide-offset-${offsetDe(indice)}${indice === slideAtual ? ' ativo' : ''}`}
               key={slide.src}
-              aria-hidden={indice !== slideAtual}
+              aria-label={indice === slideAtual ? `Slide ${indice + 1}, atual` : `Ir para o slide ${indice + 1}`}
+              aria-current={indice === slideAtual ? 'true' : undefined}
+              tabIndex={Math.abs(offsetDe(indice)) > 1 ? -1 : 0}
+              onClick={() => {
+                if (indice !== slideAtual) navegar(offsetDe(indice));
+              }}
             >
-              <img src={slide.src} alt={slide.alt} loading={indice === 0 ? 'eager' : 'lazy'} />
-            </div>
+              <img src={slide.src} alt={slide.alt} draggable="false" loading={indice === 0 ? 'eager' : 'lazy'} />
+            </button>
           ))}
 
           <button type="button" className="projeto-seta projeto-seta-anterior" onClick={() => navegar(-1)} aria-label="Slide anterior">‹</button>
@@ -55,8 +80,10 @@ export default function ProjetoAuvox() {
               aria-label={`Ir para o slide ${indice + 1}`}
               aria-selected={indice === slideAtual}
               className={`projeto-ponto${indice === slideAtual ? ' ativo' : ''}`}
-              onClick={() => setSlideAtual(indice)}
-            />
+              onClick={() => selecionar(indice)}
+            >
+              {indice === slideAtual && <span key={slideAtual} className="projeto-ponto-progresso" />}
+            </button>
           ))}
         </div>
       </div>
