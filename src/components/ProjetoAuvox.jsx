@@ -39,6 +39,12 @@ export default function ProjetoAuvox() {
 
   return (
     <section className="projeto-secao projeto-secao-carrossel" id="projeto" aria-label="Projetos Auvox">
+      <header className="projeto-cabecalho secao-topo">
+        <p className="secao-slug"><span className="projeto-barras">//</span> projetos</p>
+        <h2 className="secao-titulo" style={{ color: '#fff' }}>Nossos projetos</h2>
+        <div className="secao-sep" />
+      </header>
+
       <div
         className="projeto-carrossel"
         role="region"
