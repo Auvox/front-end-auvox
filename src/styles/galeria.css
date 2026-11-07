@@ -249,6 +249,20 @@
   opacity: 1;
 }
 
+/* print muito largo ou muito alto: aparece inteiro, solto direto no
+   fundo do painel (sem caixa em volta) */
+.galeria-foto.-inteira img {
+  object-fit: contain;
+}
+
+.galeria-quadro:has(.-inteira) {
+  background: transparent;
+}
+
+.galeria-quadro:hover .galeria-foto.-inteira img {
+  transform: none;
+}
+
 /* ── Cópia da foto que faz o voo entre o Sobre e a faixa ── */
 .galeria-voo {
   position: fixed;
@@ -364,12 +378,20 @@
 
 /* Tira de miniaturas: a ativa acesa e marcada por uma barra dourada */
 .galeria-vis-filme {
+  position: relative;
   display: flex;
-  justify-content: center;
   gap: 8px;
   padding: 16px var(--gal-margem) clamp(16px, 3vh, 28px);
   overflow-x: auto;
   scrollbar-width: none;
+}
+
+.galeria-vis-mini:first-child {
+  margin-left: auto;
+}
+
+.galeria-vis-mini:last-child {
+  margin-right: auto;
 }
 
 .galeria-vis-mini {

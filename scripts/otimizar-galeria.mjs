@@ -47,6 +47,12 @@ const QUALIDADE = {
   webp: { quality: 80, effort: 6, smartSubsample: true },
 };
 
+/* Fotos da pasta que NÃO entram no site (pelo id). Ex.: prints com
+   dados pessoais. A original continua na pasta. */
+const IGNORAR = new Set([
+  'f6e720cd', // print do Postman com e-mail e telefone pessoais
+]);
+
 const EXTENSOES = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.tif', '.tiff']);
 
 const slug = (nome) =>
@@ -57,13 +63,24 @@ const slug = (nome) =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
 
+/* Nomes no formato UUID (fotos salvas do WhatsApp) viram ids curtos */
+const idDe = (nome) => {
+  const s = slug(nome);
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-/.test(s) ? s.slice(0, 8) : s;
+};
+
 const kb = (bytes) => `${(bytes / 1024).toFixed(1)} KB`;
 
-/* Larguras-alvo que a original comporta; se nenhuma couber, usa o
-   máximo possível (um único tamanho). */
+/* Larguras-alvo que a original comporta. Se ela não chega ao maior alvo
+   mas passa do anterior (ex.: 1599 px, entre 1080 e 1600), o próprio
+   tamanho dela vira a versão maior, para não jogar resolução fora.
+   Nunca amplia. */
 function alvosPossiveis(alvos, maximo) {
   const cabem = alvos.filter((alvo) => alvo <= maximo);
-  return cabem.length ? cabem : [Math.floor(maximo)];
+  const ultimo = cabem[cabem.length - 1] ?? 0;
+  const naoAlcancaOMaior = maximo < alvos[alvos.length - 1];
+  if (naoAlcancaOMaior && maximo > ultimo * 1.1) cabem.push(Math.floor(maximo));
+  return cabem;
 }
 
 async function salvar(pipeline, nomeBase) {
@@ -143,31 +160,40 @@ async function main() {
     process.exit(1);
   }
 
-  /* Mantém os textos alternativos já editados à mão no manifesto */
+  /* O manifesto é a fonte da ORDEM e das LEGENDAS (alt): o que já foi
+     editado à mão nele é mantido. Fotos novas entram no fim, na ordem em
+     que foram salvas na pasta. Para reordenar, mova as entradas no JSON. */
   let altsAnteriores = {};
+  let ordemAnterior = new Map();
   if (existsSync(MANIFESTO)) {
     const anterior = JSON.parse(await readFile(MANIFESTO, 'utf8'));
     altsAnteriores = Object.fromEntries(anterior.fotos.map((f) => [f.id, f.alt]));
+    ordemAnterior = new Map(anterior.fotos.map((f, i) => [f.id, i]));
   }
 
   await rm(SAIDA, { recursive: true, force: true });
   await mkdir(SAIDA, { recursive: true });
 
-  const nomes = (await readdir(ENTRADA))
-    .filter((nome) => EXTENSOES.has(path.extname(nome).toLowerCase()))
-    .sort((a, b) => a.localeCompare(b, 'pt-BR', { numeric: true }));
+  const arquivos = [];
+  for (const nome of await readdir(ENTRADA)) {
+    if (!EXTENSOES.has(path.extname(nome).toLowerCase())) continue;
+    const id = idDe(path.parse(nome).name);
+    if (IGNORAR.has(id)) continue;
+    const arquivo = path.join(ENTRADA, nome);
+    arquivos.push({ arquivo, id, salvaEm: (await stat(arquivo)).mtimeMs });
+  }
+
+  const posicao = (f) => ordemAnterior.get(f.id) ?? Infinity;
+  arquivos.sort((a, b) => posicao(a) - posicao(b) || a.salvaEm - b.salvaEm);
 
   const fontes = [
     CAPA,
-    ...nomes.map((nome, i) => {
-      const id = slug(path.parse(nome).name);
-      return {
-        arquivo: path.join(ENTRADA, nome),
-        id,
-        // a foto da equipe é a 1ª; as da pasta vêm depois
-        alt: altsAnteriores[id] ?? `Bastidores da Auvox, foto ${i + 2}`,
-      };
-    }),
+    ...arquivos.map(({ arquivo, id }, i) => ({
+      arquivo,
+      id,
+      // a foto da equipe é a 1ª; as da pasta vêm depois
+      alt: altsAnteriores[id] ?? `Bastidores da Auvox, foto ${i + 2}`,
+    })),
   ];
 
   console.log(`\nOtimizando ${fontes.length} fotos de ${ENTRADA}\n`);

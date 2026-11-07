@@ -12,6 +12,12 @@
           "h": 450,
           "avif": "equipe-auvox-mini-360.avif",
           "webp": "equipe-auvox-mini-360.webp"
+        },
+        {
+          "w": 411,
+          "h": 514,
+          "avif": "equipe-auvox-mini-411.avif",
+          "webp": "equipe-auvox-mini-411.webp"
         }
       ],
       "ampliadas": [
@@ -24,71 +30,1621 @@
       ]
     },
     {
-      "id": "images-1",
-      "alt": "Bastidores da Auvox, foto 2",
-      "largura": 236,
-      "altura": 421,
-      "placeholder": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JaACdMoR4GBIl52BP5DgqIAD+5efZEifhQJkli6/N4jPt9iWBdwe/Lvq1CzRSsntapy2QZX88NDZEkliAAA==",
-      "miniaturas": [
-        {
-          "w": 236,
-          "h": 295,
-          "avif": "images-1-mini-236.avif",
-          "webp": "images-1-mini-236.webp"
-        }
-      ],
-      "ampliadas": [
-        {
-          "w": 236,
-          "h": 421,
-          "avif": "images-1-236.avif",
-          "webp": "images-1-236.webp"
-        }
-      ]
-    },
-    {
-      "id": "images-2",
-      "alt": "Bastidores da Auvox, foto 3",
-      "largura": 415,
-      "altura": 739,
-      "placeholder": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAwCdASoQABQAPu1iqk4ppaQiMAgBMB2JYwCo9BtslhEhE49Aoy4gAP5f2o/loWFHswgBR93Y3BkWmnnNic7lTrwOv5arg6afbHRyeQj53h/HuGCXj9wA",
+      "id": "9da257de",
+      "alt": "Selfie da equipe na sala, com AUVOX escrito na lousa",
+      "largura": 1600,
+      "altura": 1200,
+      "placeholder": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JQBadBDpnny0vc7t/sZZAAP6wnvFpQBWObiuZBiOE4Hay58ag/ljd8Xy4fdCkLiiEZZwnTr6hx/4TxAAAAA==",
       "miniaturas": [
         {
           "w": 360,
           "h": 450,
-          "avif": "images-2-mini-360.avif",
-          "webp": "images-2-mini-360.webp"
+          "avif": "9da257de-mini-360.avif",
+          "webp": "9da257de-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "9da257de-mini-720.avif",
+          "webp": "9da257de-mini-720.webp"
         }
       ],
       "ampliadas": [
         {
-          "w": 415,
-          "h": 739,
-          "avif": "images-2-415.avif",
-          "webp": "images-2-415.webp"
+          "w": 1080,
+          "h": 810,
+          "avif": "9da257de-1080.avif",
+          "webp": "9da257de-1080.webp"
+        },
+        {
+          "w": 1600,
+          "h": 1200,
+          "avif": "9da257de-1600.avif",
+          "webp": "9da257de-1600.webp"
         }
       ]
     },
     {
-      "id": "images",
-      "alt": "Bastidores da Auvox, foto 4",
-      "largura": 236,
-      "altura": 423,
-      "placeholder": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADQAwCdASoQABQAPu1iqk2ppaQiMAgBMB2JaACw7CG0YYXCpx3vwAAA/tq+tnjaodYjP17Gwc0E5VkKdRLNXzb+kXS9PZSxdukGOgWgbfMHAAAA",
+      "id": "02bd75bd",
+      "alt": "Reunião de ideias com post-its na mesa",
+      "largura": 600,
+      "altura": 1080,
+      "placeholder": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAwBACdASoQABQAPu1kq04ppaQiMAgBMB2JYwCdABuLWv4jeN4DElS69QAA+kuB9MwBSIRmImUPqDW+Q9RwOi0Z6DoVeEjoLbZZQYxd4D6TBvNRDAAAAA==",
       "miniaturas": [
         {
-          "w": 236,
-          "h": 295,
-          "avif": "images-mini-236.avif",
-          "webp": "images-mini-236.webp"
+          "w": 360,
+          "h": 450,
+          "avif": "02bd75bd-mini-360.avif",
+          "webp": "02bd75bd-mini-360.webp"
+        },
+        {
+          "w": 644,
+          "h": 805,
+          "avif": "02bd75bd-mini-644.avif",
+          "webp": "02bd75bd-mini-644.webp"
         }
       ],
       "ampliadas": [
         {
-          "w": 236,
-          "h": 423,
-          "avif": "images-236.avif",
-          "webp": "images-236.webp"
+          "w": 600,
+          "h": 1080,
+          "avif": "02bd75bd-600.avif",
+          "webp": "02bd75bd-600.webp"
+        }
+      ]
+    },
+    {
+      "id": "b6bae7d5",
+      "alt": "Divisão de tarefas da equipe projetada na tela",
+      "largura": 1280,
+      "altura": 720,
+      "placeholder": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAACwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JZQC7ABuka2SuaVdR0AD9zfRrlO1eYkWa7Vs+Ck5aVZij0AA=",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "b6bae7d5-mini-360.avif",
+          "webp": "b6bae7d5-mini-360.webp"
+        },
+        {
+          "w": 576,
+          "h": 720,
+          "avif": "b6bae7d5-mini-576.avif",
+          "webp": "b6bae7d5-mini-576.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 608,
+          "avif": "b6bae7d5-1080.avif",
+          "webp": "b6bae7d5-1080.webp"
+        },
+        {
+          "w": 1280,
+          "h": 720,
+          "avif": "b6bae7d5-1280.avif",
+          "webp": "b6bae7d5-1280.webp"
+        }
+      ]
+    },
+    {
+      "id": "33a6bca3",
+      "alt": "Diagrama de casos de uso do Intermedi",
+      "largura": 580,
+      "altura": 660,
+      "placeholder": "data:image/webp;base64,UklGRj4AAABXRUJQVlA4IDIAAACwAgCdASoQABQAPu1iqU2ppaOiMAgBMB2JaQAAeyAA/u7a7dGn3AgWgBEa3i9V8AcAAA==",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "33a6bca3-mini-360.avif",
+          "webp": "33a6bca3-mini-360.webp"
+        },
+        {
+          "w": 528,
+          "h": 660,
+          "avif": "33a6bca3-mini-528.avif",
+          "webp": "33a6bca3-mini-528.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 580,
+          "h": 660,
+          "avif": "33a6bca3-580.avif",
+          "webp": "33a6bca3-580.webp"
+        }
+      ]
+    },
+    {
+      "id": "9d771906",
+      "alt": "Montando um circuito com Arduino na bancada",
+      "largura": 963,
+      "altura": 1280,
+      "placeholder": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAACwAwCdASoQABQAPu1orU6ppiSiMAgBMB2JZwAAWzT5NaVAZT2xAAD+0yakI3ElpzZbCR+7XersQHC/fMBPD/H4AyBo4u5aGqG39jvyAAA=",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "9d771906-mini-360.avif",
+          "webp": "9d771906-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "9d771906-mini-720.avif",
+          "webp": "9d771906-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 813,
+          "h": 1080,
+          "avif": "9d771906-813.avif",
+          "webp": "9d771906-813.webp"
+        },
+        {
+          "w": 963,
+          "h": 1280,
+          "avif": "9d771906-963.avif",
+          "webp": "9d771906-963.webp"
+        }
+      ]
+    },
+    {
+      "id": "165d7513",
+      "alt": "Paleta de cores do Intermedi",
+      "largura": 1600,
+      "altura": 1066,
+      "placeholder": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAACwAwCdASoQABQAPu1krU2ppaSiMAgBMB2JbAAAUfLzJAANXX9rQACfKsBCZGZssbb7bbchE5k+kMyU4o/NBrRrt201uGexcCMniQ4IEeJHAJwnqMCT07gA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "165d7513-mini-360.avif",
+          "webp": "165d7513-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "165d7513-mini-720.avif",
+          "webp": "165d7513-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 720,
+          "avif": "165d7513-1080.avif",
+          "webp": "165d7513-1080.webp"
+        },
+        {
+          "w": 1600,
+          "h": 1066,
+          "avif": "165d7513-1600.avif",
+          "webp": "165d7513-1600.webp"
+        }
+      ]
+    },
+    {
+      "id": "f3c03ed0",
+      "alt": "Logo do Intermedi",
+      "largura": 1600,
+      "altura": 1600,
+      "placeholder": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAABQAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JZwAAW+sD2oKKAAD+8cJhnWBgE/vQsaOqfNYA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "f3c03ed0-mini-360.avif",
+          "webp": "f3c03ed0-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "f3c03ed0-mini-720.avif",
+          "webp": "f3c03ed0-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 1080,
+          "avif": "f3c03ed0-1080.avif",
+          "webp": "f3c03ed0-1080.webp"
+        },
+        {
+          "w": 1600,
+          "h": 1600,
+          "avif": "f3c03ed0-1600.avif",
+          "webp": "f3c03ed0-1600.webp"
+        }
+      ]
+    },
+    {
+      "id": "696d5672",
+      "alt": "Telas do aplicativo Intermedi",
+      "largura": 1536,
+      "altura": 1024,
+      "placeholder": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAACQAwCdASoQABQAPu1iqk2ppaQiMAgBMB2JYwAAW7xtZmWCXwoAAP7n0jYDwLt2rYPXLwDu/yEuymjLlG8p17fYDTygCD6sZiAAAA==",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "696d5672-mini-360.avif",
+          "webp": "696d5672-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "696d5672-mini-720.avif",
+          "webp": "696d5672-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 720,
+          "avif": "696d5672-1080.avif",
+          "webp": "696d5672-1080.webp"
+        },
+        {
+          "w": 1536,
+          "h": 1024,
+          "avif": "696d5672-1536.avif",
+          "webp": "696d5672-1536.webp"
+        }
+      ]
+    },
+    {
+      "id": "05dd379f",
+      "alt": "Joinha em frente ao computador do laboratório",
+      "largura": 901,
+      "altura": 1600,
+      "placeholder": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAwBACdASoQABQAPu1iqk2ppaQiMAgBMB2JZACdMoACsVsmC4eQ1tMs6gAA/q+LjOFznsuKSrOK1+sxYMvc5z2U4UvJfEYQUmv5vk/63Dh4PgWfwAAAAA==",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "05dd379f-mini-360.avif",
+          "webp": "05dd379f-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "05dd379f-mini-720.avif",
+          "webp": "05dd379f-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 608,
+          "h": 1080,
+          "avif": "05dd379f-608.avif",
+          "webp": "05dd379f-608.webp"
+        },
+        {
+          "w": 901,
+          "h": 1600,
+          "avif": "05dd379f-901.avif",
+          "webp": "05dd379f-901.webp"
+        }
+      ]
+    },
+    {
+      "id": "8b8be05c",
+      "alt": "Merge da branch de validação de login na main",
+      "largura": 1075,
+      "altura": 162,
+      "placeholder": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAAAwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JQAALekAV2tEAAP7sF6LCG7nyU/9n0d3VVBSkI5kG0lYAAAA=",
+      "miniaturas": [
+        {
+          "w": 129,
+          "h": 161,
+          "avif": "8b8be05c-mini-129.avif",
+          "webp": "8b8be05c-mini-129.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1075,
+          "h": 162,
+          "avif": "8b8be05c-1075.avif",
+          "webp": "8b8be05c-1075.webp"
+        }
+      ]
+    },
+    {
+      "id": "bf5bf6a6",
+      "alt": "Mockup do Intermedi indo para o repositório no GitHub Desktop",
+      "largura": 957,
+      "altura": 665,
+      "placeholder": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoQABQAPu1qrU8ppiQiMAgBMB2JZQDMHCHXYSrDJor+aAD+4vyjx0fiMGPtieFLjje5dphWXmiBRSx3mfbQgAAA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "bf5bf6a6-mini-360.avif",
+          "webp": "bf5bf6a6-mini-360.webp"
+        },
+        {
+          "w": 532,
+          "h": 665,
+          "avif": "bf5bf6a6-mini-532.avif",
+          "webp": "bf5bf6a6-mini-532.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 957,
+          "h": 665,
+          "avif": "bf5bf6a6-957.avif",
+          "webp": "bf5bf6a6-957.webp"
+        }
+      ]
+    },
+    {
+      "id": "a981c05b",
+      "alt": "API do Intermedi listando remédios no terminal",
+      "largura": 876,
+      "altura": 455,
+      "placeholder": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAABQAwCdASoQABQAPu1iqk2ppaQiMAgBMB2JZwAAesK7LMYRAAD+71PA38fPFWSZsmMnwAAA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "a981c05b-mini-360.avif",
+          "webp": "a981c05b-mini-360.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 876,
+          "h": 455,
+          "avif": "a981c05b-876.avif",
+          "webp": "a981c05b-876.webp"
+        }
+      ]
+    },
+    {
+      "id": "c60ad1d0",
+      "alt": "Histórico de commits do projeto",
+      "largura": 1298,
+      "altura": 959,
+      "placeholder": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADwAgCdASoQABQAPu1kqU2zpaOiMAgCcB2JaQDDNDCfAAD+8I2UVnOuDor9GOXMnAA=",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "c60ad1d0-mini-360.avif",
+          "webp": "c60ad1d0-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "c60ad1d0-mini-720.avif",
+          "webp": "c60ad1d0-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 798,
+          "avif": "c60ad1d0-1080.avif",
+          "webp": "c60ad1d0-1080.webp"
+        },
+        {
+          "w": 1298,
+          "h": 959,
+          "avif": "c60ad1d0-1298.avif",
+          "webp": "c60ad1d0-1298.webp"
+        }
+      ]
+    },
+    {
+      "id": "dc844637",
+      "alt": "Pull request com a imagem do veículo de entregas",
+      "largura": 950,
+      "altura": 655,
+      "placeholder": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAwCdASoQABQAPu1iqk2ppaQiMAgBMB2JZwDCgCPtam3Mx6ypn8wAAP7sQACTQ3itcSsefY9Ln15HPZXlIzvMvfquWGeSpqzj+1dbti3y4VRMsQoAAA==",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "dc844637-mini-360.avif",
+          "webp": "dc844637-mini-360.webp"
+        },
+        {
+          "w": 524,
+          "h": 655,
+          "avif": "dc844637-mini-524.avif",
+          "webp": "dc844637-mini-524.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 950,
+          "h": 655,
+          "avif": "dc844637-950.avif",
+          "webp": "dc844637-950.webp"
+        }
+      ]
+    },
+    {
+      "id": "14e50a35",
+      "alt": "Na sala de aula, entre uma aula e outra",
+      "largura": 1600,
+      "altura": 1200,
+      "placeholder": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADQAwCdASoQABQAPu1mqk2ppaQiMAgBMB2JZQCdABQvTVDsY5eK2QAA/jcHYxb1d4kqTTn0Gtr0Oq3tv/G0y8etMAG3cg1FxFM2XGVALLwFUeWAWAA=",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "14e50a35-mini-360.avif",
+          "webp": "14e50a35-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "14e50a35-mini-720.avif",
+          "webp": "14e50a35-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 810,
+          "avif": "14e50a35-1080.avif",
+          "webp": "14e50a35-1080.webp"
+        },
+        {
+          "w": 1600,
+          "h": 1200,
+          "avif": "14e50a35-1600.avif",
+          "webp": "14e50a35-1600.webp"
+        }
+      ]
+    },
+    {
+      "id": "b23f735f",
+      "alt": "Telas do app: busca de remédio pelo sintoma",
+      "largura": 1076,
+      "altura": 897,
+      "placeholder": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADwAwCdASoQABQAPu1orU2ppqSiMAgBMB2JYwDG9CIfugugYhlbZUQAAM3y8I6gktJB5mXDgnUT0DSko/d3+ir6+U2gZ71TxIy7qKMwa+w9vulPcAA=",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "b23f735f-mini-360.avif",
+          "webp": "b23f735f-mini-360.webp"
+        },
+        {
+          "w": 717,
+          "h": 896,
+          "avif": "b23f735f-mini-717.avif",
+          "webp": "b23f735f-mini-717.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1076,
+          "h": 897,
+          "avif": "b23f735f-1076.avif",
+          "webp": "b23f735f-1076.webp"
+        }
+      ]
+    },
+    {
+      "id": "835901a9",
+      "alt": "Tela de login do Intermedi",
+      "largura": 538,
+      "altura": 550,
+      "placeholder": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAAAwAwCdASoQABQAPu1kqk4ppaQiMAgBMB2JZQAAhANVwS1AAP7wlq/IwmzllwZF3NHojnVWm9f7arfMyyag7AInwAA=",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "835901a9-mini-360.avif",
+          "webp": "835901a9-mini-360.webp"
+        },
+        {
+          "w": 440,
+          "h": 550,
+          "avif": "835901a9-mini-440.avif",
+          "webp": "835901a9-mini-440.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 538,
+          "h": 550,
+          "avif": "835901a9-538.avif",
+          "webp": "835901a9-538.webp"
+        }
+      ]
+    },
+    {
+      "id": "4e1a43c1",
+      "alt": "Cards do SUS e da Farmácia Popular no Intermedi",
+      "largura": 1080,
+      "altura": 526,
+      "placeholder": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAACwAgCdASoQABQAPu1iqU2ppaOiMAgBMB2JZwAAeyAA/vBOGIEMt/Ab21Eo66Nc6nG2TToAAAA=",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "4e1a43c1-mini-360.avif",
+          "webp": "4e1a43c1-mini-360.webp"
+        },
+        {
+          "w": 434,
+          "h": 543,
+          "avif": "4e1a43c1-mini-434.avif",
+          "webp": "4e1a43c1-mini-434.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 526,
+          "avif": "4e1a43c1-1080.avif",
+          "webp": "4e1a43c1-1080.webp"
+        }
+      ]
+    },
+    {
+      "id": "88dfc30c",
+      "alt": "Painel de matches do Intermedi em São Paulo",
+      "largura": 1599,
+      "altura": 899,
+      "placeholder": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAACwAwCdASoQABQAPu1orU2ppqSiMAgBMB2JZQAAQp8oLcki33ZcAAD+05Y2CDinJH7F39M0g6S/VQn9vnVAAA==",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "88dfc30c-mini-360.avif",
+          "webp": "88dfc30c-mini-360.webp"
+        },
+        {
+          "w": 719,
+          "h": 899,
+          "avif": "88dfc30c-mini-719.avif",
+          "webp": "88dfc30c-mini-719.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 607,
+          "avif": "88dfc30c-1080.avif",
+          "webp": "88dfc30c-1080.webp"
+        },
+        {
+          "w": 1599,
+          "h": 899,
+          "avif": "88dfc30c-1599.avif",
+          "webp": "88dfc30c-1599.webp"
+        }
+      ]
+    },
+    {
+      "id": "359ff13e",
+      "alt": "Página do Intermedi aberta no notebook",
+      "largura": 1600,
+      "altura": 900,
+      "placeholder": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAACQAwCdASoQABQAPu1orU2ppqSiMAgBMB2JZwAAXe9yyGmQsrhoAP7u2wt73JqRql52JlFxbC4EUAAA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "359ff13e-mini-360.avif",
+          "webp": "359ff13e-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "359ff13e-mini-720.avif",
+          "webp": "359ff13e-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 608,
+          "avif": "359ff13e-1080.avif",
+          "webp": "359ff13e-1080.webp"
+        },
+        {
+          "w": 1600,
+          "h": 900,
+          "avif": "359ff13e-1600.avif",
+          "webp": "359ff13e-1600.webp"
+        }
+      ]
+    },
+    {
+      "id": "ea6a5e6b",
+      "alt": "Mockup do Intermedi em dois celulares",
+      "largura": 1536,
+      "altura": 1024,
+      "placeholder": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACwAwCdASoQABQAPu1mqk2ppaQiMAgBMB2JZwAAUrXxfKBJgNdEwAD+84K0Zp4wXJ/+V5KPr8USyOk1/IZfrDrsdr18AA==",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "ea6a5e6b-mini-360.avif",
+          "webp": "ea6a5e6b-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "ea6a5e6b-mini-720.avif",
+          "webp": "ea6a5e6b-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 720,
+          "avif": "ea6a5e6b-1080.avif",
+          "webp": "ea6a5e6b-1080.webp"
+        },
+        {
+          "w": 1536,
+          "h": 1024,
+          "avif": "ea6a5e6b-1536.avif",
+          "webp": "ea6a5e6b-1536.webp"
+        }
+      ]
+    },
+    {
+      "id": "f9655ba6",
+      "alt": "Intermedi rodando no celular",
+      "largura": 899,
+      "altura": 1599,
+      "placeholder": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADQAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JaAAAUAq5K49hKD2W4IAA/t2YMYW4Qc9fC2nBWosyB4UdLZIF3s0fG//yclP/8e5gQvhxtOfE/yGp69l1AAAA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "f9655ba6-mini-360.avif",
+          "webp": "f9655ba6-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "f9655ba6-mini-720.avif",
+          "webp": "f9655ba6-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 607,
+          "h": 1080,
+          "avif": "f9655ba6-607.avif",
+          "webp": "f9655ba6-607.webp"
+        },
+        {
+          "w": 899,
+          "h": 1599,
+          "avif": "f9655ba6-899.avif",
+          "webp": "f9655ba6-899.webp"
+        }
+      ]
+    },
+    {
+      "id": "072b0b03",
+      "alt": "E-mail de boas-vindas da equipe Intermedi × Auvox",
+      "largura": 720,
+      "altura": 1600,
+      "placeholder": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAABwAwCdASoQABQALrV2u12jqampiYC0S0gGWWIfDUpbzpBQXAAA/vV4GXY0oUIHYwlxQ7t2kJM05RMJVKgAAA==",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "072b0b03-mini-360.avif",
+          "webp": "072b0b03-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "072b0b03-mini-720.avif",
+          "webp": "072b0b03-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 486,
+          "h": 1080,
+          "avif": "072b0b03-486.avif",
+          "webp": "072b0b03-486.webp"
+        },
+        {
+          "w": 720,
+          "h": 1600,
+          "avif": "072b0b03-720.avif",
+          "webp": "072b0b03-720.webp"
+        }
+      ]
+    },
+    {
+      "id": "ac389152",
+      "alt": "Selfie no fundo da sala",
+      "largura": 1600,
+      "altura": 900,
+      "placeholder": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAwCdASoQABQAPu1iqk2ppaQiMAgBMB2JZwAAW9vIlQMHugUd6sCgAP7esDPiCNYI5rBD+A0W4Lb62gRVeBM7GB8SSWEa5QVghJente6FU5LbL4HeAAAA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "ac389152-mini-360.avif",
+          "webp": "ac389152-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "ac389152-mini-720.avif",
+          "webp": "ac389152-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 608,
+          "avif": "ac389152-1080.avif",
+          "webp": "ac389152-1080.webp"
+        },
+        {
+          "w": 1600,
+          "h": 900,
+          "avif": "ac389152-1600.avif",
+          "webp": "ac389152-1600.webp"
+        }
+      ]
+    },
+    {
+      "id": "0b30e0d7",
+      "alt": "Editando os retratos da equipe no Canva",
+      "largura": 900,
+      "altura": 1600,
+      "placeholder": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JZwAAW+heTSYOAxll5AD6nqkSe9rIa5eZvcwz0o3sc9KNznXi9raGRh9LMAAA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "0b30e0d7-mini-360.avif",
+          "webp": "0b30e0d7-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "0b30e0d7-mini-720.avif",
+          "webp": "0b30e0d7-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 608,
+          "h": 1080,
+          "avif": "0b30e0d7-608.avif",
+          "webp": "0b30e0d7-608.webp"
+        },
+        {
+          "w": 900,
+          "h": 1600,
+          "avif": "0b30e0d7-900.avif",
+          "webp": "0b30e0d7-900.webp"
+        }
+      ]
+    },
+    {
+      "id": "fd7c0d62",
+      "alt": "Retrato de um integrante sendo montado no Canva",
+      "largura": 900,
+      "altura": 1600,
+      "placeholder": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JZQC/OCHXg5LaF9Lw7YAA/uxXYI0XlWu2pC4Ojc+W/lRoZPkIrCH4VAAAAA==",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "fd7c0d62-mini-360.avif",
+          "webp": "fd7c0d62-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "fd7c0d62-mini-720.avif",
+          "webp": "fd7c0d62-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 608,
+          "h": 1080,
+          "avif": "fd7c0d62-608.avif",
+          "webp": "fd7c0d62-608.webp"
+        },
+        {
+          "w": 900,
+          "h": 1600,
+          "avif": "fd7c0d62-900.avif",
+          "webp": "fd7c0d62-900.webp"
+        }
+      ]
+    },
+    {
+      "id": "b4f433ac",
+      "alt": "Retratos da equipe prontos na tela",
+      "largura": 1200,
+      "altura": 1600,
+      "placeholder": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAABwAwCdASoQABQAPu1iqk2ppaQiMAgBMB2JaQAAW9x4zX6cuAAA/vDJGZDBDujMsgVmS4eytezB+hrAAAA=",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "b4f433ac-mini-360.avif",
+          "webp": "b4f433ac-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "b4f433ac-mini-720.avif",
+          "webp": "b4f433ac-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 810,
+          "h": 1080,
+          "avif": "b4f433ac-810.avif",
+          "webp": "b4f433ac-810.webp"
+        },
+        {
+          "w": 1200,
+          "h": 1600,
+          "avif": "b4f433ac-1200.avif",
+          "webp": "b4f433ac-1200.webp"
+        }
+      ]
+    },
+    {
+      "id": "3d9632e0",
+      "alt": "Logo da Auvox em 3D",
+      "largura": 1422,
+      "altura": 1106,
+      "placeholder": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADwAgCdASoQABQAPu1kqU2ppaQiMAgBMB2JZQAAerHYAAD+7aPH9lT+j8d8OgTel3CvP0bzwpFYAAAA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "3d9632e0-mini-360.avif",
+          "webp": "3d9632e0-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "3d9632e0-mini-720.avif",
+          "webp": "3d9632e0-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 840,
+          "avif": "3d9632e0-1080.avif",
+          "webp": "3d9632e0-1080.webp"
+        },
+        {
+          "w": 1422,
+          "h": 1106,
+          "avif": "3d9632e0-1422.avif",
+          "webp": "3d9632e0-1422.webp"
+        }
+      ]
+    },
+    {
+      "id": "dd013474",
+      "alt": "Logo da Auvox com o slogan",
+      "largura": 1024,
+      "altura": 1024,
+      "placeholder": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAABwAwCdASoQABQAPu1iqk2ppaQiMAgBMB2JZwDImCHfj6eiKgAA/u51FoKp9NsTszdzqAAA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "dd013474-mini-360.avif",
+          "webp": "dd013474-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "dd013474-mini-720.avif",
+          "webp": "dd013474-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1024,
+          "h": 1024,
+          "avif": "dd013474-1024.avif",
+          "webp": "dd013474-1024.webp"
+        }
+      ]
+    },
+    {
+      "id": "6ca5297e",
+      "alt": "Mockup da marca: caneca, garrafa e cartão",
+      "largura": 1183,
+      "altura": 1329,
+      "placeholder": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAwCdASoQABQAPu1kqk4ppaQiMAgBMB2JZQAAWlo1nyz2QNCKLSdgAP7JkwWZGly+3hSdkGOw9vYUxksmlOB4CQaQJhpWgKjxxEoWgd0yKJgOy0QAAA==",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "6ca5297e-mini-360.avif",
+          "webp": "6ca5297e-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "6ca5297e-mini-720.avif",
+          "webp": "6ca5297e-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 961,
+          "h": 1080,
+          "avif": "6ca5297e-961.avif",
+          "webp": "6ca5297e-961.webp"
+        },
+        {
+          "w": 1183,
+          "h": 1329,
+          "avif": "6ca5297e-1183.avif",
+          "webp": "6ca5297e-1183.webp"
+        }
+      ]
+    },
+    {
+      "id": "34838002",
+      "alt": "Papelaria da Auvox: pasta, caneca e cartões",
+      "largura": 1536,
+      "altura": 1024,
+      "placeholder": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAAAQBACdASoQABQAPu1kqU2ppaQiMAgBMB2JYwC/OBcSkkd7Q5hSdlfwIAD9U38j+VUsTaA8ijltWX/ptmMcrQ0VNZAky85RaK95Kr0G+qpVXigA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "34838002-mini-360.avif",
+          "webp": "34838002-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "34838002-mini-720.avif",
+          "webp": "34838002-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 720,
+          "avif": "34838002-1080.avif",
+          "webp": "34838002-1080.webp"
+        },
+        {
+          "w": 1536,
+          "h": 1024,
+          "avif": "34838002-1536.avif",
+          "webp": "34838002-1536.webp"
+        }
+      ]
+    },
+    {
+      "id": "67397b2b",
+      "alt": "Primeira versão do site da Auvox",
+      "largura": 1280,
+      "altura": 720,
+      "placeholder": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAACwAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JaQAAUKhV6FOcK05GQAD8WkvUgQOrXYC3pHiSKeR5ErsgAAA=",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "67397b2b-mini-360.avif",
+          "webp": "67397b2b-mini-360.webp"
+        },
+        {
+          "w": 576,
+          "h": 720,
+          "avif": "67397b2b-mini-576.avif",
+          "webp": "67397b2b-mini-576.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 608,
+          "avif": "67397b2b-1080.avif",
+          "webp": "67397b2b-1080.webp"
+        },
+        {
+          "w": 1280,
+          "h": 720,
+          "avif": "67397b2b-1280.avif",
+          "webp": "67397b2b-1280.webp"
+        }
+      ]
+    },
+    {
+      "id": "e5848c0c",
+      "alt": "Carrossel de soluções do site em desenvolvimento",
+      "largura": 1280,
+      "altura": 960,
+      "placeholder": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAACQAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JaQAAXAXZ6Rk8OSgAAP55PGzYXtzIXF24IIpkKLKzC7Jn97PQPLtQAAA=",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "e5848c0c-mini-360.avif",
+          "webp": "e5848c0c-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "e5848c0c-mini-720.avif",
+          "webp": "e5848c0c-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 810,
+          "avif": "e5848c0c-1080.avif",
+          "webp": "e5848c0c-1080.webp"
+        },
+        {
+          "w": 1280,
+          "h": 960,
+          "avif": "e5848c0c-1280.avif",
+          "webp": "e5848c0c-1280.webp"
+        }
+      ]
+    },
+    {
+      "id": "ee7fdbd0",
+      "alt": "Seção de contato do site",
+      "largura": 984,
+      "altura": 586,
+      "placeholder": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAAAwAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JZQDG9C0BKkdAAP7vHr8j482cXnc9jAUvvJMbwAATdOAA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "ee7fdbd0-mini-360.avif",
+          "webp": "ee7fdbd0-mini-360.webp"
+        },
+        {
+          "w": 468,
+          "h": 585,
+          "avif": "ee7fdbd0-mini-468.avif",
+          "webp": "ee7fdbd0-mini-468.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 984,
+          "h": 586,
+          "avif": "ee7fdbd0-984.avif",
+          "webp": "ee7fdbd0-984.webp"
+        }
+      ]
+    },
+    {
+      "id": "f292974d",
+      "alt": "Site da Auvox aberto no notebook",
+      "largura": 1600,
+      "altura": 900,
+      "placeholder": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAAAQBACdASoQABQAPu1krU2ppaSiMAgBMB2JYwCdMoAJ5944yQYhxgsAcAD+o3UMq1m0PY1enep5ZoNIdQsevocQlw9Loh/6moB4ZLLuo2WHFjFQ992RK+XJLK8Gpo3AuP5iVpoC6elK1vvQAAA=",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "f292974d-mini-360.avif",
+          "webp": "f292974d-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "f292974d-mini-720.avif",
+          "webp": "f292974d-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 608,
+          "avif": "f292974d-1080.avif",
+          "webp": "f292974d-1080.webp"
+        },
+        {
+          "w": 1600,
+          "h": 900,
+          "avif": "f292974d-1600.avif",
+          "webp": "f292974d-1600.webp"
+        }
+      ]
+    },
+    {
+      "id": "438f3413",
+      "alt": "Montando a decoração em verde e amarelo",
+      "largura": 1205,
+      "altura": 1535,
+      "placeholder": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADQAwCdASoQABQAPu1krU2ppaSiMAgBMB2JQBOgBDi+JUJ3iTdAC4AA/otVeL24NtCBSYJ/URzzRJ/AopMQ0nwlG/90OLCP+IuYXAKn4rNtJsNLEpLm3x0iJ5NoAA==",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "438f3413-mini-360.avif",
+          "webp": "438f3413-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "438f3413-mini-720.avif",
+          "webp": "438f3413-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 848,
+          "h": 1080,
+          "avif": "438f3413-848.avif",
+          "webp": "438f3413-848.webp"
+        },
+        {
+          "w": 1205,
+          "h": 1535,
+          "avif": "438f3413-1205.avif",
+          "webp": "438f3413-1205.webp"
+        }
+      ]
+    },
+    {
+      "id": "7368fc0f",
+      "alt": "Pausa no laboratório de informática",
+      "largura": 1600,
+      "altura": 900,
+      "placeholder": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAACwAwCdASoQABQAPu1kqU2ppaQiMAgBMB2JYgCsAA2CAseKCL+0QADcdw+OVMczdFjuzqkMKUT6pOeiC2MOw8wzwYtbcjJRFpp90xaDkOt/AAAA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "7368fc0f-mini-360.avif",
+          "webp": "7368fc0f-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "7368fc0f-mini-720.avif",
+          "webp": "7368fc0f-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 608,
+          "avif": "7368fc0f-1080.avif",
+          "webp": "7368fc0f-1080.webp"
+        },
+        {
+          "w": 1600,
+          "h": 900,
+          "avif": "7368fc0f-1600.avif",
+          "webp": "7368fc0f-1600.webp"
+        }
+      ]
+    },
+    {
+      "id": "f8a17ad3",
+      "alt": "Intervalo no laboratório",
+      "largura": 720,
+      "altura": 1280,
+      "placeholder": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADQAwCdASoQABQAPu1iqU2ppaQiMAgBMB2JQBadAt5XoAdPSRNywVwA/Numa1DVv107sUfEtpyEzx7zfvwutzHqt3krHpZL/J76EZjB0JRIGAAA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "f8a17ad3-mini-360.avif",
+          "webp": "f8a17ad3-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "f8a17ad3-mini-720.avif",
+          "webp": "f8a17ad3-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 608,
+          "h": 1080,
+          "avif": "f8a17ad3-608.avif",
+          "webp": "f8a17ad3-608.webp"
+        },
+        {
+          "w": 720,
+          "h": 1280,
+          "avif": "f8a17ad3-720.avif",
+          "webp": "f8a17ad3-720.webp"
+        }
+      ]
+    },
+    {
+      "id": "2c31f546",
+      "alt": "Dois integrantes num passeio pelo shopping",
+      "largura": 1200,
+      "altura": 1599,
+      "placeholder": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADQAwCdASoQABQAPu1oqk6ppiQiMAgBMB2JQBOmUABVtztcoQmvrAAA/Uv+u9ZUEAc4GUO+VR1brosaJRreMS/ypPPuLvLzGCv8G17nkUdAGk5cL4YZW00VZgAAAA==",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "2c31f546-mini-360.avif",
+          "webp": "2c31f546-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "2c31f546-mini-720.avif",
+          "webp": "2c31f546-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 811,
+          "h": 1080,
+          "avif": "2c31f546-811.avif",
+          "webp": "2c31f546-811.webp"
+        },
+        {
+          "w": 1200,
+          "h": 1599,
+          "avif": "2c31f546-1200.avif",
+          "webp": "2c31f546-1200.webp"
+        }
+      ]
+    },
+    {
+      "id": "59be2881",
+      "alt": "Dois integrantes posando na sala",
+      "largura": 810,
+      "altura": 1080,
+      "placeholder": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAQBACdASoQABQAPu1kqU2ppaQiMAgBMB2JQBWABFK/2Y5UMsc+0JiiAAD+yTUl0pl3wt90q+PQRczTkdlC4sCyeQgI5HLMEx5htBdhdD9dMLc7+CzwZyByn8ZkH7AA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "59be2881-mini-360.avif",
+          "webp": "59be2881-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "59be2881-mini-720.avif",
+          "webp": "59be2881-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 810,
+          "h": 1080,
+          "avif": "59be2881-810.avif",
+          "webp": "59be2881-810.webp"
+        }
+      ]
+    },
+    {
+      "id": "b0eee2e3",
+      "alt": "Joinha duplo no corredor",
+      "largura": 810,
+      "altura": 1080,
+      "placeholder": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADQAwCdASoQABQAPu1kqk4ppaQiMAgBMB2JQBOgA22L5lZ2a8xXb6AA/sTG7/Nc0P/mN2TzYkhxaVDPPhMbPt3g3IBTkau3SfbWimfpUglCrBPWAYVIsKAA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "b0eee2e3-mini-360.avif",
+          "webp": "b0eee2e3-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "b0eee2e3-mini-720.avif",
+          "webp": "b0eee2e3-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 810,
+          "h": 1080,
+          "avif": "b0eee2e3-810.avif",
+          "webp": "b0eee2e3-810.webp"
+        }
+      ]
+    },
+    {
+      "id": "b04ed11a",
+      "alt": "Selfie de perto",
+      "largura": 1080,
+      "altura": 810,
+      "placeholder": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JQBOmUABAgPC/AQuRQv8ygADwGA94u+NRXj+JN6rfv8zLsyjhPcCJl3Ez0fGwNCdvpNrU7hwgJcmAC477Uuib3cmAVaAA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "b04ed11a-mini-360.avif",
+          "webp": "b04ed11a-mini-360.webp"
+        },
+        {
+          "w": 691,
+          "h": 864,
+          "avif": "b04ed11a-mini-691.avif",
+          "webp": "b04ed11a-mini-691.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 810,
+          "avif": "b04ed11a-1080.avif",
+          "webp": "b04ed11a-1080.webp"
+        }
+      ]
+    },
+    {
+      "id": "b77d448a",
+      "alt": "Selfie na sala de aula",
+      "largura": 1600,
+      "altura": 1200,
+      "placeholder": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAACQAwCdASoQABQAPu1kq04ppaQiMAgBMB2JZQDImCBq+YSDFkQAAP658DErX+lKbU+ZwRZNTfJzMCzHvX1hdhv58z32n77K0180OeD+2b4AAA==",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "b77d448a-mini-360.avif",
+          "webp": "b77d448a-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "b77d448a-mini-720.avif",
+          "webp": "b77d448a-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 810,
+          "avif": "b77d448a-1080.avif",
+          "webp": "b77d448a-1080.webp"
+        },
+        {
+          "w": 1600,
+          "h": 1200,
+          "avif": "b77d448a-1600.avif",
+          "webp": "b77d448a-1600.webp"
+        }
+      ]
+    },
+    {
+      "id": "b691e70b",
+      "alt": "Selfie da equipe no laboratório",
+      "largura": 1600,
+      "altura": 900,
+      "placeholder": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAACwAwCdASoQABQAPu1mq04ppaQiMAgBMB2JZwAAW85iiL1se96SoAD+6zJ1KcB2A7a+FivvcOfuvSPmln1uA0hAIkRKaTlAA6XPQ4zIi76wTJIQAAA=",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "b691e70b-mini-360.avif",
+          "webp": "b691e70b-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "b691e70b-mini-720.avif",
+          "webp": "b691e70b-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 608,
+          "avif": "b691e70b-1080.avif",
+          "webp": "b691e70b-1080.webp"
+        },
+        {
+          "w": 1600,
+          "h": 900,
+          "avif": "b691e70b-1600.avif",
+          "webp": "b691e70b-1600.webp"
+        }
+      ]
+    },
+    {
+      "id": "19c8464c",
+      "alt": "Selfie da equipe com joinha",
+      "largura": 1600,
+      "altura": 720,
+      "placeholder": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAAAQBACdASoQABQAPu1kqk4ppaQiMAgBMB2JZwDE2CHl7KZtv977NQWVEAD+1tbGHdAP0gz3T45gF3nMB/sQpc7UoZVjz/uiYhdQnAb7m38Gnbn2QAA=",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "19c8464c-mini-360.avif",
+          "webp": "19c8464c-mini-360.webp"
+        },
+        {
+          "w": 576,
+          "h": 720,
+          "avif": "19c8464c-mini-576.avif",
+          "webp": "19c8464c-mini-576.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 486,
+          "avif": "19c8464c-1080.avif",
+          "webp": "19c8464c-1080.webp"
+        },
+        {
+          "w": 1600,
+          "h": 720,
+          "avif": "19c8464c-1600.avif",
+          "webp": "19c8464c-1600.webp"
+        }
+      ]
+    },
+    {
+      "id": "5e791d69",
+      "alt": "Parte da equipe em frente à lousa",
+      "largura": 1600,
+      "altura": 1200,
+      "placeholder": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAQBACdASoQABQAPu1kqU4ppaOiMAgBMB2JZQCw7B7G5528QZNhlNS+AAD+r3Eluy7Dkh1xrCkfB8i0eY9KT7Xhab/CfvozFx/gAA==",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "5e791d69-mini-360.avif",
+          "webp": "5e791d69-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "5e791d69-mini-720.avif",
+          "webp": "5e791d69-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 810,
+          "avif": "5e791d69-1080.avif",
+          "webp": "5e791d69-1080.webp"
+        },
+        {
+          "w": 1600,
+          "h": 1200,
+          "avif": "5e791d69-1600.avif",
+          "webp": "5e791d69-1600.webp"
+        }
+      ]
+    },
+    {
+      "id": "694b6884",
+      "alt": "Equipe completa na foto oficial",
+      "largura": 1600,
+      "altura": 1200,
+      "placeholder": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAQBACdASoQABQAPu1orU6ppiSiMAgBMB2JYwCdACIjtK8BGREXaos3jADLTlD1ec/fHD/GPHPdzffSiiYS1xywk6CJJGMZn0nmtL6cWdoer/NMvv4AAA==",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "694b6884-mini-360.avif",
+          "webp": "694b6884-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "694b6884-mini-720.avif",
+          "webp": "694b6884-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 810,
+          "avif": "694b6884-1080.avif",
+          "webp": "694b6884-1080.webp"
+        },
+        {
+          "w": 1600,
+          "h": 1200,
+          "avif": "694b6884-1600.avif",
+          "webp": "694b6884-1600.webp"
+        }
+      ]
+    },
+    {
+      "id": "4397a289",
+      "alt": "Foto oficial, segunda tentativa",
+      "largura": 1600,
+      "altura": 1200,
+      "placeholder": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAQBACdASoQABQAPu1krU6ppaSiMAgBMB2JZQCdAB6t8iL/y34tCpZr2AD+05Vz/E9wSx3BG4XJ2AowzX6MHRvlPwJzGveOPTRAxLDmRWUpr5xOHhxA0AAA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "4397a289-mini-360.avif",
+          "webp": "4397a289-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "4397a289-mini-720.avif",
+          "webp": "4397a289-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 810,
+          "avif": "4397a289-1080.avif",
+          "webp": "4397a289-1080.webp"
+        },
+        {
+          "w": 1600,
+          "h": 1200,
+          "avif": "4397a289-1600.avif",
+          "webp": "4397a289-1600.webp"
+        }
+      ]
+    },
+    {
+      "id": "f811a1e0",
+      "alt": "Foto oficial, mais uma",
+      "largura": 1600,
+      "altura": 1200,
+      "placeholder": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAADQAwCdASoQABQAPu1orU6ppiSiMAgBMB2JQBOgBHpGgIBuEOx4DAAA/t7qX1RlHhK+Gqiu00MS8aL5ZwagqtEPZ5tXDPsdH92itWsSnsu2aFGUuhTZLY1r3ulHctlXAAA=",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "f811a1e0-mini-360.avif",
+          "webp": "f811a1e0-mini-360.webp"
+        },
+        {
+          "w": 720,
+          "h": 900,
+          "avif": "f811a1e0-mini-720.avif",
+          "webp": "f811a1e0-mini-720.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 1080,
+          "h": 810,
+          "avif": "f811a1e0-1080.avif",
+          "webp": "f811a1e0-1080.webp"
+        },
+        {
+          "w": 1600,
+          "h": 1200,
+          "avif": "f811a1e0-1600.avif",
+          "webp": "f811a1e0-1600.webp"
         }
       ]
     }

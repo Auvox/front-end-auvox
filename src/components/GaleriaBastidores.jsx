@@ -24,7 +24,8 @@ import '../styles/galeria.css';
 
 const URLS = import.meta.glob('../assets/galeria/*.{avif,webp}', {
   eager: true,
-  query: '?url',
+  // no-inline: sem isso o Vite embute as imagens < 4 KB em base64 no JS
+  query: '?no-inline',
   import: 'default',
 });
 const url = (arquivo) => URLS[`../assets/galeria/${arquivo}`];
@@ -32,12 +33,23 @@ const srcset = (versoes, formato) =>
   versoes.map((v) => `${url(v[formato])} ${v.w}w`).join(', ');
 
 const FOTOS = manifesto.fotos;
+
+/* Na faixa, o quadro segue a proporção da foto dentro de um limite: um
+   print muito largo (ex.: 1075×162) ou muito alto viraria uma tira. Fora
+   do limite, o quadro fica no limite e a foto aparece inteira dentro dele. */
+const PROPORCAO_MIN = 0.5;
+const PROPORCAO_MAX = 1.8;
+const quadroDe = (foto) => {
+  const real = foto.largura / foto.altura;
+  const proporcao = Math.min(Math.max(real, PROPORCAO_MIN), PROPORCAO_MAX);
+  return { proporcao, inteira: proporcao !== real };
+};
 const RAIO_ORIGEM = 28; // mesmo raio da foto no Sobre (.sobre-hero-img-frame)
 const reduzMovimento = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ── Foto otimizada: AVIF → WebP, com placeholder borrado por baixo ── */
-function Foto({ foto, tipo, sizes, carregamento = 'lazy', prioridade, fundo }) {
+function Foto({ foto, tipo, sizes, carregamento = 'lazy', prioridade, fundo, inteira = false }) {
   const versoes = tipo === 'mini' ? foto.miniaturas : foto.ampliadas;
   const maior = versoes[versoes.length - 1];
   const [pronta, setPronta] = useState(false);
@@ -49,8 +61,9 @@ function Foto({ foto, tipo, sizes, carregamento = 'lazy', prioridade, fundo }) {
 
   return (
     <span
-      className={`galeria-foto${pronta ? ' pronta' : ''}`}
-      style={{ backgroundImage: `url(${fundo ?? foto.placeholder})` }}
+      className={`galeria-foto${pronta ? ' pronta' : ''}${inteira ? ' -inteira' : ''}`}
+      // foto inteira (com sobra em volta) dispensa o placeholder borrado
+      style={inteira ? undefined : { backgroundImage: `url(${fundo ?? foto.placeholder})` }}
     >
       <picture>
         <source type="image/avif" srcSet={srcset(versoes, 'avif')} sizes={sizes} />
@@ -79,7 +92,17 @@ function Visualizador({ indice, onMudar, onFechar }) {
   const trilhoRef = useRef(null);
   const arrasto = useRef(null);
   const [deslocamento, setDeslocamento] = useState(0);
+  const filmeRef = useRef(null);
   const foto = FOTOS[indice];
+
+  // com muitas fotos a tira rola: mantém a miniatura ativa à vista
+  useEffect(() => {
+    const filme = filmeRef.current;
+    const ativa = filme?.querySelector('.ativa');
+    if (!ativa) return;
+    const alvo = ativa.offsetLeft - (filme.clientWidth - ativa.offsetWidth) / 2;
+    filme.scrollTo({ left: alvo, behavior: reduzMovimento() ? 'auto' : 'smooth' });
+  }, [indice]);
 
   useLayoutEffect(() => {
     const raiz = raizRef.current;
@@ -196,7 +219,7 @@ function Visualizador({ indice, onMudar, onFechar }) {
         </button>
       </div>
 
-      <div className="galeria-vis-filme" role="tablist" aria-label="Escolher foto">
+      <div className="galeria-vis-filme" ref={filmeRef} role="tablist" aria-label="Escolher foto">
         {FOTOS.map((f, i) => (
           <button
             type="button"
@@ -374,20 +397,26 @@ export default function GaleriaBastidores({ origem, onFechada }) {
     setPontas({ inicio: r.scrollLeft <= 4, fim: r.scrollLeft >= max - 4 });
   }, []);
 
-  /* Passa um quadro inteiro para o lado (setas e teclado) */
+  /* Setas e teclado passam uma tela de fotos: para a frente, o quadro
+     que estava cortado na borda direita passa a abrir a tela; para trás,
+     volta uma largura de tela e encosta no quadro mais próximo. */
   const passar = useCallback((direcao) => {
     const r = roloRef.current;
     const recuo = parseFloat(getComputedStyle(r).paddingLeft) || 0;
     const quadros = Array.from(r.children);
     const atual = r.scrollLeft;
-    const alvo =
-      direcao > 0
-        ? quadros.find((q) => q.offsetLeft - recuo > atual + 4)
-        : quadros.reverse().find((q) => q.offsetLeft - recuo < atual - 4);
-    r.scrollTo({
-      left: alvo ? alvo.offsetLeft - recuo : direcao > 0 ? r.scrollWidth : 0,
-      behavior: reduzMovimento() ? 'auto' : 'smooth',
-    });
+    const visivel = r.clientWidth - recuo * 2;
+    let alvo;
+    if (direcao > 0) {
+      const cortado = quadros.find((q) => q.offsetLeft + q.offsetWidth - recuo > atual + visivel + 4);
+      alvo = cortado ? cortado.offsetLeft - recuo : r.scrollWidth;
+      if (alvo <= atual + 4) alvo = atual + visivel; // quadro maior que a tela
+    } else {
+      const desejado = atual - visivel;
+      const quadro = quadros.find((q) => q.offsetLeft - recuo >= desejado - 4);
+      alvo = quadro ? Math.min(quadro.offsetLeft - recuo, atual - 4) : 0;
+    }
+    r.scrollTo({ left: Math.max(0, alvo), behavior: reduzMovimento() ? 'auto' : 'smooth' });
   }, []);
 
   useEffect(() => {
@@ -542,11 +571,13 @@ export default function GaleriaBastidores({ origem, onFechada }) {
             onPointerCancel={aoSoltar}
             onClickCapture={aoClicarCaptura}
           >
-            {FOTOS.map((foto, i) => (
+            {FOTOS.map((foto, i) => {
+              const { proporcao, inteira } = quadroDe(foto);
+              return (
               <li
                 key={foto.id}
                 className="galeria-rolo-item"
-                style={{ '--proporcao': foto.largura / foto.altura }}
+                style={{ '--proporcao': proporcao }}
               >
                 <button
                   type="button"
@@ -559,14 +590,16 @@ export default function GaleriaBastidores({ origem, onFechada }) {
                   <Foto
                     foto={foto}
                     tipo="ampliada"
-                    sizes={`calc(62vh * ${(foto.largura / foto.altura).toFixed(3)})`}
+                    sizes={`calc(62vh * ${proporcao.toFixed(3)})`}
                     carregamento={i < 3 ? 'eager' : 'lazy'}
                     prioridade={i === 0 ? 'high' : undefined}
                     fundo={i === 0 ? fotoSobre : undefined}
+                    inteira={inteira}
                   />
                 </button>
               </li>
-            ))}
+              );
+            })}
           </ul>
         </div>
       </div>
