@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FiMaximize2 } from "react-icons/fi";
+import { PiHandTapBold } from "react-icons/pi";
 import '../styles/sobre.css';
 import equipeImg from '../assets/equipeAuvox.webp';
 import Equipe from './Equipe.jsx';
@@ -282,7 +282,7 @@ function Sobre() {
                         >
                             <img src={equipeImg} loading="lazy" alt="Equipe Auvox" className="sobre-hero-img" />
                             <span className="sobre-hero-dica" aria-hidden="true">
-                                <FiMaximize2 /> Ver bastidores
+                                <PiHandTapBold /> Ver bastidores
                             </span>
                         </button>
                         <span className="sobre-hero-dot"></span>

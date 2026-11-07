@@ -10,12 +10,12 @@ import '../styles/galeria.css';
 /* ══════════════════════════════════════════════════════════════
    GALERIA "BASTIDORES"
 
-   A foto da equipe no Sobre vira o primeiro quadro de uma faixa de
-   fotos: ao clicar, ela voa do lugar dela até o início da faixa
-   enquanto o painel se abre do mesmo retângulo até a tela inteira.
-   As outras fotos seguem à direita, todas na mesma altura e na
-   proporção real; a faixa passa com a roda do mouse, arrastando, pelas
-   setas ou pelo teclado. Clicar numa foto abre o visualizador.
+   A foto da equipe no Sobre vira a primeira foto de um mosaico: ao
+   clicar, ela voa do lugar dela até o início do mosaico enquanto o
+   painel se abre do mesmo retângulo até a tela inteira. As outras
+   fotos seguem em linhas que ocupam a largura toda e continuam para
+   baixo; numa linha todas têm a mesma altura e cada uma mantém a
+   própria proporção, sem recorte. Clicar numa foto abre o visualizador.
 
    As fotos vêm já otimizadas de src/assets/galeria (gere com
    `npm run galeria`). Este componente é carregado sob demanda: nada
@@ -34,7 +34,7 @@ const srcset = (versoes, formato) =>
 
 const FOTOS = manifesto.fotos;
 
-/* Na faixa, o quadro segue a proporção da foto dentro de um limite: um
+/* No mosaico, o quadro segue a proporção da foto dentro de um limite: um
    print muito largo (ex.: 1075×162) ou muito alto viraria uma tira. Fora
    do limite, o quadro fica no limite e a foto aparece inteira dentro dele. */
 const PROPORCAO_MIN = 0.5;
@@ -241,14 +241,11 @@ function Visualizador({ indice, onMudar, onFechar }) {
 /* ── Galeria ── */
 export default function GaleriaBastidores({ origem, onFechada }) {
   const painelRef = useRef(null);
-  const roloRef = useRef(null);
+  const mosaicoRef = useRef(null);
   const primeiroRef = useRef(null);
   const vooRef = useRef(null);
   const fechando = useRef(false);
-  const arrasto = useRef(null);
-  const arrastou = useRef(false);
   const [ativa, setAtiva] = useState(null);
-  const [pontas, setPontas] = useState({ inicio: true, fim: false });
 
   /* Pausa a página por trás e tira ela do foco/leitor de tela.
      useLayoutEffect: a limpeza roda junto com o fechamento, antes de o
@@ -267,7 +264,7 @@ export default function GaleriaBastidores({ origem, onFechada }) {
   /* O "voo": uma cópia da foto do Sobre, solta por cima de tudo, sai do
      retângulo de origem e pousa sobre o primeiro quadro da faixa. Uma
      cópia, e não o próprio quadro, porque a faixa rola na horizontal e
-     cortaria a foto no meio do caminho. Mesma proporção (quadrada) nas
+     (dentro do painel que rola) cortaria a foto no meio do caminho. Mesma proporção (quadrada) nas
      duas pontas: o voo é só transform, sem animar largura/altura. */
   const caixa = (r) => ({ left: r.left, top: r.top, width: r.width, height: r.height });
 
@@ -326,16 +323,16 @@ export default function GaleriaBastidores({ origem, onFechada }) {
         tl.fromTo(painel, { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0);
       }
 
-      // título, texto e controles sobem; as fotos entram pela direita
+      // título e texto sobem; as fotos da primeira tela sobem em cascata
       tl.fromTo(
         entradas,
         { opacity: 0, y: 28 },
         { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.07, clearProps: 'opacity,transform' },
         origem ? 0.5 : 0.1
       ).fromTo(
-        painel.querySelectorAll('.galeria-rolo-item:not(:first-child)'),
-        { opacity: 0, x: 80 },
-        { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out', stagger: 0.08, clearProps: 'opacity,transform' },
+        Array.from(painel.querySelectorAll('.galeria-mosaico-item:not(:first-child)')).slice(0, 12),
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.05, clearProps: 'opacity,transform' },
         origem ? 0.55 : 0.15
       );
     }, painel);
@@ -365,7 +362,7 @@ export default function GaleriaBastidores({ origem, onFechada }) {
       .timeline({ onComplete: onFechada })
       .set(voo, { ...caixa(destino), display: 'block', x: 0, y: 0, scale: 1, borderRadius: 0 }, 0)
       .set(primeiro, { visibility: 'hidden' }, 0)
-      .to(painel.querySelectorAll('[data-entrada], .galeria-rolo-item'), {
+      .to(painel.querySelectorAll('[data-entrada], .galeria-mosaico-item'), {
         opacity: 0,
         duration: 0.25,
         ease: 'power2.in',
@@ -389,95 +386,6 @@ export default function GaleriaBastidores({ origem, onFechada }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [origem, onFechada]);
 
-  /* ── Faixa de fotos ── */
-  const atualizarPontas = useCallback(() => {
-    const r = roloRef.current;
-    if (!r) return;
-    const max = r.scrollWidth - r.clientWidth;
-    setPontas({ inicio: r.scrollLeft <= 4, fim: r.scrollLeft >= max - 4 });
-  }, []);
-
-  /* Setas e teclado passam uma tela de fotos: para a frente, o quadro
-     que estava cortado na borda direita passa a abrir a tela; para trás,
-     volta uma largura de tela e encosta no quadro mais próximo. */
-  const passar = useCallback((direcao) => {
-    const r = roloRef.current;
-    const recuo = parseFloat(getComputedStyle(r).paddingLeft) || 0;
-    const quadros = Array.from(r.children);
-    const atual = r.scrollLeft;
-    const visivel = r.clientWidth - recuo * 2;
-    let alvo;
-    if (direcao > 0) {
-      const cortado = quadros.find((q) => q.offsetLeft + q.offsetWidth - recuo > atual + visivel + 4);
-      alvo = cortado ? cortado.offsetLeft - recuo : r.scrollWidth;
-      if (alvo <= atual + 4) alvo = atual + visivel; // quadro maior que a tela
-    } else {
-      const desejado = atual - visivel;
-      const quadro = quadros.find((q) => q.offsetLeft - recuo >= desejado - 4);
-      alvo = quadro ? Math.min(quadro.offsetLeft - recuo, atual - 4) : 0;
-    }
-    r.scrollTo({ left: Math.max(0, alvo), behavior: reduzMovimento() ? 'auto' : 'smooth' });
-  }, []);
-
-  useEffect(() => {
-    const r = roloRef.current;
-    atualizarPontas();
-
-    /* A roda do mouse (vertical) passa a faixa na horizontal. Nas
-       pontas o evento segue adiante, para o painel poder rolar. */
-    const aoRodar = (evento) => {
-      if (Math.abs(evento.deltaY) <= Math.abs(evento.deltaX)) return;
-      const max = r.scrollWidth - r.clientWidth;
-      if (max <= 0) return;
-      if ((evento.deltaY < 0 && r.scrollLeft <= 0) || (evento.deltaY > 0 && r.scrollLeft >= max - 1)) return;
-      evento.preventDefault();
-      r.scrollLeft += evento.deltaY * (evento.deltaMode === 1 ? 32 : 1);
-    };
-
-    const observador = new ResizeObserver(atualizarPontas);
-    observador.observe(r);
-    r.addEventListener('scroll', atualizarPontas, { passive: true });
-    r.addEventListener('wheel', aoRodar, { passive: false });
-    return () => {
-      observador.disconnect();
-      r.removeEventListener('scroll', atualizarPontas);
-      r.removeEventListener('wheel', aoRodar);
-    };
-  }, [atualizarPontas]);
-
-  /* Arrastar a faixa com o mouse (no toque a rolagem já é nativa) */
-  const aoPressionar = (evento) => {
-    if (evento.pointerType !== 'mouse' || evento.button !== 0) return;
-    arrasto.current = { x: evento.clientX, inicio: roloRef.current.scrollLeft, id: evento.pointerId };
-    arrastou.current = false;
-  };
-
-  const aoMover = (evento) => {
-    const a = arrasto.current;
-    if (!a) return;
-    const dx = evento.clientX - a.x;
-    const r = roloRef.current;
-    if (!arrastou.current && Math.abs(dx) > 6) {
-      arrastou.current = true;
-      r.classList.add('arrastando');
-      r.setPointerCapture(a.id);
-    }
-    if (arrastou.current) r.scrollLeft = a.inicio - dx;
-  };
-
-  const aoSoltar = () => {
-    arrasto.current = null;
-    roloRef.current?.classList.remove('arrastando');
-  };
-
-  // um arrasto não pode terminar abrindo a foto que estava embaixo do mouse
-  const aoClicarCaptura = (evento) => {
-    if (!arrastou.current) return;
-    evento.preventDefault();
-    evento.stopPropagation();
-    arrastou.current = false;
-  };
-
   /* ── Visualizador ── */
   const mudarFoto = useCallback((i) => {
     setAtiva(Math.min(Math.max(i, 0), FOTOS.length - 1));
@@ -492,28 +400,26 @@ export default function GaleriaBastidores({ origem, onFechada }) {
     if (ativa !== null) {
       ultimaVista.current = ativa;
     } else if (ultimaVista.current !== null) {
-      roloRef.current?.querySelector(`[data-indice="${ultimaVista.current}"]`)?.focus();
+      mosaicoRef.current?.querySelector(`[data-indice="${ultimaVista.current}"]`)?.focus();
       ultimaVista.current = null;
     }
   }, [ativa]);
 
   /* Teclado: Esc fecha (visualizador primeiro, depois a galeria);
-     setas passam as fotos no visualizador ou a faixa na galeria. */
+     setas passam as fotos no visualizador. */
   useEffect(() => {
     const aoTeclar = (evento) => {
       if (evento.key === 'Escape') {
         evento.preventDefault();
         if (ativa !== null) fecharFoto();
         else fechar();
-      } else if (evento.key === 'ArrowRight' || evento.key === 'ArrowLeft') {
-        const direcao = evento.key === 'ArrowRight' ? 1 : -1;
-        if (ativa !== null) mudarFoto(ativa + direcao);
-        else passar(direcao);
+      } else if (ativa !== null && (evento.key === 'ArrowRight' || evento.key === 'ArrowLeft')) {
+        mudarFoto(ativa + (evento.key === 'ArrowRight' ? 1 : -1));
       }
     };
     window.addEventListener('keydown', aoTeclar);
     return () => window.removeEventListener('keydown', aoTeclar);
-  }, [ativa, fechar, fecharFoto, mudarFoto, passar]);
+  }, [ativa, fechar, fecharFoto, mudarFoto]);
 
   return createPortal(
     <div className="galeria" data-lenis-prevent>
@@ -538,45 +444,18 @@ export default function GaleriaBastidores({ origem, onFechada }) {
               Da sala do curso de Desenvolvimento de Sistemas, na ETEC de Guaianazes, às
               entregas dos nossos projetos: a equipe no dia a dia.
             </p>
-            <div className="galeria-controles" data-entrada>
-              <span className="galeria-total">{FOTOS.length} fotos</span>
-              <button
-                type="button"
-                className="galeria-seta"
-                onClick={() => passar(-1)}
-                disabled={pontas.inicio}
-                aria-label="Fotos anteriores"
-              >
-                <FiArrowLeft aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                className="galeria-seta"
-                onClick={() => passar(1)}
-                disabled={pontas.fim}
-                aria-label="Mais fotos"
-              >
-                <FiArrowRight aria-hidden="true" />
-              </button>
-            </div>
+            <p className="galeria-total" data-entrada>
+              {FOTOS.length} fotos
+            </p>
           </header>
 
-          <ul
-            className="galeria-rolo"
-            ref={roloRef}
-            aria-label="Fotos dos bastidores"
-            onPointerDown={aoPressionar}
-            onPointerMove={aoMover}
-            onPointerUp={aoSoltar}
-            onPointerCancel={aoSoltar}
-            onClickCapture={aoClicarCaptura}
-          >
+          <ul className="galeria-mosaico" ref={mosaicoRef} aria-label="Fotos dos bastidores">
             {FOTOS.map((foto, i) => {
               const { proporcao, inteira } = quadroDe(foto);
               return (
               <li
                 key={foto.id}
-                className="galeria-rolo-item"
+                className="galeria-mosaico-item"
                 style={{ '--proporcao': proporcao }}
               >
                 <button
@@ -590,8 +469,8 @@ export default function GaleriaBastidores({ origem, onFechada }) {
                   <Foto
                     foto={foto}
                     tipo="ampliada"
-                    sizes={`calc(62vh * ${proporcao.toFixed(3)})`}
-                    carregamento={i < 3 ? 'eager' : 'lazy'}
+                    sizes={`(max-width: 760px) ${Math.round(proporcao * 200)}px, ${Math.round(proporcao * 420)}px`}
+                    carregamento={i < 8 ? 'eager' : 'lazy'}
                     prioridade={i === 0 ? 'high' : undefined}
                     fundo={i === 0 ? fotoSobre : undefined}
                     inteira={inteira}

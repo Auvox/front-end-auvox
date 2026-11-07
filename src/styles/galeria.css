@@ -29,6 +29,7 @@
   inset: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
+  scrollbar-color: var(--gal-superficie) var(--gal-fundo);
   background: var(--gal-fundo);
   outline: none;
 }
@@ -37,19 +38,16 @@
   display: flex;
   flex-direction: column;
   gap: clamp(28px, 5vh, 56px);
-  height: 100%;
-  min-height: 600px;
-  padding: clamp(20px, 4vh, 44px) 0 var(--gal-margem);
-  box-sizing: border-box;
+  padding: clamp(20px, 4vh, 44px) 0 clamp(48px, 8vh, 96px);
 }
 
-/* ── Cabeçalho: título grande, ação, frase e controles da faixa ── */
+/* ── Cabeçalho: título grande, ação, frase e total de fotos ── */
 .galeria-cabecalho {
   display: grid;
   grid-template-columns: 1fr auto;
   grid-template-areas:
     'titulo botao'
-    'texto controles';
+    'texto total';
   align-items: end;
   column-gap: 32px;
   row-gap: clamp(20px, 3.5vh, 36px);
@@ -75,15 +73,10 @@
   color: var(--gal-tinta);
 }
 
-.galeria-controles {
-  grid-area: controles;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 .galeria-total {
-  margin-right: 10px;
+  grid-area: total;
+  justify-self: end;
+  margin: 0;
   font-size: 1rem;
   color: var(--gal-tinta-2);
 }
@@ -155,41 +148,31 @@
   outline-offset: 3px;
 }
 
-/* ── A faixa: as fotos na mesma altura e na proporção real ──
-   Começa na margem e sangra pela borda direita (há mais fotos). */
-.galeria-rolo {
-  flex: 1 1 0;
-  min-height: 260px;
-  max-height: 720px;
+/* ── Mosaico: linhas que ocupam a largura toda e seguem para baixo ──
+   Cada foto cresce na proporção da própria largura (flex-grow =
+   proporção) a partir de uma base de --linha de altura. Assim, numa
+   linha todas terminam com a mesma altura e mantêm a proporção, sem
+   recorte. O ::after impede a última linha de esticar. */
+.galeria-mosaico {
+  --linha: clamp(170px, 21vw, 300px);
   display: flex;
-  gap: clamp(8px, 1vw, 16px);
+  flex-wrap: wrap;
+  gap: clamp(6px, 0.8vw, 12px);
   margin: 0;
   padding: 0 var(--gal-margem);
   list-style: none;
-  overflow-x: auto;
-  overflow-y: hidden;
-  overscroll-behavior-x: contain;
-  scrollbar-width: none;
-  cursor: grab;
 }
 
-.galeria-rolo::-webkit-scrollbar {
-  display: none;
+.galeria-mosaico::after {
+  content: '';
+  flex-grow: 999999;
 }
 
-.galeria-rolo.arrastando {
-  cursor: grabbing;
-  user-select: none;
-}
-
-.galeria-rolo.arrastando .galeria-quadro {
-  cursor: grabbing;
-}
-
-.galeria-rolo-item {
-  flex: none;
-  height: 100%;
+.galeria-mosaico-item {
+  flex-grow: var(--proporcao);
+  flex-basis: calc(var(--linha) * var(--proporcao));
   aspect-ratio: var(--proporcao);
+  min-width: 0;
 }
 
 .galeria-quadro {
@@ -201,7 +184,7 @@
   border: none;
   background: var(--gal-superficie);
   overflow: hidden;
-  cursor: zoom-in;
+  cursor: pointer;
 }
 
 .galeria-quadro .galeria-foto {
@@ -217,10 +200,9 @@
   transform: scale(1.035);
 }
 
-/* a faixa corta o que passa da borda: o anel de foco fica por dentro */
 .galeria-quadro:focus-visible {
   outline: 3px solid var(--gal-ouro);
-  outline-offset: -3px;
+  outline-offset: 3px;
 }
 
 /* ── Foto otimizada com placeholder borrado ── */
@@ -436,23 +418,9 @@
   background: var(--gal-ouro);
 }
 
-/* ── Toque: a faixa encaixa quadro a quadro ── */
-@media (hover: none) {
-  .galeria-rolo {
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--gal-margem);
-    cursor: auto;
-  }
-
-  .galeria-rolo-item {
-    scroll-snap-align: start;
-  }
-}
-
 /* ── Celular ── */
 @media (max-width: 760px) {
   .galeria-conteudo {
-    min-height: 0;
     gap: 28px;
   }
 
@@ -460,34 +428,23 @@
     grid-template-areas:
       'titulo botao'
       'texto texto'
-      'controles controles';
+      'total total';
     align-items: start;
-    row-gap: 20px;
+    row-gap: 16px;
+  }
+
+  .galeria-total {
+    justify-self: start;
   }
 
   .galeria-botao {
     padding: 10px 16px;
   }
 
-  /* No celular a faixa vira coluna: cada foto na largura da tela, na
-     proporção real, sem recorte; rola junto com o painel. */
-  .galeria-controles {
-    display: none;
-  }
-
-  .galeria-rolo {
-    flex: none;
-    flex-direction: column;
-    gap: 12px;
-    max-height: none;
-    overflow: visible;
-    cursor: auto;
-    scroll-snap-type: none;
-  }
-
-  .galeria-rolo-item {
-    width: 100%;
-    height: auto;
+  /* linhas mais baixas: duas ou três fotos por linha */
+  .galeria-mosaico {
+    --linha: 150px;
+    gap: 6px;
   }
 
   .galeria-vis-legenda {

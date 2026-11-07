@@ -98,14 +98,16 @@
 }
 
 /* A foto é um botão: abre a galeria de bastidores (GaleriaBastidores.jsx).
-   Zera o visual padrão do <button> mantendo a moldura do frame. */
+   Zera o visual padrão do <button>, sem borda em volta da foto, e usa a
+   mãozinha do cursor para mostrar que é clicável. */
 .sobre-hero-abrir {
     display: block;
     padding: 0;
     margin: 0;
-    background: #142740;
+    border: none;
+    background: transparent;
     font: inherit;
-    cursor: zoom-in;
+    cursor: pointer;
 }
 
 .sobre-hero-abrir:focus-visible {
@@ -113,7 +115,8 @@
     outline-offset: 4px;
 }
 
-/* Etiqueta "Ver bastidores": aparece no hover (e fica sempre visível no toque) */
+/* Etiqueta "Ver bastidores" com a mãozinha: sempre visível, para quem
+   ainda não passou o mouse saber que a foto abre alguma coisa */
 .sobre-hero-dica {
     position: absolute;
     left: 14px;
@@ -127,27 +130,39 @@
     color: #ffffff;
     font-size: 0.875rem;
     font-weight: 600;
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.35s ease, transform 0.35s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
     pointer-events: none;
 }
 
 .sobre-hero-dica svg {
     color: #f2b544;
-    font-size: 0.85rem;
+    font-size: 1.1rem;
+    transform-origin: 50% 85%;
+    animation: sobreToque 2.6s ease-in-out infinite;
+    transition: color 0.3s ease;
+}
+
+/* a mãozinha "toca" de leve a cada poucos segundos */
+@keyframes sobreToque {
+    0%, 68%, 100% { transform: translateY(0) scale(1); }
+    78% { transform: translateY(2px) scale(0.86); }
+    88% { transform: translateY(0) scale(1.05); }
 }
 
 .sobre-hero-abrir:hover .sobre-hero-dica,
 .sobre-hero-abrir:focus-visible .sobre-hero-dica {
-    opacity: 1;
-    transform: translateY(0);
+    background: #f2b544;
+    color: #142740;
 }
 
-@media (hover: none) {
-    .sobre-hero-dica {
-        opacity: 1;
-        transform: none;
+.sobre-hero-abrir:hover .sobre-hero-dica svg,
+.sobre-hero-abrir:focus-visible .sobre-hero-dica svg {
+    color: #142740;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sobre-hero-dica svg {
+        animation: none;
     }
 }
 
