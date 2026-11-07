@@ -21,11 +21,19 @@ function Sobre() {
     const [origemGaleria, setOrigemGaleria] = useState(null);
     const galeriaAberta = origemGaleria !== null;
 
-    const fecharGaleria = useCallback(() => {
-        setOrigemGaleria(null);
-        // devolve o foco para a foto que abriu a galeria
-        requestAnimationFrame(() => fotoRef.current?.focus({ preventScroll: true }));
-    }, []);
+    const fecharGaleria = useCallback(() => setOrigemGaleria(null), []);
+
+    /* Ao fechar, devolve o foco para a foto que abriu a galeria. Num
+       efeito (e não logo após o setState) porque só depois do commit a
+       galeria já saiu e a página deixou de estar `inert`. */
+    const galeriaJaAbriu = useRef(false);
+    useEffect(() => {
+        if (galeriaAberta) {
+            galeriaJaAbriu.current = true;
+        } else if (galeriaJaAbriu.current) {
+            fotoRef.current?.focus({ preventScroll: true });
+        }
+    }, [galeriaAberta]);
 
     /* ── ABERTURA DA SEÇÃO ──
        Tudo aqui usa `scrub`: o progresso da animação fica amarrado à
@@ -274,7 +282,7 @@ function Sobre() {
                         >
                             <img src={equipeImg} loading="lazy" alt="Equipe Auvox" className="sobre-hero-img" />
                             <span className="sobre-hero-dica" aria-hidden="true">
-                                <FiMaximize2 /> Bastidores
+                                <FiMaximize2 /> Ver bastidores
                             </span>
                         </button>
                         <span className="sobre-hero-dot"></span>

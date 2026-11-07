@@ -164,7 +164,8 @@ async function main() {
       return {
         arquivo: path.join(ENTRADA, nome),
         id,
-        alt: altsAnteriores[id] ?? `Bastidores da Auvox — foto ${i + 1}`,
+        // a foto da equipe é a 1ª; as da pasta vêm depois
+        alt: altsAnteriores[id] ?? `Bastidores da Auvox, foto ${i + 2}`,
       };
     }),
   ];

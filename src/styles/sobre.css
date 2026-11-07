@@ -113,7 +113,7 @@
     outline-offset: 4px;
 }
 
-/* Etiqueta "Bastidores": aparece no hover (e fica sempre visível no toque) */
+/* Etiqueta "Ver bastidores": aparece no hover (e fica sempre visível no toque) */
 .sobre-hero-dica {
     position: absolute;
     left: 14px;
@@ -121,16 +121,12 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 14px;
+    padding: 9px 16px;
     border-radius: 999px;
-    background: rgba(14, 22, 34, 0.72);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: #142740;
     color: #ffffff;
-    font-size: 0.62rem;
+    font-size: 0.875rem;
     font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
     opacity: 0;
     transform: translateY(8px);
     transition: opacity 0.35s ease, transform 0.35s ease;

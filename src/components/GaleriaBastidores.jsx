@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import gsap from 'gsap';
-import { FiChevronLeft, FiChevronRight, FiX } from 'react-icons/fi';
+import { FiArrowLeft, FiArrowRight, FiX } from 'react-icons/fi';
 import manifesto from '../assets/galeria/galeria.json';
 import fotoSobre from '../assets/equipeAuvox.webp';
 import { pausarRolagem, retomarRolagem } from '../lib/rolagem.js';
@@ -10,15 +10,16 @@ import '../styles/galeria.css';
 /* ══════════════════════════════════════════════════════════════
    GALERIA "BASTIDORES"
 
-   Abre a partir da foto da equipe no Sobre: a foto cresce até virar a
-   capa da galeria enquanto o painel escuro se expande do mesmo
-   retângulo até a tela inteira (efeito "expandir"). Abaixo da capa,
-   uma grade de miniaturas; clicar numa abre o visualizador em tela
-   cheia, que passa para os lados com setas, teclado ou arrastando.
+   A foto da equipe no Sobre vira o primeiro quadro de uma faixa de
+   fotos: ao clicar, ela voa do lugar dela até o início da faixa
+   enquanto o painel se abre do mesmo retângulo até a tela inteira.
+   As outras fotos seguem à direita, todas na mesma altura e na
+   proporção real; a faixa passa com a roda do mouse, arrastando, pelas
+   setas ou pelo teclado. Clicar numa foto abre o visualizador.
 
    As fotos vêm já otimizadas de src/assets/galeria (gere com
    `npm run galeria`). Este componente é carregado sob demanda: nada
-   dele — nem as imagens — pesa no carregamento inicial do site.
+   dele, nem as imagens, pesa no carregamento inicial do site.
    ══════════════════════════════════════════════════════════════ */
 
 const URLS = import.meta.glob('../assets/galeria/*.{avif,webp}', {
@@ -32,7 +33,6 @@ const srcset = (versoes, formato) =>
 
 const FOTOS = manifesto.fotos;
 const RAIO_ORIGEM = 28; // mesmo raio da foto no Sobre (.sobre-hero-img-frame)
-const dois = (n) => String(n).padStart(2, '0');
 const reduzMovimento = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -134,12 +134,14 @@ function Visualizador({ indice, onMudar, onFechar }) {
       aria-label={`Foto ${indice + 1} de ${total}`}
     >
       <div className="galeria-vis-topo">
-        <span className="galeria-vis-contador">
-          {dois(indice + 1)} <span>/ {dois(total)}</span>
-        </span>
-        <p className="galeria-vis-legenda">{foto.alt}</p>
-        <button type="button" className="galeria-fechar" onClick={onFechar}>
-          Voltar à galeria <FiX aria-hidden="true" />
+        <p className="galeria-vis-legenda">
+          <span className="galeria-vis-contador">
+            {indice + 1} de {total}
+          </span>
+          {foto.alt}
+        </p>
+        <button type="button" className="galeria-botao" onClick={onFechar}>
+          Voltar <FiX aria-hidden="true" />
         </button>
       </div>
 
@@ -176,21 +178,21 @@ function Visualizador({ indice, onMudar, onFechar }) {
 
         <button
           type="button"
-          className="galeria-vis-seta -anterior"
+          className="galeria-seta -anterior"
           onClick={() => onMudar(indice - 1)}
           disabled={indice === 0}
           aria-label="Foto anterior"
         >
-          <FiChevronLeft aria-hidden="true" />
+          <FiArrowLeft aria-hidden="true" />
         </button>
         <button
           type="button"
-          className="galeria-vis-seta -proxima"
+          className="galeria-seta -proxima"
           onClick={() => onMudar(indice + 1)}
           disabled={indice === total - 1}
           aria-label="Próxima foto"
         >
-          <FiChevronRight aria-hidden="true" />
+          <FiArrowRight aria-hidden="true" />
         </button>
       </div>
 
@@ -205,7 +207,7 @@ function Visualizador({ indice, onMudar, onFechar }) {
             className={`galeria-vis-mini${i === indice ? ' ativa' : ''}`}
             onClick={() => onMudar(i)}
           >
-            <Foto foto={f} tipo="mini" sizes="64px" />
+            <Foto foto={f} tipo="mini" sizes="56px" />
           </button>
         ))}
       </div>
@@ -216,10 +218,14 @@ function Visualizador({ indice, onMudar, onFechar }) {
 /* ── Galeria ── */
 export default function GaleriaBastidores({ origem, onFechada }) {
   const painelRef = useRef(null);
-  const rolagemRef = useRef(null);
-  const capaFotoRef = useRef(null);
+  const roloRef = useRef(null);
+  const primeiroRef = useRef(null);
+  const vooRef = useRef(null);
   const fechando = useRef(false);
+  const arrasto = useRef(null);
+  const arrastou = useRef(false);
   const [ativa, setAtiva] = useState(null);
+  const [pontas, setPontas] = useState({ inicio: true, fim: false });
 
   /* Pausa a página por trás e tira ela do foco/leitor de tela.
      useLayoutEffect: a limpeza roda junto com o fechamento, antes de o
@@ -235,95 +241,116 @@ export default function GaleriaBastidores({ origem, onFechada }) {
     };
   }, []);
 
-  /* ABERTURA — a foto do Sobre cresce até virar a capa, e o painel se
-     expande do mesmo retângulo até a tela inteira. Como a capa tem a
-     mesma proporção (quadrada) da foto de origem, o voo é feito só com
-     transform: nada de animar largura/altura, então roda liso. */
+  /* O "voo": uma cópia da foto do Sobre, solta por cima de tudo, sai do
+     retângulo de origem e pousa sobre o primeiro quadro da faixa. Uma
+     cópia, e não o próprio quadro, porque a faixa rola na horizontal e
+     cortaria a foto no meio do caminho. Mesma proporção (quadrada) nas
+     duas pontas: o voo é só transform, sem animar largura/altura. */
+  const caixa = (r) => ({ left: r.left, top: r.top, width: r.width, height: r.height });
+
+  const ateOrigem = (destino) => {
+    const o = origem.getBoundingClientRect();
+    const escala = o.width / destino.width;
+    return {
+      x: o.left - destino.left,
+      y: o.top - destino.top,
+      scale: escala,
+      borderRadius: RAIO_ORIGEM / escala,
+    };
+  };
+
+  const recorteOrigem = () => {
+    const o = origem.getBoundingClientRect();
+    return `inset(${o.top}px ${window.innerWidth - o.right}px ${window.innerHeight - o.bottom}px ${o.left}px round ${RAIO_ORIGEM}px)`;
+  };
+
+  /* ABERTURA */
   useLayoutEffect(() => {
     const painel = painelRef.current;
-    const capa = capaFotoRef.current;
+    const primeiro = primeiroRef.current;
     const entradas = painel.querySelectorAll('[data-entrada]');
     // foco no próprio diálogo (leitor de tela anuncia o título; Tab
     // segue para o botão Fechar) sem acender anel de foco num botão
     painel.focus({ preventScroll: true });
 
-    if (!origem || reduzMovimento()) {
-      gsap.fromTo(painel, { opacity: 0 }, { opacity: 1, duration: 0.25 });
-      return undefined;
-    }
+    if (reduzMovimento()) return undefined;
 
-    const o = origem.getBoundingClientRect();
-    const c = capa.getBoundingClientRect();
-    const escala = o.width / c.width;
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-
-    // context + revert: no StrictMode o efeito roda duas vezes, e a
-    // segunda medição precisa da capa sem o transform da primeira
     const ctx = gsap.context(() => {
-      gsap
-        .timeline({ defaults: { duration: 0.95, ease: 'power3.inOut' } })
-        .fromTo(
-          painel,
-          { clipPath: `inset(${o.top}px ${vw - o.right}px ${vh - o.bottom}px ${o.left}px round ${RAIO_ORIGEM}px)` },
-          { clipPath: 'inset(0px 0px 0px 0px round 0px)', clearProps: 'clipPath' },
-          0
-        )
-        .fromTo(
-          capa,
-          {
-            x: o.left - c.left,
-            y: o.top - c.top,
-            scale: escala,
-            borderRadius: RAIO_ORIGEM / escala,
-            transformOrigin: '0 0',
-          },
-          { x: 0, y: 0, scale: 1, borderRadius: 24, clearProps: 'transform,borderRadius' },
-          0
-        )
-        .fromTo(
-          entradas,
-          { opacity: 0, y: 36 },
-          { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.05, clearProps: 'all' },
-          0.55
-        );
-    });
+      const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' } });
+
+      if (origem) {
+        const destino = primeiro.getBoundingClientRect();
+        const voo = vooRef.current;
+        // tudo dentro da timeline: o revert (StrictMode, desmontagem)
+        // desfaz junto o "esconder o quadro" e o "mostrar a cópia"
+        tl.set(voo, { ...caixa(destino), display: 'block' }, 0)
+          .set(primeiro, { visibility: 'hidden' }, 0)
+          .fromTo(
+            painel,
+            { clipPath: recorteOrigem() },
+            { clipPath: 'inset(0px 0px 0px 0px round 0px)', duration: 0.95, clearProps: 'clipPath' },
+            0
+          )
+          .fromTo(
+            voo,
+            { ...ateOrigem(destino), transformOrigin: '0 0' },
+            { x: 0, y: 0, scale: 1, borderRadius: 0, duration: 0.95 },
+            0
+          )
+          .set(primeiro, { visibility: 'visible' }, 0.95)
+          .set(voo, { display: 'none' }, 0.95);
+      } else {
+        tl.fromTo(painel, { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0);
+      }
+
+      // título, texto e controles sobem; as fotos entram pela direita
+      tl.fromTo(
+        entradas,
+        { opacity: 0, y: 28 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.07, clearProps: 'opacity,transform' },
+        origem ? 0.5 : 0.1
+      ).fromTo(
+        painel.querySelectorAll('.galeria-rolo-item:not(:first-child)'),
+        { opacity: 0, x: 80 },
+        { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out', stagger: 0.08, clearProps: 'opacity,transform' },
+        origem ? 0.55 : 0.15
+      );
+    }, painel);
 
     return () => ctx.revert();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [origem]);
 
-  /* FECHAMENTO — o caminho inverso: tudo some, a capa volta para o
-     lugar da foto no Sobre e o painel se recolhe em volta dela. */
+  /* FECHAMENTO — o caminho inverso: o texto some, a cópia sai do
+     primeiro quadro e volta para a foto do Sobre, e o painel se recolhe
+     em volta dela. */
   const fechar = useCallback(() => {
     if (fechando.current) return;
     fechando.current = true;
 
     const painel = painelRef.current;
-    const capa = capaFotoRef.current;
     if (!origem || reduzMovimento()) {
       gsap.to(painel, { opacity: 0, duration: 0.2, onComplete: onFechada });
       return;
     }
 
-    const o = origem.getBoundingClientRect();
-    const c = capa.getBoundingClientRect();
-    const escala = o.width / c.width;
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
+    const primeiro = primeiroRef.current;
+    const destino = primeiro.getBoundingClientRect();
+    const voo = vooRef.current;
 
-    const tl = gsap.timeline({ onComplete: onFechada });
-    tl.to(painel.querySelectorAll('[data-entrada], .galeria-topo'), {
-      opacity: 0,
-      duration: 0.25,
-      ease: 'power2.in',
-    })
+    gsap
+      .timeline({ onComplete: onFechada })
+      .set(voo, { ...caixa(destino), display: 'block', x: 0, y: 0, scale: 1, borderRadius: 0 }, 0)
+      .set(primeiro, { visibility: 'hidden' }, 0)
+      .to(painel.querySelectorAll('[data-entrada], .galeria-rolo-item'), {
+        opacity: 0,
+        duration: 0.25,
+        ease: 'power2.in',
+      })
       .to(
-        capa,
+        voo,
         {
-          x: o.left - c.left,
-          y: o.top - c.top,
-          scale: escala,
-          borderRadius: RAIO_ORIGEM / escala,
+          ...ateOrigem(destino),
           transformOrigin: '0 0',
           duration: 0.8,
           ease: 'power3.inOut',
@@ -333,45 +360,131 @@ export default function GaleriaBastidores({ origem, onFechada }) {
       .fromTo(
         painel,
         { clipPath: 'inset(0px 0px 0px 0px round 0px)' },
-        {
-          clipPath: `inset(${o.top}px ${vw - o.right}px ${vh - o.bottom}px ${o.left}px round ${RAIO_ORIGEM}px)`,
-          duration: 0.8,
-          ease: 'power3.inOut',
-        },
+        { clipPath: recorteOrigem(), duration: 0.8, ease: 'power3.inOut' },
         0.1
       );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [origem, onFechada]);
 
+  /* ── Faixa de fotos ── */
+  const atualizarPontas = useCallback(() => {
+    const r = roloRef.current;
+    if (!r) return;
+    const max = r.scrollWidth - r.clientWidth;
+    setPontas({ inicio: r.scrollLeft <= 4, fim: r.scrollLeft >= max - 4 });
+  }, []);
+
+  /* Passa um quadro inteiro para o lado (setas e teclado) */
+  const passar = useCallback((direcao) => {
+    const r = roloRef.current;
+    const recuo = parseFloat(getComputedStyle(r).paddingLeft) || 0;
+    const quadros = Array.from(r.children);
+    const atual = r.scrollLeft;
+    const alvo =
+      direcao > 0
+        ? quadros.find((q) => q.offsetLeft - recuo > atual + 4)
+        : quadros.reverse().find((q) => q.offsetLeft - recuo < atual - 4);
+    r.scrollTo({
+      left: alvo ? alvo.offsetLeft - recuo : direcao > 0 ? r.scrollWidth : 0,
+      behavior: reduzMovimento() ? 'auto' : 'smooth',
+    });
+  }, []);
+
+  useEffect(() => {
+    const r = roloRef.current;
+    atualizarPontas();
+
+    /* A roda do mouse (vertical) passa a faixa na horizontal. Nas
+       pontas o evento segue adiante, para o painel poder rolar. */
+    const aoRodar = (evento) => {
+      if (Math.abs(evento.deltaY) <= Math.abs(evento.deltaX)) return;
+      const max = r.scrollWidth - r.clientWidth;
+      if (max <= 0) return;
+      if ((evento.deltaY < 0 && r.scrollLeft <= 0) || (evento.deltaY > 0 && r.scrollLeft >= max - 1)) return;
+      evento.preventDefault();
+      r.scrollLeft += evento.deltaY * (evento.deltaMode === 1 ? 32 : 1);
+    };
+
+    const observador = new ResizeObserver(atualizarPontas);
+    observador.observe(r);
+    r.addEventListener('scroll', atualizarPontas, { passive: true });
+    r.addEventListener('wheel', aoRodar, { passive: false });
+    return () => {
+      observador.disconnect();
+      r.removeEventListener('scroll', atualizarPontas);
+      r.removeEventListener('wheel', aoRodar);
+    };
+  }, [atualizarPontas]);
+
+  /* Arrastar a faixa com o mouse (no toque a rolagem já é nativa) */
+  const aoPressionar = (evento) => {
+    if (evento.pointerType !== 'mouse' || evento.button !== 0) return;
+    arrasto.current = { x: evento.clientX, inicio: roloRef.current.scrollLeft, id: evento.pointerId };
+    arrastou.current = false;
+  };
+
+  const aoMover = (evento) => {
+    const a = arrasto.current;
+    if (!a) return;
+    const dx = evento.clientX - a.x;
+    const r = roloRef.current;
+    if (!arrastou.current && Math.abs(dx) > 6) {
+      arrastou.current = true;
+      r.classList.add('arrastando');
+      r.setPointerCapture(a.id);
+    }
+    if (arrastou.current) r.scrollLeft = a.inicio - dx;
+  };
+
+  const aoSoltar = () => {
+    arrasto.current = null;
+    roloRef.current?.classList.remove('arrastando');
+  };
+
+  // um arrasto não pode terminar abrindo a foto que estava embaixo do mouse
+  const aoClicarCaptura = (evento) => {
+    if (!arrastou.current) return;
+    evento.preventDefault();
+    evento.stopPropagation();
+    arrastou.current = false;
+  };
+
+  /* ── Visualizador ── */
   const mudarFoto = useCallback((i) => {
     setAtiva(Math.min(Math.max(i, 0), FOTOS.length - 1));
   }, []);
 
-  const fecharFoto = useCallback(() => {
-    // devolve o foco para a miniatura da foto que estava aberta
-    const botao = rolagemRef.current?.querySelector(`[data-indice="${ativa}"]`);
-    setAtiva(null);
-    requestAnimationFrame(() => botao?.focus({ preventScroll: true }));
+  const fecharFoto = useCallback(() => setAtiva(null), []);
+
+  /* Ao fechar o visualizador, o foco volta para o quadro da última foto
+     vista (depois do commit, quando o painel já deixou de estar inert). */
+  const ultimaVista = useRef(null);
+  useEffect(() => {
+    if (ativa !== null) {
+      ultimaVista.current = ativa;
+    } else if (ultimaVista.current !== null) {
+      roloRef.current?.querySelector(`[data-indice="${ultimaVista.current}"]`)?.focus();
+      ultimaVista.current = null;
+    }
   }, [ativa]);
 
   /* Teclado: Esc fecha (visualizador primeiro, depois a galeria);
-     setas passam as fotos quando o visualizador está aberto. */
+     setas passam as fotos no visualizador ou a faixa na galeria. */
   useEffect(() => {
     const aoTeclar = (evento) => {
       if (evento.key === 'Escape') {
         evento.preventDefault();
         if (ativa !== null) fecharFoto();
         else fechar();
-      } else if (ativa !== null && evento.key === 'ArrowRight') {
-        mudarFoto(ativa + 1);
-      } else if (ativa !== null && evento.key === 'ArrowLeft') {
-        mudarFoto(ativa - 1);
+      } else if (evento.key === 'ArrowRight' || evento.key === 'ArrowLeft') {
+        const direcao = evento.key === 'ArrowRight' ? 1 : -1;
+        if (ativa !== null) mudarFoto(ativa + direcao);
+        else passar(direcao);
       }
     };
     window.addEventListener('keydown', aoTeclar);
     return () => window.removeEventListener('keydown', aoTeclar);
-  }, [ativa, fechar, fecharFoto, mudarFoto]);
-
-  const capa = FOTOS[0];
+  }, [ativa, fechar, fecharFoto, mudarFoto, passar]);
 
   return createPortal(
     <div className="galeria" data-lenis-prevent>
@@ -384,68 +497,83 @@ export default function GaleriaBastidores({ origem, onFechada }) {
         tabIndex={-1}
         inert={ativa !== null}
       >
-        <div className="galeria-topo">
-          <span className="galeria-topo-slug">
-            <span>//</span> bastidores
-          </span>
-          <button type="button" className="galeria-fechar" onClick={fechar}>
-            Fechar <FiX aria-hidden="true" />
-          </button>
-        </div>
-
-        <div className="galeria-rolagem" ref={rolagemRef}>
-          <header className="galeria-capa">
-            <div className="galeria-capa-foto" ref={capaFotoRef}>
-              {/* a foto do Sobre já está em cache: serve de fundo
-                  enquanto a versão maior carrega, sem piscar */}
-              <Foto
-                foto={capa}
-                tipo="ampliada"
-                sizes="min(460px, 86vw)"
-                carregamento="eager"
-                prioridade="high"
-                fundo={fotoSobre}
-              />
-            </div>
-
-            <div className="galeria-capa-texto">
-              <p className="galeria-slug" data-entrada>
-                <span>//</span> por trás das telas
-              </p>
-              <h2 className="galeria-titulo" id="galeria-titulo" data-entrada>
-                Bastidores da <span>AUVOX</span>
-              </h2>
-              <p className="galeria-descricao" data-entrada>
-                Reuniões, testes, café e muito código. Um pouco do dia a dia de quem
-                constrói os nossos produtos.
-              </p>
-              <p className="galeria-total" data-entrada>
-                {dois(FOTOS.length)} fotos <span aria-hidden="true">· clique para ampliar</span>
-              </p>
+        <div className="galeria-conteudo">
+          <header className="galeria-cabecalho">
+            <h2 className="galeria-titulo" id="galeria-titulo" data-entrada>
+              Bastidores da Auvox
+            </h2>
+            <button type="button" className="galeria-botao" onClick={fechar}>
+              Fechar <FiX aria-hidden="true" />
+            </button>
+            <p className="galeria-descricao" data-entrada>
+              Da sala do curso de Desenvolvimento de Sistemas, na ETEC de Guaianazes, às
+              entregas dos nossos projetos: a equipe no dia a dia.
+            </p>
+            <div className="galeria-controles" data-entrada>
+              <span className="galeria-total">{FOTOS.length} fotos</span>
+              <button
+                type="button"
+                className="galeria-seta"
+                onClick={() => passar(-1)}
+                disabled={pontas.inicio}
+                aria-label="Fotos anteriores"
+              >
+                <FiArrowLeft aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                className="galeria-seta"
+                onClick={() => passar(1)}
+                disabled={pontas.fim}
+                aria-label="Mais fotos"
+              >
+                <FiArrowRight aria-hidden="true" />
+              </button>
             </div>
           </header>
 
-          <ul className="galeria-grade">
+          <ul
+            className="galeria-rolo"
+            ref={roloRef}
+            aria-label="Fotos dos bastidores"
+            onPointerDown={aoPressionar}
+            onPointerMove={aoMover}
+            onPointerUp={aoSoltar}
+            onPointerCancel={aoSoltar}
+            onClickCapture={aoClicarCaptura}
+          >
             {FOTOS.map((foto, i) => (
-              <li key={foto.id} data-entrada>
+              <li
+                key={foto.id}
+                className="galeria-rolo-item"
+                style={{ '--proporcao': foto.largura / foto.altura }}
+              >
                 <button
                   type="button"
-                  className="galeria-item"
+                  className="galeria-quadro"
+                  ref={i === 0 ? primeiroRef : undefined}
                   data-indice={i}
                   onClick={() => setAtiva(i)}
                   aria-label={`Ampliar: ${foto.alt}`}
                 >
                   <Foto
                     foto={foto}
-                    tipo="mini"
-                    sizes="(max-width: 640px) 46vw, (max-width: 1100px) 31vw, 280px"
+                    tipo="ampliada"
+                    sizes={`calc(62vh * ${(foto.largura / foto.altura).toFixed(3)})`}
+                    carregamento={i < 3 ? 'eager' : 'lazy'}
+                    prioridade={i === 0 ? 'high' : undefined}
+                    fundo={i === 0 ? fotoSobre : undefined}
                   />
-                  <span className="galeria-item-num" aria-hidden="true">{dois(i + 1)}</span>
                 </button>
               </li>
             ))}
           </ul>
         </div>
+      </div>
+
+      {/* cópia que faz o voo entre a foto do Sobre e o primeiro quadro */}
+      <div className="galeria-voo" ref={vooRef} aria-hidden="true">
+        <img src={fotoSobre} alt="" />
       </div>
 
       {ativa !== null && (
