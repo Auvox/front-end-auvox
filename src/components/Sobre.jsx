@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { FiMaximize2 } from "react-icons/fi";
 import '../styles/sobre.css';
 import equipeImg from '../assets/equipeAuvox.webp';
 import Equipe from './Equipe.jsx';
@@ -8,8 +9,23 @@ import Contato from './Contato.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* A galeria de bastidores só é baixada quando alguém se aproxima da foto
+   (hover/foco/toque) — não pesa no carregamento do site. */
+const carregarGaleria = () => import('./GaleriaBastidores.jsx');
+const GaleriaBastidores = lazy(carregarGaleria);
+
 function Sobre() {
     const secaoRef = useRef(null);
+    const fotoRef = useRef(null);
+    // elemento da foto que abriu a galeria (origem do efeito de expandir)
+    const [origemGaleria, setOrigemGaleria] = useState(null);
+    const galeriaAberta = origemGaleria !== null;
+
+    const fecharGaleria = useCallback(() => {
+        setOrigemGaleria(null);
+        // devolve o foco para a foto que abriu a galeria
+        requestAnimationFrame(() => fotoRef.current?.focus({ preventScroll: true }));
+    }, []);
 
     /* ── ABERTURA DA SEÇÃO ──
        Tudo aqui usa `scrub`: o progresso da animação fica amarrado à
@@ -242,12 +258,33 @@ function Sobre() {
                 
                 {/* Hero Section */}
                 <div className="sobre-hero">
-                    <div className="sobre-hero-img-wrap">
-                        <div className="sobre-hero-img-frame">
+                    <div className={`sobre-hero-img-wrap${galeriaAberta ? ' galeria-aberta' : ''}`}>
+                        {/* Clicar na foto abre a galeria de bastidores, que
+                            "expande" a partir dela */}
+                        <button
+                            type="button"
+                            ref={fotoRef}
+                            className="sobre-hero-img-frame sobre-hero-abrir"
+                            onClick={(evento) => setOrigemGaleria(evento.currentTarget)}
+                            onPointerEnter={carregarGaleria}
+                            onFocus={carregarGaleria}
+                            onTouchStart={carregarGaleria}
+                            aria-haspopup="dialog"
+                            aria-label="Abrir a galeria de bastidores da Auvox"
+                        >
                             <img src={equipeImg} loading="lazy" alt="Equipe Auvox" className="sobre-hero-img" />
-                        </div>
+                            <span className="sobre-hero-dica" aria-hidden="true">
+                                <FiMaximize2 /> Bastidores
+                            </span>
+                        </button>
                         <span className="sobre-hero-dot"></span>
                     </div>
+
+                    {galeriaAberta && (
+                        <Suspense fallback={null}>
+                            <GaleriaBastidores origem={origemGaleria} onFechada={fecharGaleria} />
+                        </Suspense>
+                    )}
 
                     <div className="sobre-hero-content">
                         <p className="sobre-role">Software house. Estudantes de Desenvolvimento de Sistemas transformando ideias em produtos digitais.</p>

@@ -97,6 +97,71 @@
     transform: translateY(-8px) scale(1.02);
 }
 
+/* A foto é um botão: abre a galeria de bastidores (GaleriaBastidores.jsx).
+   Zera o visual padrão do <button> mantendo a moldura do frame. */
+.sobre-hero-abrir {
+    display: block;
+    padding: 0;
+    margin: 0;
+    background: #142740;
+    font: inherit;
+    cursor: zoom-in;
+}
+
+.sobre-hero-abrir:focus-visible {
+    outline: 3px solid #f2b544;
+    outline-offset: 4px;
+}
+
+/* Etiqueta "Bastidores": aparece no hover (e fica sempre visível no toque) */
+.sobre-hero-dica {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(14, 22, 34, 0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #ffffff;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    pointer-events: none;
+}
+
+.sobre-hero-dica svg {
+    color: #f2b544;
+    font-size: 0.85rem;
+}
+
+.sobre-hero-abrir:hover .sobre-hero-dica,
+.sobre-hero-abrir:focus-visible .sobre-hero-dica {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (hover: none) {
+    .sobre-hero-dica {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Com a galeria aberta a foto fica parada: o voo de volta da capa
+   precisa pousar exatamente no lugar dela. */
+.sobre-hero-img-wrap.galeria-aberta .sobre-hero-img-frame {
+    transform: none;
+    transition: none;
+}
+
 .sobre-hero-dot {
     position: absolute;
     top: -34px;

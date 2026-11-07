@@ -3,6 +3,7 @@ import Lenis from "lenis";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import NavBar from "./components/NavBar.jsx";
+import { registrarLenis } from "./lib/rolagem.js";
 import "./styles/app.css";
 
 /* Componentes acima da dobra — carregam imediatamente */
@@ -35,6 +36,9 @@ function App() {
       wheelMultiplier: 0.9,
       touchMultiplier: 1.1,
     });
+
+    // Overlays (ex.: galeria de bastidores) pausam o scroll por aqui
+    registrarLenis(lenis);
 
     // Mantém o ScrollTrigger (usado no efeito "you can scroll") sincronizado
     lenis.on("scroll", ScrollTrigger.update);
@@ -75,6 +79,7 @@ function App() {
 
     return () => {
       document.removeEventListener("click", onAnchorClick);
+      registrarLenis(null);
       lenis.destroy();
     };
   }, []);

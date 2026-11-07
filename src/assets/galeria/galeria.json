@@ -1,0 +1,96 @@
+{
+  "fotos": [
+    {
+      "id": "equipe-auvox",
+      "alt": "Equipe Auvox reunida na sala de aula",
+      "largura": 514,
+      "altura": 514,
+      "placeholder": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADwAwCdASoQABQAPu1iqU2ppaOiMAgBMB2JYwCdACKUIAp+S5QYpZmAAP6Ll2dDyek6PRiGIdmNA5/flktSIC8cj7K596CZCZpneVwoLgg9HxKrD2AAAA==",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "equipe-auvox-mini-360.avif",
+          "webp": "equipe-auvox-mini-360.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 514,
+          "h": 514,
+          "avif": "equipe-auvox-514.avif",
+          "webp": "equipe-auvox-514.webp"
+        }
+      ]
+    },
+    {
+      "id": "images-1",
+      "alt": "Bastidores da Auvox — foto 1",
+      "largura": 236,
+      "altura": 421,
+      "placeholder": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAQBACdASoQABQAPu1iqU2ppaOiMAgBMB2JaACdMoR4GBIl52BP5DgqIAD+5efZEifhQJkli6/N4jPt9iWBdwe/Lvq1CzRSsntapy2QZX88NDZEkliAAA==",
+      "miniaturas": [
+        {
+          "w": 236,
+          "h": 295,
+          "avif": "images-1-mini-236.avif",
+          "webp": "images-1-mini-236.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 236,
+          "h": 421,
+          "avif": "images-1-236.avif",
+          "webp": "images-1-236.webp"
+        }
+      ]
+    },
+    {
+      "id": "images-2",
+      "alt": "Bastidores da Auvox — foto 2",
+      "largura": 415,
+      "altura": 739,
+      "placeholder": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAwCdASoQABQAPu1iqk4ppaQiMAgBMB2JYwCo9BtslhEhE49Aoy4gAP5f2o/loWFHswgBR93Y3BkWmnnNic7lTrwOv5arg6afbHRyeQj53h/HuGCXj9wA",
+      "miniaturas": [
+        {
+          "w": 360,
+          "h": 450,
+          "avif": "images-2-mini-360.avif",
+          "webp": "images-2-mini-360.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 415,
+          "h": 739,
+          "avif": "images-2-415.avif",
+          "webp": "images-2-415.webp"
+        }
+      ]
+    },
+    {
+      "id": "images",
+      "alt": "Bastidores da Auvox — foto 3",
+      "largura": 236,
+      "altura": 423,
+      "placeholder": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADQAwCdASoQABQAPu1iqk2ppaQiMAgBMB2JaACw7CG0YYXCpx3vwAAA/tq+tnjaodYjP17Gwc0E5VkKdRLNXzb+kXS9PZSxdukGOgWgbfMHAAAA",
+      "miniaturas": [
+        {
+          "w": 236,
+          "h": 295,
+          "avif": "images-mini-236.avif",
+          "webp": "images-mini-236.webp"
+        }
+      ],
+      "ampliadas": [
+        {
+          "w": 236,
+          "h": 423,
+          "avif": "images-236.avif",
+          "webp": "images-236.webp"
+        }
+      ]
+    }
+  ]
+}
