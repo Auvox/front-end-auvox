@@ -160,9 +160,10 @@ async function main() {
     process.exit(1);
   }
 
-  /* O manifesto é a fonte da ORDEM e das LEGENDAS (alt): o que já foi
-     editado à mão nele é mantido. Fotos novas entram no fim, na ordem em
-     que foram salvas na pasta. Para reordenar, mova as entradas no JSON. */
+  /* O manifesto guarda as LEGENDAS (alt) e a ordem dos arquivos: o que
+     já foi editado à mão nele é mantido, e fotos novas entram no fim. No
+     site a ordem é sorteada a cada abertura da galeria (só a foto da
+     equipe fica sempre em primeiro). */
   let altsAnteriores = {};
   let ordemAnterior = new Map();
   if (existsSync(MANIFESTO)) {

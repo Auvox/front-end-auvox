@@ -34,6 +34,16 @@ const srcset = (versoes, formato) =>
 
 const FOTOS = manifesto.fotos;
 
+/* A cada abertura as fotos vêm numa ordem sorteada (Fisher–Yates). A
+   primeira continua sendo a da equipe: é ela que voa da seção Sobre. */
+function embaralhar([capa, ...resto]) {
+  for (let i = resto.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [resto[i], resto[j]] = [resto[j], resto[i]];
+  }
+  return [capa, ...resto];
+}
+
 /* No mosaico, o quadro segue a proporção da foto dentro de um limite: um
    print muito largo (ex.: 1075×162) ou muito alto viraria uma tira. Fora
    do limite, o quadro fica no limite e a foto aparece inteira dentro dele. */
@@ -86,14 +96,14 @@ function Foto({ foto, tipo, sizes, carregamento = 'lazy', prioridade, fundo, int
 }
 
 /* ── Visualizador em tela cheia ── */
-function Visualizador({ indice, onMudar, onFechar }) {
-  const total = FOTOS.length;
+function Visualizador({ fotos, indice, onMudar, onFechar }) {
+  const total = fotos.length;
   const raizRef = useRef(null);
   const trilhoRef = useRef(null);
   const arrasto = useRef(null);
   const [deslocamento, setDeslocamento] = useState(0);
   const filmeRef = useRef(null);
-  const foto = FOTOS[indice];
+  const foto = fotos[indice];
 
   // com muitas fotos a tira rola: mantém a miniatura ativa à vista
   useEffect(() => {
@@ -178,7 +188,7 @@ function Visualizador({ indice, onMudar, onFechar }) {
           onPointerUp={aoSoltar}
           onPointerCancel={aoSoltar}
         >
-          {FOTOS.map((f, i) => (
+          {fotos.map((f, i) => (
             <div className="galeria-vis-slide" key={f.id} aria-hidden={i !== indice}>
               {/* só a foto atual e as vizinhas carregam; o resto fica vazio */}
               {Math.abs(i - indice) <= 1 && (
@@ -220,7 +230,7 @@ function Visualizador({ indice, onMudar, onFechar }) {
       </div>
 
       <div className="galeria-vis-filme" ref={filmeRef} role="tablist" aria-label="Escolher foto">
-        {FOTOS.map((f, i) => (
+        {fotos.map((f, i) => (
           <button
             type="button"
             key={f.id}
@@ -246,6 +256,8 @@ export default function GaleriaBastidores({ origem, onFechada }) {
   const vooRef = useRef(null);
   const fechando = useRef(false);
   const [ativa, setAtiva] = useState(null);
+  // sorteada uma vez por abertura (a galeria monta de novo a cada clique)
+  const [fotos] = useState(() => embaralhar(FOTOS));
 
   /* Pausa a página por trás e tira ela do foco/leitor de tela.
      useLayoutEffect: a limpeza roda junto com o fechamento, antes de o
@@ -388,8 +400,8 @@ export default function GaleriaBastidores({ origem, onFechada }) {
 
   /* ── Visualizador ── */
   const mudarFoto = useCallback((i) => {
-    setAtiva(Math.min(Math.max(i, 0), FOTOS.length - 1));
-  }, []);
+    setAtiva(Math.min(Math.max(i, 0), fotos.length - 1));
+  }, [fotos.length]);
 
   const fecharFoto = useCallback(() => setAtiva(null), []);
 
@@ -445,12 +457,12 @@ export default function GaleriaBastidores({ origem, onFechada }) {
               entregas dos nossos projetos: a equipe no dia a dia.
             </p>
             <p className="galeria-total" data-entrada>
-              {FOTOS.length} fotos
+              {fotos.length} fotos
             </p>
           </header>
 
           <ul className="galeria-mosaico" ref={mosaicoRef} aria-label="Fotos dos bastidores">
-            {FOTOS.map((foto, i) => {
+            {fotos.map((foto, i) => {
               const { proporcao, inteira } = quadroDe(foto);
               return (
               <li
@@ -489,7 +501,7 @@ export default function GaleriaBastidores({ origem, onFechada }) {
       </div>
 
       {ativa !== null && (
-        <Visualizador indice={ativa} onMudar={mudarFoto} onFechar={fecharFoto} />
+        <Visualizador fotos={fotos} indice={ativa} onMudar={mudarFoto} onFechar={fecharFoto} />
       )}
     </div>,
     document.body
