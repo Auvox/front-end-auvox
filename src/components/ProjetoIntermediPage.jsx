@@ -5,7 +5,7 @@ import carrossel2 from '../assets/carroussel2.png';
 import carrossel3 from '../assets/carroussel3.png';
 import carrossel4 from '../assets/carroussel4.png';
 import carrossel5 from '../assets/carroussel5.png';
-import logoIntermedi from '../assets/logo-intermedi-texto.png';
+import logoIntermedi from '../assets/logo-intermedi-modal.png';
 
 const SLIDES = [
   { src: carrossel1, alt: 'Apresentação do aplicativo Intermedi' },
@@ -75,8 +75,8 @@ export default function ProjetoIntermediPage({ onClose }) {
     >
       <div className="intermedi-modal-shell">
         <header className="intermedi-modal-header">
-          <button className="intermedi-fechar" type="button" onClick={onClose} aria-label="Fechar apresentação do projeto">×</button>
           <img className="intermedi-modal-logo" src={logoIntermedi} alt="Intermedi" />
+          <button className="intermedi-fechar" type="button" onClick={onClose} aria-label="Fechar apresentação do projeto">×</button>
         </header>
 
         <h1 className="intermedi-sr-only" id="intermedi-modal-title">Projeto Intermedi</h1>
@@ -99,7 +99,6 @@ export default function ProjetoIntermediPage({ onClose }) {
             <button className="intermedi-arrow intermedi-arrow-next" type="button" onClick={() => navegar(1)} aria-label="Próxima imagem">→</button>
           </div>
           <div className="intermedi-carousel-controls">
-            <span className="intermedi-slide-count">0{slideAtual + 1} <i>/</i> 0{SLIDES.length}</span>
             <div className="intermedi-dots" role="tablist" aria-label="Escolher imagem">
               {SLIDES.map((slide, index) => (
                 <button
@@ -113,13 +112,15 @@ export default function ProjetoIntermediPage({ onClose }) {
                 />
               ))}
             </div>
-            <span className="intermedi-controls-hint">USE AS SETAS</span>
           </div>
         </section>
 
-        <p className="intermedi-modal-description" id="intermedi-modal-description">
+        <section className="intermedi-modal-description" aria-labelledby="intermedi-sobre-titulo">
+          <h2 id="intermedi-sobre-titulo">Sobre a Intermedi</h2>
+          <p id="intermedi-modal-description">
           Uma plataforma web e mobile que conecta a rede de farmácias em um só lugar. Reúne painel administrativo, gestão de chamados e ferramentas para apoiar a rotina das equipes no balcão.
-        </p>
+          </p>
+        </section>
       </div>
     </main>
   );

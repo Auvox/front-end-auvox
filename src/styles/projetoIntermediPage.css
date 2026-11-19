@@ -45,11 +45,10 @@
 
 .intermedi-modal-logo {
   display: block;
-  width: 142px;
-  height: 42px;
-  object-fit: cover;
+  width: min(170px, 28vw);
+  height: auto;
+  object-fit: contain;
   object-position: center;
-  mix-blend-mode: multiply;
 }
 
 .intermedi-sr-only {
@@ -80,6 +79,7 @@
   height: min(56vh, 620px);
   min-height: 220px;
   overflow: hidden;
+  border-radius: 20px;
   background: #fff;
 }
 
@@ -96,7 +96,7 @@
 }
 
 .intermedi-slide.is-active { z-index: 1; opacity: 1; transform: scale(1); }
-.intermedi-slide img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center; }
+.intermedi-slide img { display: block; width: 100%; height: 100%; border-radius: 18px; object-fit: contain; object-position: center; }
 
 .intermedi-arrow {
   position: absolute;
@@ -121,17 +121,11 @@
 .intermedi-arrow-next { right: 12px; }
 
 .intermedi-carousel-controls {
-  display: grid;
-  width: min(86vw, 1120px);
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
+  display: flex;
+  justify-content: center;
   padding-top: 18px;
 }
 
-.intermedi-slide-count,.intermedi-controls-hint { color: #76818a; font-size: .68rem; font-weight: 600; letter-spacing: .13em; }
-.intermedi-slide-count { color: #142740; }
-.intermedi-slide-count i { padding: 0 6px; color: #b5bdc1; font-style: normal; }
-.intermedi-controls-hint { justify-self: end; }
 .intermedi-dots { display: flex; align-items: center; gap: 8px; }
 .intermedi-dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 99px; background: #cbd2cf; cursor: pointer; transition: width .3s ease, background .3s ease; }
 .intermedi-dots button.is-active { width: 28px; background: #13a85a; }
@@ -139,10 +133,22 @@
 .intermedi-modal-description {
   width: min(100%, 780px);
   margin: 12px auto 2px;
+  text-align: center;
+}
+
+.intermedi-modal-description h2 {
+  margin: 0 0 8px;
+  color: #142740;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-weight: 600;
+  letter-spacing: -.035em;
+}
+
+.intermedi-modal-description p {
+  margin: 0;
   color: #54616b;
   font-size: clamp(.9rem, 1.25vw, 1.02rem);
   line-height: 1.75;
-  text-align: center;
 }
 
 @keyframes intermediModalEntrar { from { opacity: 0; } to { opacity: 1; } }
@@ -151,16 +157,15 @@
   .intermedi-modal-shell { padding: 14px 16px 24px; }
   .intermedi-modal-header { min-height: 44px; }
   .intermedi-fechar { width: 38px; height: 38px; }
-  .intermedi-modal-logo { width: 116px; height: 36px; }
+  .intermedi-modal-logo { width: min(142px, 42vw); }
   .intermedi-carousel { padding: 12px 0 6px; }
   .intermedi-carousel-stage { width: 100%; height: min(53vh, 460px); min-height: 200px; }
   .intermedi-arrow { width: 38px; height: 38px; }
   .intermedi-arrow-prev { left: 7px; }
   .intermedi-arrow-next { right: 7px; }
-  .intermedi-carousel-controls { width: 100%; padding-top: 12px; grid-template-columns: auto 1fr; }
-  .intermedi-dots { justify-self: end; }
-  .intermedi-controls-hint { display: none; }
-  .intermedi-modal-description { margin-top: 8px; font-size: .88rem; line-height: 1.65; }
+  .intermedi-carousel-controls { width: 100%; padding-top: 12px; }
+  .intermedi-modal-description { margin-top: 8px; }
+  .intermedi-modal-description p { font-size: .88rem; line-height: 1.65; }
 }
 
 @media (max-height: 650px) and (min-width: 701px) {
