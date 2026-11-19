@@ -5,6 +5,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import NavBar from "./components/NavBar.jsx";
 import { registrarLenis } from "./lib/rolagem.js";
 import "./styles/app.css";
+import ProjetoIntermediPage from "./components/ProjetoIntermediPage.jsx";
 
 /* Componentes acima da dobra — carregam imediatamente */
 import Home from "./components/Home.jsx";
@@ -24,6 +25,7 @@ const Skeleton = () => (
 );
 
 function App() {
+  const paginaIntermedi = window.location.pathname.replace(/\/$/, "") === "/projeto/intermedi";
   /* Scroll suave e lento no site inteiro (Lenis + GSAP ScrollTrigger).
      É isso que faz o scroll "descer a tela" com inércia, em vez do pulo
      seco padrão do navegador — e funciona igual subindo ou descendo. */
@@ -109,6 +111,7 @@ function App() {
   }, []);
 
   return (
+    paginaIntermedi ? <ProjetoIntermediPage /> : (
     <>
       <NavBar />
       <Home />
@@ -130,6 +133,7 @@ function App() {
 
       </Suspense>
     </>
+    )
   );
 }
 
