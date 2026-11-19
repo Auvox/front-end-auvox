@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import '../styles/projetoIntermediPage.css';
 import carrossel1 from '../assets/carroussel1.png';
 import carrossel2 from '../assets/carroussel2.png';
@@ -15,32 +15,59 @@ const SLIDES = [
   { src: carrossel5, alt: 'Detalhes do projeto Intermedi' },
 ];
 
-export default function ProjetoIntermediPage() {
+export default function ProjetoIntermediPage({ onClose }) {
   const [slideAtual, setSlideAtual] = useState(0);
+  const dialogRef = useRef(null);
   const navegar = useCallback((direcao) => {
     setSlideAtual((atual) => (atual + direcao + SLIDES.length) % SLIDES.length);
   }, []);
 
   useEffect(() => {
-    document.title = 'Intermedi — Projeto Auvox';
     const timer = window.setInterval(() => navegar(1), 6000);
     return () => window.clearInterval(timer);
   }, [navegar]);
 
   useEffect(() => {
+    const tituloAnterior = document.title;
+    document.title = 'Intermedi — Projeto Auvox';
+    return () => { document.title = tituloAnterior; };
+  }, []);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    const focoAnterior = document.activeElement;
+    const overflowAnterior = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    dialog?.focus();
+
     const onKeyDown = (event) => {
+      if (event.key === 'Escape') { onClose(); return; }
       if (event.key === 'ArrowLeft') navegar(-1);
       if (event.key === 'ArrowRight') navegar(1);
+      if (event.key === 'Tab' && dialog) {
+        const focaveis = [...dialog.querySelectorAll('a[href], button:not([disabled])')];
+        if (!focaveis.length) { event.preventDefault(); return; }
+        const primeiro = focaveis[0];
+        const ultimo = focaveis[focaveis.length - 1];
+        if (event.shiftKey && (document.activeElement === primeiro || document.activeElement === dialog)) { event.preventDefault(); ultimo.focus(); }
+        else if (!dialog.contains(document.activeElement)) { event.preventDefault(); primeiro.focus(); }
+        else if (!event.shiftKey && document.activeElement === ultimo) { event.preventDefault(); primeiro.focus(); }
+      }
     };
     window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [navegar]);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = overflowAnterior;
+      if (focoAnterior instanceof HTMLElement) focoAnterior.focus();
+    };
+  }, [navegar, onClose]);
 
   return (
-    <main className="intermedi-page">
+    <main className="intermedi-page" ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="intermedi-titulo" tabIndex={-1} onWheel={(event) => event.stopPropagation()}>
       <header className="intermedi-topbar">
         <a className="intermedi-voltar" href="/#projeto" aria-label="Voltar para os projetos Auvox">← <span>Voltar aos projetos</span></a>
         <a className="intermedi-marca" href="/" aria-label="Auvox — página inicial">AUVOX<span>.</span></a>
+        <button className="intermedi-fechar" type="button" onClick={onClose} aria-label="Fechar apresentação do projeto">×</button>
       </header>
 
       <section className="intermedi-hero" aria-labelledby="intermedi-titulo">

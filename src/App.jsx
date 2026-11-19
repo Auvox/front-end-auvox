@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -25,7 +25,23 @@ const Skeleton = () => (
 );
 
 function App() {
-  const paginaIntermedi = window.location.pathname.replace(/\/$/, "") === "/projeto/intermedi";
+  const [paginaIntermedi, setPaginaIntermedi] = useState(() => window.location.pathname.replace(/\/$/, "") === "/projeto/intermedi");
+
+  useEffect(() => {
+    const atualizarRota = () => setPaginaIntermedi(window.location.pathname.replace(/\/$/, "") === "/projeto/intermedi");
+    window.addEventListener("popstate", atualizarRota);
+    return () => window.removeEventListener("popstate", atualizarRota);
+  }, []);
+
+  const abrirProjetoIntermedi = useCallback(() => {
+    window.history.pushState({ modalProjeto: true }, "", "/projeto/intermedi");
+    setPaginaIntermedi(true);
+  }, []);
+
+  const fecharProjetoIntermedi = useCallback(() => {
+    window.history.replaceState({}, "", "/#projeto");
+    setPaginaIntermedi(false);
+  }, []);
   /* Scroll suave e lento no site inteiro (Lenis + GSAP ScrollTrigger).
      É isso que faz o scroll "descer a tela" com inércia, em vez do pulo
      seco padrão do navegador — e funciona igual subindo ou descendo. */
@@ -111,7 +127,6 @@ function App() {
   }, []);
 
   return (
-    paginaIntermedi ? <ProjetoIntermediPage /> : (
     <>
       <NavBar />
       <Home />
@@ -125,15 +140,15 @@ function App() {
 
       <Suspense fallback={<Skeleton />}>
         <CarrosselNav />
-        <ProjetoAuvox />
+        <ProjetoAuvox onOpen={abrirProjetoIntermedi} />
 
         <Sobre />
 
         <Footer />
 
       </Suspense>
+      {paginaIntermedi && <ProjetoIntermediPage onClose={fecharProjetoIntermedi} />}
     </>
-    )
   );
 }
 
