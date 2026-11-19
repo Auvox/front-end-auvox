@@ -66,11 +66,11 @@
 .intermedi-carousel {
   display: flex;
   min-height: 0;
-  flex: 1;
+  flex: 0 0 auto;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 18px 0 10px;
+  padding: 12px 0 0;
 }
 
 .intermedi-carousel-stage {
@@ -123,7 +123,7 @@
 .intermedi-carousel-controls {
   display: flex;
   justify-content: center;
-  padding-top: 18px;
+  padding-top: 12px;
 }
 
 .intermedi-dots { display: flex; align-items: center; gap: 8px; }
@@ -131,8 +131,11 @@
 .intermedi-dots button.is-active { width: 28px; background: #13a85a; }
 
 .intermedi-modal-description {
+  display: flex;
   width: min(100%, 780px);
-  margin: 12px auto 2px;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto 2px;
   text-align: center;
 }
 
@@ -158,13 +161,13 @@
   .intermedi-modal-header { min-height: 44px; }
   .intermedi-fechar { width: 38px; height: 38px; }
   .intermedi-modal-logo { width: min(142px, 42vw); }
-  .intermedi-carousel { padding: 12px 0 6px; }
+  .intermedi-carousel { padding: 8px 0 0; }
   .intermedi-carousel-stage { width: 100%; height: min(53vh, 460px); min-height: 200px; }
   .intermedi-arrow { width: 38px; height: 38px; }
   .intermedi-arrow-prev { left: 7px; }
   .intermedi-arrow-next { right: 7px; }
-  .intermedi-carousel-controls { width: 100%; padding-top: 12px; }
-  .intermedi-modal-description { margin-top: 8px; }
+  .intermedi-carousel-controls { width: 100%; padding-top: 10px; }
+  .intermedi-modal-description { margin-top: 16px; }
   .intermedi-modal-description p { font-size: .88rem; line-height: 1.65; }
 }
 
