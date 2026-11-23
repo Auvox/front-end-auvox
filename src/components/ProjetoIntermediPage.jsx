@@ -88,10 +88,11 @@ export default function ProjetoIntermediPage({ onClose }) {
               <p id="intermedi-modal-description">
                 Uma plataforma web e mobile que conecta a rede de farmácias em um só lugar. Reúne painel administrativo, gestão de chamados e ferramentas para apoiar a rotina das equipes no balcão.
               </p>
+              <a className="intermedi-cta" href="#intermedi-carousel">Conheça a Intermedi</a>
             </section>
           </div>
 
-          <section className="intermedi-carousel" aria-label="Imagens do projeto Intermedi">
+          <section className="intermedi-carousel" id="intermedi-carousel" aria-label="Imagens do projeto Intermedi">
           <div className="intermedi-carousel-stage" aria-roledescription="carrossel">
             {SLIDES.map((slide, index) => (
               <div
@@ -105,8 +106,6 @@ export default function ProjetoIntermediPage({ onClose }) {
                 <img src={slide.src} alt={slide.alt} draggable="false" />
               </div>
             ))}
-            <button className="intermedi-arrow intermedi-arrow-prev" type="button" onClick={() => navegar(-1)} aria-label="Imagem anterior">←</button>
-            <button className="intermedi-arrow intermedi-arrow-next" type="button" onClick={() => navegar(1)} aria-label="Próxima imagem">→</button>
           </div>
           <div className="intermedi-carousel-controls">
             <div className="intermedi-dots" role="tablist" aria-label="Escolher imagem">
