@@ -17,10 +17,16 @@ const SLIDES = [
 
 export default function ProjetoIntermediPage({ onClose }) {
   const [slideAtual, setSlideAtual] = useState(0);
+  const [fechando, setFechando] = useState(false);
   const dialogRef = useRef(null);
   const navegar = useCallback((direcao) => {
     setSlideAtual((atual) => (atual + direcao + SLIDES.length) % SLIDES.length);
   }, []);
+  const fecharComAnimacao = useCallback(() => {
+    if (fechando) return;
+    setFechando(true);
+    window.setTimeout(onClose, 480);
+  }, [fechando, onClose]);
 
   useEffect(() => {
     const timer = window.setInterval(() => navegar(1), 6000);
@@ -41,7 +47,7 @@ export default function ProjetoIntermediPage({ onClose }) {
     dialog?.focus();
 
     const onKeyDown = (event) => {
-      if (event.key === 'Escape') { onClose(); return; }
+      if (event.key === 'Escape') { fecharComAnimacao(); return; }
       if (event.key === 'ArrowLeft') navegar(-1);
       if (event.key === 'ArrowRight') navegar(1);
       if (event.key === 'Tab' && dialog) {
@@ -61,11 +67,11 @@ export default function ProjetoIntermediPage({ onClose }) {
       document.body.style.overflow = overflowAnterior;
       if (focoAnterior instanceof HTMLElement) focoAnterior.focus();
     };
-  }, [navegar, onClose]);
+  }, [navegar, fecharComAnimacao]);
 
   return (
     <main
-      className="intermedi-page"
+      className={`intermedi-page${fechando ? ' is-closing' : ''}`}
       ref={dialogRef}
       role="dialog"
       aria-modal="true"
@@ -75,7 +81,7 @@ export default function ProjetoIntermediPage({ onClose }) {
     >
       <div className="intermedi-modal-shell">
         <header className="intermedi-modal-header">
-          <button className="intermedi-fechar" type="button" onClick={onClose} aria-label="Fechar apresentação do projeto">×</button>
+          <button className="intermedi-fechar" type="button" onClick={fecharComAnimacao} aria-label="Voltar ao site">←</button>
         </header>
 
         <h1 className="intermedi-sr-only" id="intermedi-modal-title">Projeto Intermedi</h1>

@@ -6,7 +6,7 @@
   background: #fff;
   color: #142740;
   font-family: 'Poppins', sans-serif;
-  animation: intermediModalEntrar .32s ease-out both;
+  animation: intermediModalEntrar .48s cubic-bezier(.2,.75,.25,1) both;
 }
 
 .intermedi-page * { box-sizing: border-box; }
@@ -26,7 +26,7 @@
   justify-content: space-between;
   position: absolute;
   top: 20px;
-  right: clamp(20px, 4vw, 64px);
+  left: clamp(20px, 4vw, 64px);
   z-index: 3;
 }
 
@@ -69,7 +69,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  transform: translateY(150px);
+  transform: none;
+  gap: 10px;
 }
 
 .intermedi-sr-only {
@@ -97,8 +98,9 @@
 .intermedi-carousel-stage {
   position: relative;
   width: 100%;
-  aspect-ratio: 2.1 / 1;
-  max-height: min(56vh, 620px);
+  aspect-ratio: 1920 / 1800;
+  width: min(100%, calc(72vh * 1920 / 1800));
+  max-height: 72vh;
   overflow: hidden;
   border-radius: 20px;
   background: #fff;
@@ -118,6 +120,8 @@
 
 .intermedi-slide.is-active { z-index: 1; opacity: 1; transform: scale(1); }
 .intermedi-slide img { display: block; width: 100%; height: 100%; border-radius: 18px; object-fit: contain; object-position: center; }
+
+.intermedi-page.is-closing { animation: intermediEmpacotar .48s cubic-bezier(.65,0,.8,.25) both; pointer-events: none; }
 
 .intermedi-arrow {
   position: absolute;
@@ -195,16 +199,17 @@
 .intermedi-cta:focus-visible { outline: 2px solid #142740; outline-offset: 4px; }
 
 @keyframes intermediModalEntrar { from { opacity: 0; } to { opacity: 1; } }
+@keyframes intermediEmpacotar { to { opacity: 0; transform: translateY(42vh) scale(.16); border-radius: 32px; } }
 
 @media (max-width: 700px) {
   .intermedi-modal-shell { padding: 14px 16px 24px; }
-  .intermedi-modal-header { top: 14px; right: 16px; }
+  .intermedi-modal-header { top: 14px; left: 16px; }
   .intermedi-fechar { width: 38px; height: 38px; }
   .intermedi-layout { min-height: 0; grid-template-columns: minmax(0, 1fr); gap: 24px; margin: 52px auto 0; }
   .intermedi-branding { transform: none; }
   .intermedi-modal-logo { width: min(220px, 64vw); }
   .intermedi-carousel { padding: 8px 0 0; }
-  .intermedi-carousel-stage { width: 100%; aspect-ratio: 1.65 / 1; max-height: 53vh; min-height: 200px; }
+  .intermedi-carousel-stage { width: min(100%, calc(58vh * 1920 / 1800)); aspect-ratio: 1920 / 1800; max-height: 58vh; min-height: 0; }
   .intermedi-arrow { width: 38px; height: 38px; }
   .intermedi-arrow-prev { left: 7px; }
   .intermedi-arrow-next { right: 7px; }
