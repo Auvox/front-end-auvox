@@ -1038,16 +1038,76 @@ body .projeto-secao-carrossel {
   transition: transform .3s ease;
 }
 .projeto-intermedi-logo-card:hover .projeto-intermedi-card-abrir { transform: translate(3px,-3px); }
-.projeto-intermedi-tech { position: absolute; inset: 0; pointer-events: none; }
-.projeto-intermedi-tech-selo { position: absolute; display: flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid rgba(255,255,255,.85); border-radius: 999px; background: rgba(255,255,255,.96); color: #142740; font: 600 .78rem/1 'Poppins',sans-serif; box-shadow: 0 8px 24px rgba(20,39,64,.18); opacity: 0; transform: translateY(22px) scale(.8); transition: opacity .35s ease, transform .5s cubic-bezier(.2,.75,.25,1); }
-.projeto-intermedi-tech-selo i { display: grid; width: 24px; height: 24px; place-items: center; border-radius: 50%; background: #13a85a; color: white; font: 700 .72rem/1 'Poppins',sans-serif; font-style: normal; }
-.tech-node { left: 8%; top: 16%; } .tech-ts { left: 26%; top: 8%; } .tech-js { right: 27%; top: 8%; } .tech-react { right: 8%; top: 18%; } .tech-pg { left: 14%; bottom: 12%; } .tech-sqlite { right: 14%; bottom: 12%; }
-.projeto-intermedi-logo-card:hover .projeto-intermedi-tech-selo, .projeto-intermedi-logo-card:focus-visible .projeto-intermedi-tech-selo { opacity: 1; transform: translateY(0) scale(1); }
-.projeto-intermedi-logo-card:hover .tech-ts,.projeto-intermedi-logo-card:focus-visible .tech-ts { transition-delay: .05s; }
-.projeto-intermedi-logo-card:hover .tech-js,.projeto-intermedi-logo-card:focus-visible .tech-js { transition-delay: .1s; }
-.projeto-intermedi-logo-card:hover .tech-react,.projeto-intermedi-logo-card:focus-visible .tech-react { transition-delay: .15s; }
-.projeto-intermedi-logo-card:hover .tech-pg,.projeto-intermedi-logo-card:focus-visible .tech-pg { transition-delay: .2s; }
-.projeto-intermedi-logo-card:hover .tech-sqlite,.projeto-intermedi-logo-card:focus-visible .tech-sqlite { transition-delay: .25s; }
+/* ── Selos de tecnologia ──
+   Ficam numa fileira logo abaixo do card (fora dele, para não cobrir a
+   logo) e surgem em cascata quando o mouse passa sobre o card ou os
+   próprios selos. O espaço da fileira é reservado o tempo todo, então nada
+   abaixo pula quando eles aparecem. */
+.projeto-intermedi-bloco {
+  width: min(880px, calc(100% - 40px));
+  margin: 0 auto;
+}
+.projeto-intermedi-bloco .projeto-intermedi-logo-card { width: 100%; margin-bottom: 0; }
+.projeto-intermedi-tech {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.projeto-intermedi-tech-selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 15px 7px 7px;
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 999px;
+  background: #fff;
+  color: #142740;
+  font: 600 .8rem/1 'Poppins', sans-serif;
+  white-space: nowrap;
+  box-shadow: 0 10px 26px rgba(0,0,0,.22);
+  opacity: 0;
+  transform: translateY(-14px) scale(.9);
+  transition: opacity .3s ease, transform .5s cubic-bezier(.2,.75,.25,1), box-shadow .25s ease;
+  transition-delay: 0s;
+}
+.projeto-intermedi-tech-icone {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--tech-cor) 12%, #fff);
+  color: var(--tech-cor);
+  font-size: 1.05rem;
+}
+/* JavaScript e React têm cores claras: sobre o azul da marca ficam legíveis */
+.projeto-intermedi-tech-icone.is-escuro { background: #142740; }
+.projeto-intermedi-tech-icone svg { display: block; }
+
+.projeto-intermedi-bloco:hover .projeto-intermedi-tech-selo,
+.projeto-intermedi-bloco:focus-within .projeto-intermedi-tech-selo {
+  opacity: 1;
+  transform: none;
+  transition-delay: var(--tech-atraso, 0s);
+}
+.projeto-intermedi-tech-selo:hover { box-shadow: 0 12px 30px rgba(0,0,0,.3), 0 0 0 2px var(--tech-cor); }
+
+/* Em telas de toque não existe hover: os selos ficam sempre visíveis */
+@media (hover: none) {
+  .projeto-intermedi-tech-selo { opacity: 1; transform: none; }
+}
+@media (max-width: 560px) {
+  .projeto-intermedi-tech { gap: 8px; margin-top: 16px; }
+  .projeto-intermedi-tech-selo { padding: 6px 12px 6px 6px; font-size: .72rem; }
+  .projeto-intermedi-tech-icone { width: 24px; height: 24px; font-size: .9rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .projeto-intermedi-tech-selo { transition: opacity .2s ease; transform: none; }
+}
 .projeto-intermedi-conteudo {
   position: relative;
   max-height: 0;

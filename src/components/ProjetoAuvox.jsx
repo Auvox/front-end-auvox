@@ -1,5 +1,17 @@
+import { SiJavascript, SiNodedotjs, SiPostgresql, SiReact, SiSqlite, SiTypescript } from 'react-icons/si';
 import '../styles/projeto.css';
 import logoIntermedi from '../assets/logo-intermedi2.png';
+
+/* Ferramentas usadas no Intermedi, com as logos oficiais (Simple Icons) e a
+   cor de marca de cada uma. */
+const TECNOLOGIAS = [
+  { nome: 'Node.js', icone: <SiNodedotjs />, cor: '#5FA04E' },
+  { nome: 'TypeScript', icone: <SiTypescript />, cor: '#3178C6' },
+  { nome: 'JavaScript', icone: <SiJavascript />, cor: '#F7DF1E', fundoEscuro: true },
+  { nome: 'React', icone: <SiReact />, cor: '#61DAFB', fundoEscuro: true },
+  { nome: 'PostgreSQL', icone: <SiPostgresql />, cor: '#4169E1' },
+  { nome: 'SQLite', icone: <SiSqlite />, cor: '#003B57' },
+];
 
 export default function ProjetoAuvox({ onOpen }) {
   return (
@@ -9,18 +21,26 @@ export default function ProjetoAuvox({ onOpen }) {
         <h2 className="secao-titulo" style={{ color: '#fff' }}>Nossos <span>projetos</span></h2>
         <div className="secao-sep" />
       </header>
-      <button id="intermedi-project-card" className="projeto-intermedi-logo-card" type="button" onClick={onOpen} aria-label="Abrir apresentação do projeto Intermedi">
-        <img src={logoIntermedi} alt="Intermedi" />
-        <span className="projeto-intermedi-card-abrir" aria-hidden="true">↗</span>
-        <span className="projeto-intermedi-tech" aria-hidden="true">
-          <span className="projeto-intermedi-tech-selo tech-node"><i>⬡</i>Node.js</span>
-          <span className="projeto-intermedi-tech-selo tech-ts"><i>TS</i>TypeScript</span>
-          <span className="projeto-intermedi-tech-selo tech-js"><i>JS</i>JavaScript</span>
-          <span className="projeto-intermedi-tech-selo tech-react"><i>⚛</i>React</span>
-          <span className="projeto-intermedi-tech-selo tech-pg"><i>◉</i>PostgreSQL</span>
-          <span className="projeto-intermedi-tech-selo tech-sqlite"><i>▤</i>SQLite</span>
-        </span>
-      </button>
+      <div className="projeto-intermedi-bloco">
+        <button id="intermedi-project-card" className="projeto-intermedi-logo-card" type="button" onClick={onOpen} aria-label="Abrir apresentação do projeto Intermedi">
+          <img src={logoIntermedi} alt="Intermedi" />
+          <span className="projeto-intermedi-card-abrir" aria-hidden="true">↗</span>
+        </button>
+        <ul className="projeto-intermedi-tech" aria-label="Tecnologias do Intermedi">
+          {TECNOLOGIAS.map(({ nome, icone, cor, fundoEscuro }, indice) => (
+            <li
+              key={nome}
+              className="projeto-intermedi-tech-selo"
+              style={{ '--tech-cor': cor, '--tech-atraso': `${indice * 0.05}s` }}
+            >
+              <span className={`projeto-intermedi-tech-icone${fundoEscuro ? ' is-escuro' : ''}`} aria-hidden="true">
+                {icone}
+              </span>
+              {nome}
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }
