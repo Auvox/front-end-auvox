@@ -37,16 +37,44 @@ const PECAS = [
 const ESCALA = 1 / 165;
 const CENTRO = { x: 354, y: 300 };
 
-function criarForma(pontos) {
-  const forma = new THREE.Shape();
-  pontos.forEach(([x, y], i) => {
-    const px = (x - CENTRO.x) * ESCALA;
-    const py = -(y - CENTRO.y) * ESCALA;
-    if (i === 0) forma.moveTo(px, py);
-    else forma.lineTo(px, py);
-  });
-  forma.closePath();
-  return forma;
+/* Sólido lapidado: lateral fina, chanfro na borda e facetas que sobem até
+   um ápice — na frente e, espelhado, no verso (como as referências 3D). */
+function criarGema(pontos) {
+  const p = pontos.map(([x, y]) => new THREE.Vector2((x - CENTRO.x) * ESCALA, -(y - CENTRO.y) * ESCALA));
+  const apice = p.reduce((soma, v) => soma.add(v), new THREE.Vector2()).divideScalar(p.length);
+  let area = 0;
+  p.forEach((a, i) => { const b = p[(i + 1) % p.length]; area += a.x * b.y - b.x * a.y; });
+  area = Math.abs(area) / 2;
+
+  const meia = 0.07;                       // meia espessura da lateral
+  const chanfro = 0.05;                    // altura do chanfro
+  const altura = 0.26 * Math.sqrt(area);   // quanto o ápice sobe
+  const q = p.map((v) => apice.clone().add(v.clone().sub(apice).multiplyScalar(0.9)));
+
+  const pos = [];
+  const tri = (a, b, c) => pos.push(...a, ...b, ...c);
+  const n = p.length;
+  for (let i = 0; i < n; i++) {
+    const j = (i + 1) % n;
+    const [a, b, qa, qb] = [p[i], p[j], q[i], q[j]];
+    // lateral
+    tri([a.x, a.y, meia], [a.x, a.y, -meia], [b.x, b.y, meia]);
+    tri([b.x, b.y, meia], [a.x, a.y, -meia], [b.x, b.y, -meia]);
+    for (const s of [1, -1]) {
+      const z0 = s * meia;
+      const z1 = s * (meia + chanfro);
+      const zA = s * (meia + altura);
+      // chanfro
+      tri([a.x, a.y, z0], [b.x, b.y, z0], [qa.x, qa.y, z1]);
+      tri([qa.x, qa.y, z1], [b.x, b.y, z0], [qb.x, qb.y, z1]);
+      // faceta até o ápice
+      tri([qa.x, qa.y, z1], [qb.x, qb.y, z1], [apice.x, apice.y, zA]);
+    }
+  }
+  const geometria = new THREE.BufferGeometry();
+  geometria.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geometria.computeVertexNormals(); // não indexada → normais por face (facetado)
+  return geometria;
 }
 
 export default function LogoAuvOx3D() {
@@ -84,30 +112,24 @@ export default function LogoAuvOx3D() {
         metalness: 0.55,
         roughness: 0.22,
         clearcoat: 1,
-        clearcoatRoughness: 0.08,
+        clearcoatRoughness: 0.06,
+        flatShading: true,
+        side: THREE.DoubleSide,
       }),
       dourado: new THREE.MeshPhysicalMaterial({
         color: 0xf2b544,
         metalness: 1,
         roughness: 0.26,
         clearcoat: 0.6,
-        clearcoatRoughness: 0.15,
+        clearcoatRoughness: 0.12,
+        flatShading: true,
+        side: THREE.DoubleSide,
       }),
-    };
-
-    const extrusao = {
-      depth: 0.22,
-      bevelEnabled: true,
-      bevelThickness: 0.06,
-      bevelSize: 0.045,
-      bevelSegments: 4,
-      curveSegments: 1,
     };
 
     const logo = new THREE.Group();
     PECAS.forEach((peca) => {
-      const geometria = new THREE.ExtrudeGeometry(criarForma(peca.pontos), extrusao);
-      const mesh = new THREE.Mesh(geometria, materiais[peca.cor]);
+      const mesh = new THREE.Mesh(criarGema(peca.pontos), materiais[peca.cor]);
       mesh.name = peca.nome;
       logo.add(mesh);
     });
