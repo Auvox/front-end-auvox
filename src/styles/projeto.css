@@ -778,7 +778,9 @@ body .projeto-secao {
 
 /* Carrossel de imagens promocionais dos projetos */
 body .projeto-secao-carrossel {
-  padding: 76px 5vw 86px;
+  min-height: calc(100vh - 36px);
+  min-height: calc(100dvh - 36px);
+  padding: clamp(64px, 10vh, 112px) 5vw clamp(48px, 7vh, 84px);
 }
 .projeto-secao-carrossel .projeto-carrossel {
   max-width: 1120px;
@@ -995,10 +997,10 @@ body .projeto-secao-carrossel {
   position: relative;
   display: grid;
   place-items: center;
-  width: min(620px, calc(100% - 40px));
+  width: min(880px, calc(100% - 40px));
   aspect-ratio: 16 / 9;
-  margin: 28px auto 42px;
-  padding: 28px;
+  margin: 0 auto 20px;
+  padding: clamp(32px, 5vw, 64px);
   overflow: hidden;
   border: 1px solid rgba(255,255,255,.7);
   border-radius: 28px;
@@ -1017,7 +1019,7 @@ body .projeto-secao-carrossel {
 }
 .projeto-intermedi-logo-card > img {
   display: block;
-  width: 88%;
+  width: min(76%, 620px);
   height: 100%;
   object-fit: contain;
 }
