@@ -75,13 +75,23 @@ export default function ProjetoIntermediPage({ onClose }) {
     >
       <div className="intermedi-modal-shell">
         <header className="intermedi-modal-header">
-          <img className="intermedi-modal-logo" src={logoIntermedi} alt="Intermedi" />
           <button className="intermedi-fechar" type="button" onClick={onClose} aria-label="Fechar apresentação do projeto">×</button>
         </header>
 
         <h1 className="intermedi-sr-only" id="intermedi-modal-title">Projeto Intermedi</h1>
 
-        <section className="intermedi-carousel" aria-label="Imagens do projeto Intermedi">
+        <div className="intermedi-layout">
+          <div className="intermedi-branding">
+            <img className="intermedi-modal-logo" src={logoIntermedi} alt="Intermedi" />
+            <section className="intermedi-modal-description" aria-labelledby="intermedi-sobre-titulo">
+              <h2 id="intermedi-sobre-titulo">Sobre a Intermedi</h2>
+              <p id="intermedi-modal-description">
+                Uma plataforma web e mobile que conecta a rede de farmácias em um só lugar. Reúne painel administrativo, gestão de chamados e ferramentas para apoiar a rotina das equipes no balcão.
+              </p>
+            </section>
+          </div>
+
+          <section className="intermedi-carousel" aria-label="Imagens do projeto Intermedi">
           <div className="intermedi-carousel-stage" aria-roledescription="carrossel">
             {SLIDES.map((slide, index) => (
               <div
@@ -113,14 +123,8 @@ export default function ProjetoIntermediPage({ onClose }) {
               ))}
             </div>
           </div>
-        </section>
-
-        <section className="intermedi-modal-description" aria-labelledby="intermedi-sobre-titulo">
-          <h2 id="intermedi-sobre-titulo">Sobre a Intermedi</h2>
-          <p id="intermedi-modal-description">
-          Uma plataforma web e mobile que conecta a rede de farmácias em um só lugar. Reúne painel administrativo, gestão de chamados e ferramentas para apoiar a rotina das equipes no balcão.
-          </p>
-        </section>
+          </section>
+        </div>
       </div>
     </main>
   );
