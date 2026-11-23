@@ -23,7 +23,7 @@
   display: flex;
   min-height: 0;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   position: absolute;
   top: 20px;
   left: clamp(20px, 4vw, 64px);
@@ -39,7 +39,7 @@
   border-radius: 50%;
   background: transparent;
   color: #52606a;
-  font: 300 2rem/1 'Poppins', sans-serif;
+  font: 300 2.6rem/1 'Poppins', sans-serif;
   cursor: pointer;
   transition: background .2s ease, color .2s ease;
 }
@@ -99,8 +99,8 @@
   position: relative;
   width: 100%;
   aspect-ratio: 1920 / 1800;
-  width: min(100%, calc(72vh * 1920 / 1800));
-  max-height: 72vh;
+  width: min(100%, calc(80vh * 1920 / 1800));
+  max-height: 80vh;
   overflow: hidden;
   border-radius: 20px;
   background: #fff;
@@ -119,9 +119,10 @@
 }
 
 .intermedi-slide.is-active { z-index: 1; opacity: 1; transform: scale(1); }
-.intermedi-slide img { display: block; width: 100%; height: 100%; border-radius: 18px; object-fit: contain; object-position: center; }
+.intermedi-slide img { display: block; width: 100%; height: 100%; border-radius: 22px; object-fit: contain; object-position: center; }
 
-.intermedi-page.is-closing { animation: intermediEmpacotar .48s cubic-bezier(.65,0,.8,.25) both; pointer-events: none; }
+.intermedi-page.is-closing { animation: intermediEmpacotar .62s cubic-bezier(.65,0,.8,.25) both; pointer-events: none; }
+.intermedi-page.is-closing .intermedi-modal-logo { position: relative; z-index: 5; animation: intermediLogoVoltar .62s cubic-bezier(.2,.75,.25,1) both; }
 
 .intermedi-arrow {
   position: absolute;
@@ -199,7 +200,8 @@
 .intermedi-cta:focus-visible { outline: 2px solid #142740; outline-offset: 4px; }
 
 @keyframes intermediModalEntrar { from { opacity: 0; } to { opacity: 1; } }
-@keyframes intermediEmpacotar { to { opacity: 0; transform: translateY(42vh) scale(.16); border-radius: 32px; } }
+@keyframes intermediEmpacotar { to { opacity: 0; transform: translate(var(--fechar-x, 42vw), var(--fechar-y, 42vh)) scale(var(--fechar-sx, .16), var(--fechar-sy, .16)); border-radius: 32px; } }
+@keyframes intermediLogoVoltar { to { transform: translate(var(--logo-dx, 0), var(--logo-dy, 0)) scale(var(--logo-sx, .5), var(--logo-sy, .5)); } }
 
 @media (max-width: 700px) {
   .intermedi-modal-shell { padding: 14px 16px 24px; }
@@ -209,7 +211,7 @@
   .intermedi-branding { transform: none; }
   .intermedi-modal-logo { width: min(220px, 64vw); }
   .intermedi-carousel { padding: 8px 0 0; }
-  .intermedi-carousel-stage { width: min(100%, calc(58vh * 1920 / 1800)); aspect-ratio: 1920 / 1800; max-height: 58vh; min-height: 0; }
+  .intermedi-carousel-stage { width: min(100%, calc(68vh * 1920 / 1800)); aspect-ratio: 1920 / 1800; max-height: 68vh; min-height: 0; }
   .intermedi-arrow { width: 38px; height: 38px; }
   .intermedi-arrow-prev { left: 7px; }
   .intermedi-arrow-next { right: 7px; }

@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import '../styles/carrosselNav.css';
 import '../styles/YouCanScroll.css';
 import Carrossel from './Carrossel.jsx';
-import logo3d from '../assets/3dauvox.webp';
+import LogoAuvOx3D from './LogoAuvOx3D.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -165,7 +165,7 @@ export default function CarrosselNav() {
         </div>
 
         <div className="ocean">
-          <img src={logo3d} alt="" aria-hidden="true" className="ocean-logo" />
+          <LogoAuvOx3D />
           <div className="ocean-text">AUVOX</div>
         </div>
 

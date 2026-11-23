@@ -24,6 +24,16 @@ export default function ProjetoIntermediPage({ onClose }) {
   }, []);
   const fecharComAnimacao = useCallback(() => {
     if (fechando) return;
+    const cardLogo = document.querySelector('#intermedi-project-card > img');
+    const pageLogo = document.querySelector('.intermedi-modal-logo');
+    const alvo = cardLogo?.getBoundingClientRect();
+    const origem = pageLogo?.getBoundingClientRect();
+    if (alvo && origem && pageLogo) {
+      pageLogo.style.setProperty('--logo-dx', `${alvo.left - origem.left}px`);
+      pageLogo.style.setProperty('--logo-dy', `${alvo.top - origem.top}px`);
+      pageLogo.style.setProperty('--logo-sx', `${alvo.width / origem.width}`);
+      pageLogo.style.setProperty('--logo-sy', `${alvo.height / origem.height}`);
+    }
     setFechando(true);
     window.setTimeout(onClose, 480);
   }, [fechando, onClose]);
@@ -81,7 +91,7 @@ export default function ProjetoIntermediPage({ onClose }) {
     >
       <div className="intermedi-modal-shell">
         <header className="intermedi-modal-header">
-          <button className="intermedi-fechar" type="button" onClick={fecharComAnimacao} aria-label="Voltar ao site">←</button>
+          <button className="intermedi-fechar" type="button" onClick={fecharComAnimacao} aria-label="Voltar ao site">‹</button>
         </header>
 
         <h1 className="intermedi-sr-only" id="intermedi-modal-title">Projeto Intermedi</h1>

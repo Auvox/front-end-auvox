@@ -66,13 +66,14 @@
   top: 6%;
   left: 3%;
   width: clamp(160px, 20vw, 300px);
-  height: auto;
+  height: clamp(160px, 20vw, 300px);
   opacity: 0.9;
   filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.55));
   pointer-events: none;
   user-select: none;
   z-index: 1;
 }
+.carrossel-nav .ocean-logo-three canvas { display: block; width: 100%; height: 100%; }
 
 /* Texto em Movimento (Estilo Sólido/Transparente com Borda) */
 .carrossel-nav .ocean-text {
