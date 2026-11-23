@@ -19,6 +19,19 @@
 
 .intermedi-page * { box-sizing: border-box; }
 
+/* O home.css estiliza toda <section> do site (min-height: 100vh, flex
+   centralizado, overflow hidden, padding-top no celular). Aqui isso
+   transformava o bloco "Sobre" numa caixa da altura da tela, com o texto no
+   meio e a logo isolada lá no topo. */
+.intermedi-page section {
+  position: static;
+  width: auto;
+  min-height: 0;
+  padding-top: 0;
+  overflow: visible;
+  z-index: auto;
+}
+
 .intermedi-modal-shell {
   display: flex;
   min-height: 100%;
@@ -85,12 +98,14 @@
   margin: auto;
 }
 
+/* Logo logo acima do "Sobre a Intermedi", os dois como um bloco só */
 .intermedi-branding {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
   transform: none;
-  gap: 10px;
+  gap: 0;
 }
 
 .intermedi-sr-only {
@@ -115,15 +130,18 @@
   padding: 0;
 }
 
+/* Palco no mesmo formato das imagens (1920 × 1080): sem sobra em volta,
+   então o arredondamento cai na própria imagem e os pontos ficam colados
+   logo abaixo dela. */
 .intermedi-carousel-stage {
   position: relative;
-  width: 100%;
-  aspect-ratio: 1920 / 1800;
-  width: min(100%, calc(80vh * 1920 / 1800));
-  max-height: 80vh;
+  width: min(100%, calc(72vh * 16 / 9));
+  aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: 20px;
-  background: #fff;
+  border-radius: 24px;
+  background: #eef2f0;
+  box-shadow: 0 22px 50px rgba(20, 39, 64, .14);
+  isolation: isolate;
 }
 
 .intermedi-slide {
@@ -139,7 +157,8 @@
 }
 
 .intermedi-slide.is-active { z-index: 1; opacity: 1; transform: scale(1); }
-.intermedi-slide img { display: block; width: 100%; height: 100%; border-radius: 22px; object-fit: contain; object-position: center; }
+.intermedi-slide img { display: block; width: 100%; height: 100%; border-radius: inherit; object-fit: cover; object-position: center; }
+.intermedi-slide { border-radius: inherit; overflow: hidden; }
 
 .intermedi-page.is-closing { overflow: hidden; animation: intermediFundoSair .5s .08s ease both; pointer-events: none; }
 .intermedi-page.is-closing .intermedi-modal-header,
@@ -170,8 +189,9 @@
 
 .intermedi-carousel-controls {
   display: flex;
+  width: 100%;
   justify-content: center;
-  padding-top: 12px;
+  padding-top: 18px;
 }
 
 .intermedi-dots { display: flex; align-items: center; gap: 8px; }
@@ -234,7 +254,7 @@
   .intermedi-branding { transform: none; }
   .intermedi-modal-logo { width: min(240px, 66vw); }
   .intermedi-carousel { padding: 8px 0 0; }
-  .intermedi-carousel-stage { width: min(100%, calc(68vh * 1920 / 1800)); aspect-ratio: 1920 / 1800; max-height: 68vh; min-height: 0; }
+  .intermedi-carousel-stage { width: 100%; border-radius: 18px; }
   .intermedi-arrow { width: 38px; height: 38px; }
   .intermedi-arrow-prev { left: 7px; }
   .intermedi-arrow-next { right: 7px; }
@@ -246,7 +266,7 @@
 @media (max-height: 650px) and (min-width: 701px) {
   .intermedi-modal-shell { padding-top: 12px; padding-bottom: 14px; }
   .intermedi-modal-header { min-height: 40px; }
-  .intermedi-carousel-stage { height: 48vh; min-height: 190px; }
+  .intermedi-carousel-stage { width: min(100%, calc(60vh * 16 / 9)); }
   .intermedi-carousel { padding-top: 6px; }
   .intermedi-carousel-controls { padding-top: 10px; }
   .intermedi-modal-description { margin-top: 4px; font-size: .86rem; }
