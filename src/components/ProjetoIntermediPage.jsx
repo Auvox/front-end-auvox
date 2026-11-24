@@ -172,7 +172,7 @@ export default function ProjetoIntermediPage({ onClose }) {
               <p id="intermedi-modal-description">
                 Uma plataforma web e mobile que conecta a rede de farmácias em um só lugar. Reúne painel administrativo, gestão de chamados e ferramentas para apoiar a rotina das equipes no balcão.
               </p>
-              <a className="intermedi-cta" href="#intermedi-carousel">Conheça a Intermedi</a>
+              <a className="intermedi-cta" href="https://www.intermedi.app.br">Conheça a Intermedi</a>
             </section>
           </div>
 
